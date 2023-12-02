@@ -19,7 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->integer('role')->default(0);
-            $table->unsignedBigInteger('module_id');
+            $table->string('module_id');
             $table->boolean('status')->default(1);
             $table->timestamps();
 
