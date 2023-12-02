@@ -24,9 +24,10 @@ class User extends Authenticatable
         'role',
         'module_id',
         'status',
-        
     ];
-
+    protected $casts = [
+        "module_id" => 'array'
+    ];
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -36,8 +37,20 @@ class User extends Authenticatable
         'password',
     ];
 
-    public function module(){
+    public static function createRules()
+    {
+        return [
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|string|min:8',
+            'role' => 'integer',
+            'module_id' => 'required',
+        ];
+    }
+
+    public function module()
+    {
         return $this->belongsTo(Module::class, 'module_id', 'id');
     }
-    
+
 }
