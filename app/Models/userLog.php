@@ -5,14 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Country extends Model
+class userLog extends Model
 {
     use HasFactory;
-
-    protected $table = 'countries';
     protected $guarded = [];
+    protected $table = "user_log";
     public static function createRule()
     {
-        return ["name" => "required|string"];
+        return [];
     }
 }

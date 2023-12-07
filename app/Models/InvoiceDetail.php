@@ -5,14 +5,43 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class InvoiceDetail extends Model
-{
+class InvoiceDetail extends Model {
     use HasFactory;
 
     protected $table = 'invoice_details';
     protected $guarded = [];
 
-    public function user(){
+    public static function createRule() {
+        return [
+            'country_of_origin' => 'required|string',
+            'country_of_export' => 'required|string',
+            'auth_dealer_code' => 'nullable|string',
+            'port_of_loading' => 'nullable|string',
+            'port_of_destination' => 'nullable|string',
+            'freight' => 'nullable|string',
+            'valid_upto' => 'nullable|date',
+            'vehicle_no' => 'nullable|string',
+            'insurance' => 'nullable|string',
+            'buyer_no' => 'nullable|string',
+            'invoice_date' => 'nullable|date',
+            'eway_bill_id' => 'nullable|string',
+        ];
+    }
+    public function user() {
         return $this->belongsTo(User::class, 'details_added_by', 'id');
+    }
+    public function items() {
+        return $this->hasMany(InvoiceItem::class, 'invoice_id');
+    }
+
+    public function packagingDetails() {
+        return $this->hasManyThrough(
+            PackagingDetail::class,
+            InvoiceItem::class,
+            'invoice_id',
+            'invoice_item_id',
+            'id',
+            'id'
+        );
     }
 }
