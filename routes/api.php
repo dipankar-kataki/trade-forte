@@ -7,9 +7,12 @@ use App\Http\Controllers\Declarations\DeclarationController;
 use App\Http\Controllers\Exporters\ExporterController;
 use App\Http\Controllers\Invoice\InvoiceController;
 use App\Http\Controllers\InvoiceItems\InvoiceItemsController;
+use App\Http\Controllers\Lorries\LorryController;
+use App\Http\Controllers\LorryItems\LorryItemsController;
 use App\Http\Controllers\Module\ModuleController;
 use App\Http\Controllers\Packaging\PackagingController;
 use App\Http\Controllers\ShippingAddress\ShippingAddressController;
+use App\Http\Controllers\UserActivity\UserActivityController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\UserController;
 
@@ -105,9 +108,23 @@ Route::group(["middleware" => 'auth:sanctum'], function () {
         Route::put('update/{id}', [ShippingAddressController::class, 'update']);
         Route::delete('delete/{id}', [ShippingAddressController::class, 'destroy']);
     });
+    Route::group(['prefix' => 'lorry_details'], function () {
+        Route::post('create', [LorryController::class, 'create']);
+        Route::get('get/list', [LorryController::class, 'index']);
+        Route::get('get/{id}', [LorryController::class, 'show']);
+        Route::put('update/{id}', [LorryController::class, 'update']);
+        Route::delete('delete/{id}', [LorryController::class, 'destroy']);
+    });
+    Route::group(['prefix' => 'lorryitems'], function () {
+        Route::post('create', [LorryItemsController::class, 'create']);
+        Route::get('get/list', [LorryItemsController::class, 'index']);
+        Route::get('get/{id}', [LorryItemsController::class, 'show']);
+        Route::put('update/{id}', [LorryItemsController::class, 'update']);
+        Route::delete('delete/{id}', [LorryItemsController::class, 'destroy']);
+    });
     Route::group(['prefix' => 'useractivity'], function () {
-        Route::get('get/list', [ShippingAddressController::class, 'index']);
-        Route::get('get/{id}', [ShippingAddressController::class, 'show']);
+        Route::get('get/list', [UserActivityController::class, 'index']);
+        Route::get('get/{id}', [UserActivityController::class, 'show']);
     });
 });
 

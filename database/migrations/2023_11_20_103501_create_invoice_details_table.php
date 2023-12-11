@@ -5,16 +5,20 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateInvoiceDetailsTable extends Migration {
+class CreateInvoiceDetailsTable extends Migration
+{
     /**
      * Run the migrations.
      *
      * @return void
      */
-    public function up() {
+    public function up()
+    {
         Schema::create('invoice_details', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('details_added_by');
+            $table->unsignedBigInteger('exporter_id');
+            $table->unsignedBigInteger('consignee_id');
             $table->string('invoice_id')->unique();
             $table->string('country_of_origin');
             $table->string('country_of_export');
@@ -30,6 +34,8 @@ class CreateInvoiceDetailsTable extends Migration {
             $table->string('eway_bill_id')->nullable();
             $table->timestamps();
             $table->foreign('details_added_by')->references('id')->on('users');
+            $table->foreign('exporter_id')->references('id')->on('exporters');
+            $table->foreign('consignee_id')->references('id')->on('consignees');
         });
     }
 
@@ -38,7 +44,8 @@ class CreateInvoiceDetailsTable extends Migration {
      *
      * @return void
      */
-    public function down() {
+    public function down()
+    {
         Schema::dropIfExists('invoice_details');
     }
 }

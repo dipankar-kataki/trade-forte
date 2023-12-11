@@ -5,7 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Declaration extends Model {
+class Declaration extends Model
+{
     use HasFactory;
 
     protected $table = 'declarations';
@@ -15,15 +16,21 @@ class Declaration extends Model {
     protected $casts = [
         "sequence" => "array"
     ];
-    public static function createRule() {
+    public static function createRule()
+    {
         return [
             "declaration" => "required|string",
             "invoice_id" => "required|exists:invoice_details,id",
         ];
     }
-    public static function updateRule() {
+    public static function updateRule()
+    {
         return [
             "declaration" => "sometimes|string|max:255",
         ];
+    }
+    public function getdeclaration()
+    {
+        return $this->belongsTo(InvoiceDetail::class, 'invoice_id', "id");
     }
 }

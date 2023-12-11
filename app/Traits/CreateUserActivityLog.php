@@ -4,6 +4,7 @@ namespace App\Traits;
 
 use Carbon\Carbon;
 use App\Models\userLog;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,14 +18,21 @@ use App\Models\userLog;
 trait CreateUserActivityLog
 {
 
-    protected function createLog(string $name, string $activity, string $resourceName, $resourceId, int $userId)
+    protected function createLog(string $user_id, string $activity, string $resourceName, $resourceId)
     {
+        $hostedUrl = env('APP_HOSTED_URL');
+
+        $resourceUrl = ($resourceId !== null)
+            ? $hostedUrl . "/" . $resourceName . "/get/" . $resourceId
+            : null;
+
         UserLog::create([
-            'user_id' => $userId,
+            'user_id' => $user_id,
             'activity' => $activity,
-            'resource_name' => $resourceName,
+            'resource_url' => $resourceUrl,
             'resource_id' => $resourceId,
         ]);
     }
+
 
 }

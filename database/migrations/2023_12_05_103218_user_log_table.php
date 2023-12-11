@@ -16,8 +16,8 @@ class UserLogTable extends Migration
             $table->id();
             $table->unsignedBigInteger("user_id");
             $table->text('activity');
-            $table->string('resource_name');
-            $table->unsignedBigInteger("resource_id");
+            $table->string('resource_url')->nullable();
+            $table->unsignedBigInteger("resource_id")->nullable();
             $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });

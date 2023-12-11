@@ -11,85 +11,97 @@ use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
-class InvoiceController extends Controller {
+class InvoiceController extends Controller
+{
     use ApiResponse;
 
-    public function create(Request $request) {
+    public function create(Request $request)
+    {
         $validator = Validator::make($request->all(), InvoiceDetail::createRule());
-        if($validator->fails()) {
-            return $this->error('Oops!'.$validator->errors()->first(), null, null, 400);
+        if ($validator->fails()) {
+            return $this->error('Oops!' . $validator->errors()->first(), null, null, 400);
         } else {
             try {
-                DB::beginTransaction();
                 $data = $request->all();
-                $data["details_added_by"] = Auth::id();
+                $user_id = Auth::id();
+                $data["details_added_by"] = $user_id;
                 $data["invoice_id"] = Date::now();
+                DB::beginTransaction();
                 InvoiceDetail::create($data);
+                $this->createLog($user_id, "Invoice details added.", "invoice", $request->id);
                 DB::commit();
                 return $this->success("Invoice created Successfully!", null, null, 201);
             } catch (\Exception $e) {
                 DB::rollBack();
-                return $this->error('Oops! Something Went Wrong.'.$e->getMessage(), null, null, 500);
+                return $this->error('Oops! Something Went Wrong.' . $e->getMessage(), null, null, 500);
             }
         }
     }
 
 
 
-    public function index(Request $request) {
+    public function index(Request $request)
+    {
         try {
             $invoice = InvoiceDetail::paginate(50);
             return $this->success("Invoice list.", $invoice, null, 200);
         } catch (\Exception $e) {
-            return $this->error('Oops! Something Went Wrong.'.$e->getMessage(), null, null, 500);
+            return $this->error('Oops! Something Went Wrong.' . $e->getMessage(), null, null, 500);
         }
     }
 
 
-    public function show(Request $request) {
+    public function show(Request $request)
+    {
         try {
-            $invoice = InvoiceDetail::where(function ($query) use ($request) {
+            $invoice = InvoiceDetail::with('items', 'declarations')->where(function ($query) use ($request) {
                 $query->where('id', $request->id)
                     ->orWhere('invoice_id', $request->id);
-            })->first();
-            if(!$invoice) {
+            })->get();
+            if (!$invoice) {
                 return $this->error("Invoice not found.", null, null, 404);
             }
             return $this->success("Invoice list.", $invoice, null, 200);
         } catch (\Exception $e) {
-            return $this->error('Oops! Something Went Wrong.'.$e->getMessage(), null, null, 500);
+            return $this->error('Oops! Something Went Wrong.' . $e->getMessage(), null, null, 500);
         }
     }
-    public function update(Request $request) {
+    public function update(Request $request)
+    {
         $validator = Validator::make($request->all(), InvoiceDetail::updateRule());
-        if($validator->fails()) {
-            return $this->error('Oops!'.$validator->errors()->first(), null, null, 400);
+        if ($validator->fails()) {
+            return $this->error('Oops!' . $validator->errors()->first(), null, null, 400);
         } else {
             try {
+                $user_id = Auth::id();
                 DB::beginTransaction();
                 InvoiceDetail::where('id', $request->id)->update($request->all());
+                $this->createLog($user_id, "Invoice details updated.", "invoice", $request->id);
                 DB::commit();
                 return $this->success("Invoice updated successfully.", null, null, 200);
             } catch (\Exception $e) {
                 DB::rollBack();
-                return $this->error('Oops! Something Went Wrong.'.$e->getMessage(), null, null, 500);
+                return $this->error('Oops! Something Went Wrong.' . $e->getMessage(), null, null, 500);
             }
         }
     }
-    public function delete(Request $request) {
+    public function delete(Request $request)
+    {
 
         try {
-            DB::beginTransaction();
             $invoice = InvoiceDetail::find($request->id);
-            if(!$invoice) {
+            if (!$invoice) {
                 return $this->error("Invoice not found.", null, null, 404);
             }
+            $user_id = Auth::id();
+            DB::beginTransaction();
             $invoice->delete();
+            $this->createLog($user_id, "Invoice deleted.", "invoice", $request->id);
             DB::commit();
             return $this->success("Invoice deleted successfully.", null, null, 200);
         } catch (\Exception $e) {
             DB::rollBack();
-            return $this->error('Oops! Something Went Wrong.'.$e->getMessage(), null, null, 500);
+            return $this->error('Oops! Something Went Wrong.' . $e->getMessage(), null, null, 500);
         }
 
     }
