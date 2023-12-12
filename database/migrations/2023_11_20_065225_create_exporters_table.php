@@ -19,6 +19,7 @@ class CreateExportersTable extends Migration
             $table->string('name');
             $table->string('email');
             $table->string('address');
+            $table->string('pincode');
             $table->string('phone')->unique();
             $table->string('gst_no')->nullable();
             $table->string('iec_no')->nullable();

@@ -54,7 +54,6 @@ class ConsigneeController extends Controller
         }
     }
 
-
     public function show(Request $request)
     {
         try {

@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Session;
 
 class UserController extends Controller
 {
@@ -25,7 +26,7 @@ class UserController extends Controller
     public function index(Request $request)
     {
         // Retrieve paginated users with a custom page size (e.g., 10 items per page)
-        $users = User::paginate(10);
+        $users = User::where('status', 1)->paginate(10);
         $users->each(function ($user) {
             $user->module_id = json_decode($user->module_id);
         });
@@ -75,7 +76,6 @@ class UserController extends Controller
                 $user = Auth::guard('sanctum')->user();
                 $token = $user->createToken('api-token')->plainTextToken;
                 $moduleIds = json_decode($user->module_id);
-                // dump($moduleIds);
                 $modulesData = Module::whereIn("id", $moduleIds)->get()->toArray();
 
                 $this->createLog($user->id, "User logged in.", "users", null);
@@ -93,7 +93,9 @@ class UserController extends Controller
             $user = User::where(function ($query) use ($request) {
                 $query->where('id', $request->id)
                     ->orWhere('email', $request->id);
-            })->first();
+            })
+                ->where('status', 1)
+                ->first();
             if (!$user) {
                 return $this->error("User not found.", null, null, 404);
             }
@@ -137,7 +139,8 @@ class UserController extends Controller
             return $this->error("User not found.", null, null, 404);
         } else {
             try {
-                $user->delete();
+                $user->status = 0;
+                $user->save();
                 $deleted_by = Auth::id();
                 $this->createLog($deleted_by, "User deleted.", "users", null);
                 return $this->success("User deleted.", null, null, 200);
@@ -169,7 +172,6 @@ class UserController extends Controller
             ]);
 
             DB::commit();
-            dump($email);
             $mail = new ResetPasswordMail($email, "Otp Password reset", $token);
             Mail::send($mail);
             return $this->success("Please reset password using the sent OTP code on mail.", null, null, 200);
@@ -246,12 +248,12 @@ class UserController extends Controller
     public function logout(Request $request)
     {
         try {
-            Auth::logout();
-            $user = Auth::id();
-            $this->createLog($user, "Password changed.", "user", null);
+            $user = Auth::user();
+            $user->tokens()->where('id', $user->currentAccessToken()->id)->delete(); // Revoke the current user's token
+            $this->createLog($user->id, "User logged out.", "user", null);
             return $this->success("User logged out successfully.", null, null, 200);
         } catch (\Exception $e) {
-            return $this->error('Oops! Something Went Wrong.' . $e->getMessage(), null, null, 500);
+            return $this->error('Oops! Something Went Wrong.', null, null, 500);
         }
     }
 }

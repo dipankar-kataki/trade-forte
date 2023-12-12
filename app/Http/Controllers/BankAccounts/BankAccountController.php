@@ -92,14 +92,14 @@ class BankAccountController extends Controller
             }
         }
     }
-
-    public function delete(Request $request)
+    public function destroy(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'exporterId' => 'required|exists:bank_accounts,id',
-        ]);
-        if ($validator->fails()) {
-            return $this->error('Oops!' . $validator->errors()->first(), null, null, 400);
+        $account = BankAccount::where(function ($query) use ($request) {
+            $query->where('id', $request->id)
+                ->orWhere('account_no', $request->id);
+        })->first();
+        if (!$account) {
+            return $this->error("Account not found.", null, null, 404);
         } else {
             try {
                 $account = BankAccount::find($request->id);

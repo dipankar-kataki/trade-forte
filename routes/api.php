@@ -38,7 +38,8 @@ Route::group(["middleware" => 'auth:sanctum'], function () {
         Route::get('get/{id}', [UserController::class, 'show']);
         Route::put('update/{id}', [UserController::class, 'update']);
         Route::delete('delete/{id}', [UserController::class, 'destroy']);
-        Route::delete('changePassword', [UserController::class, 'changePassword']);
+        Route::put('changepassword', [UserController::class, 'changePassword']);
+        Route::post('logout', [UserController::class, 'logout']);
     });
     Route::group(['prefix' => 'exporters'], function () {
         Route::post('create', [ExporterController::class, 'create']);

@@ -18,7 +18,6 @@ class PackagingController extends Controller
     use CreateUserActivityLog;
     public function create(Request $request)
     {
-        // dump($request->all());
         $validator = Validator::make($request->all(), PackagingDetail::createRule());
         if ($validator->fails()) {
             return $this->error('Oops!' . $validator->errors()->first(), null, null, 400);
@@ -27,7 +26,6 @@ class PackagingController extends Controller
                 $data = $request->all();
                 $data["details_added_by"] = Auth::id();
                 $data["total_gross_weight"] = $request->input("quantity") * $request->input("each_box_weight");
-                // dump($data);
                 DB::beginTransaction();
                 $packaging = PackagingDetail::create($data);
                 $this->createLog($data["details_added_by"], "Packaging details added.", "packaging", $packaging->id);
