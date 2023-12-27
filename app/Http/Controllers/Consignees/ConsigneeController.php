@@ -47,8 +47,8 @@ class ConsigneeController extends Controller
     public function index(Request $request)
     {
         try {
-            $exporter = Consignee::paginate(50);
-            return $this->success("Consignee list.", $exporter, null, 200);
+            $consigneeData = Consignee::select('name', 'phone')->get();
+            return $this->success("Consignee list.", $consigneeData, null, 200);
         } catch (\Exception $e) {
             return $this->error('Oops! Something Went Wrong.' . $e->getMessage(), null, null, 500);
         }
