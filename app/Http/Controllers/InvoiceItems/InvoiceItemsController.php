@@ -35,10 +35,10 @@ class InvoiceItemsController extends Controller
                 $itemData["total_value"] = $itemData['quantity'] * $itemData['unit_value'];
 
                 // Create the InvoiceItem record
-                InvoiceItem::create($itemData);
+                $item = InvoiceItem::create($itemData);
 
                 // Log each item creation
-                $this->createLog($user_id, "Invoice item added.", "invoiceitems", $itemData['id']);
+                $this->createLog($user_id, "Invoice item added.", "invoiceitems", $item->id);
             }
 
             DB::commit();
