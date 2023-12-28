@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Invoice;
 use App\Http\Controllers\Controller;
 use App\Models\InvoiceDetail;
 use App\Traits\ApiResponse;
+use App\Traits\CreateUserActivityLog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Date;
@@ -14,6 +15,7 @@ use Illuminate\Support\Facades\Validator;
 class InvoiceController extends Controller
 {
     use ApiResponse;
+    use CreateUserActivityLog;
 
     public function create(Request $request)
     {
