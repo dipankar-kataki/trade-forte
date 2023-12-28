@@ -27,7 +27,7 @@ class InvoiceDetail extends Model
             'vehicle_no' => 'nullable|string',
             'insurance' => 'nullable|string',
             'buyer_no' => 'nullable|string',
-            'invoice_date' => 'nullable|date',
+            'invoice_date' => 'nullable|date',  
             'eway_bill_id' => 'nullable|string',
         ];
     }
