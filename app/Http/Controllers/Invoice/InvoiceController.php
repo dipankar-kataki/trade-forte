@@ -29,10 +29,10 @@ class InvoiceController extends Controller
                 $data["details_added_by"] = $user_id;
                 $data["invoice_id"] = Date::now();
                 DB::beginTransaction();
-                InvoiceDetail::create($data);
+                $invoice = InvoiceDetail::create($data);
                 $this->createLog($user_id, "Invoice details added.", "invoice", $request->id);
                 DB::commit();
-                return $this->success("Invoice created Successfully!", null, null, 201);
+                return $this->success("Invoice created Successfully!", $invoice->id, null, 201);
             } catch (\Exception $e) {
                 DB::rollBack();
                 return $this->error('Oops! Something Went Wrong.' . $e->getMessage(), null, null, 500);
