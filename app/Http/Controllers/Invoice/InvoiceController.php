@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Carbon\Carbon;
+use Illuminate\Support\Str;
 
 class InvoiceController extends Controller
 {
@@ -27,7 +29,11 @@ class InvoiceController extends Controller
                 $data = $request->all();
                 $user_id = Auth::id();
                 $data["details_added_by"] = $user_id;
-                $data["invoice_id"] = Date::now();
+
+                $validUpto = Carbon::createFromFormat('d/m/Y', $data['valid_upto']);
+                $data['valid_upto'] = $validUpto;
+
+                $data["invoice_id"] = 'INV-' . now()->format('dmy') . '-' . Str::random(8);
                 DB::beginTransaction();
                 $invoice = InvoiceDetail::create($data);
                 $this->createLog($user_id, "Invoice details added.", "invoice", $request->id);
