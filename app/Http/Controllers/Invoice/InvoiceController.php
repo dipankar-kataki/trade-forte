@@ -30,8 +30,6 @@ class InvoiceController extends Controller
                 $user_id = Auth::id();
                 $data["details_added_by"] = $user_id;
 
-                // $validUpto = Carbon::('d/m/Y', $data['valid_upto']);
-                // $data['valid_upto'] = $validUpto;
 
                 $data["invoice_id"] = 'INV-' . now()->format('dmy') . '-' . Str::random(8);
                 DB::beginTransaction();

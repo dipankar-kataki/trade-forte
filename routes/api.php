@@ -83,7 +83,7 @@ Route::group(["middleware" => 'auth:sanctum'], function () {
     });
     Route::group(['prefix' => 'invoiceitems'], function () {
         Route::post('create', [InvoiceItemsController::class, 'create']);
-        Route::get('list', [InvoiceItemsController::class, 'index']);
+        // Route::get('list', [InvoiceItemsController::class, 'index']);
         Route::get('get/{id}', [InvoiceItemsController::class, 'show']);
         // Route::put('update/{bankAccountId}', [InvoiceItemsController::class, 'update']);
         // Route::delete('delete/{bankAccountId}', [InvoiceItemsController::class, 'destroy']);
