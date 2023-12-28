@@ -31,7 +31,7 @@ class InvoiceController extends Controller
                 $data["details_added_by"] = $user_id;
 
                 $validUpto = Carbon::createFromFormat('d/m/Y', $data['valid_upto'], 'Asia/Kolkata');
-                $data['valid_upto'] = $validUpto->toDateString();
+                $data['valid_upto'] = $validUpto;
 
                 $data["invoice_id"] = 'INV-' . now()->format('dmy') . '-' . Str::random(8);
                 DB::beginTransaction();
