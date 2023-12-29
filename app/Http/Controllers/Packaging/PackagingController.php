@@ -16,27 +16,35 @@ class PackagingController extends Controller
 {
     use ApiResponse;
     use CreateUserActivityLog;
+
     public function create(Request $request)
     {
-        $validator = Validator::make($request->all(), PackagingDetail::createRule());
-        if ($validator->fails()) {
-            return $this->error('Oops!' . $validator->errors()->first(), null, null, 400);
-        } else {
-            try {
-                $data = $request->all();
-                $data["details_added_by"] = Auth::id();
-                $data["total_gross_weight"] = $request->input("quantity") * $request->input("each_box_weight");
-                DB::beginTransaction();
-                $packaging = PackagingDetail::create($data);
-                $this->createLog($data["details_added_by"], "Packaging details added.", "packaging", $packaging->id);
-                DB::commit();
-                return $this->success("Exporter created Successfully!", null, null, 201);
-            } catch (\Exception $e) {
-                DB::rollback();
-                return $this->error('Oops! Something Went Wrong.' . $e->getMessage(), null, null, 500);
+        try {
+            $user_id = Auth::id();
+            $packagingDetailsData = $request->all();
+
+            if (!is_array($packagingDetailsData)) {
+                return $this->error('Invalid data format. Expected an array of packaging details.', null, null, 400);
             }
+
+            DB::beginTransaction();
+
+            foreach ($packagingDetailsData as $packagingData) {
+                $packagingData["details_added_by"] = $user_id;
+                $packagingData["total_gross_weight"] = $packagingData['quantity'] * $packagingData['each_box_weight'];
+
+                $packaging = PackagingDetail::create($packagingData);
+
+                $this->createLog($user_id, "Packaging details added.", "packaging", $packaging->id);
+            }
+            DB::commit();
+            return $this->success("Packaging details added successfully!", null, null, 201);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return $this->error('Oops! Something Went Wrong.' . $e->getMessage(), null, null, 500);
         }
     }
+
     public function index(Request $request)
     {
         try {

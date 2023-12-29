@@ -51,15 +51,7 @@ class InvoiceItemsController extends Controller
     }
 
 
-    // public function index(Request $request)
-    // {
-    //     try {
-    //         $invoice = InvoiceItem::paginate(50);
-    //         return $this->success("Invoice item list.", $invoice, null, 200);
-    //     } catch (\Exception $e) {
-    //         return $this->error('Oops! Something Went Wrong.' . $e->getMessage(), null, null, 500);
-    //     }
-    // }
+
 
     public function show(Request $request)
     {
