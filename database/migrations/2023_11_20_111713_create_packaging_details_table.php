@@ -4,19 +4,22 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePackagingDetailsTable extends Migration {
+class CreatePackagingDetailsTable extends Migration
+{
     /**
      * Run the migrations.
      *
      * @return void
      */
-    public function up() {
+    public function up()
+    {
         Schema::create('packaging_details', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('invoice_item_id');
             $table->unsignedBigInteger('invoice_id');
             $table->unsignedBigInteger('details_added_by');
-            $table->text('description')->nullable();
+            $table->text('net_weight')->nullable();
+            $table->text('gross_weight')->nullable();
             $table->decimal('each_box_weight')->default(0);
             $table->string('packaging_type');
             $table->integer('quantity')->default(1);
@@ -34,7 +37,8 @@ class CreatePackagingDetailsTable extends Migration {
      *
      * @return void
      */
-    public function down() {
+    public function down()
+    {
         Schema::dropIfExists('packaging_details');
     }
 }

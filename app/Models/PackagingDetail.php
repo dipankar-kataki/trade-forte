@@ -22,7 +22,8 @@ class PackagingDetail extends Model
         return [
             'invoice_id' => 'required|exists:invoice_details,id',
             'invoice_item_id' => 'required|exists:invoice_items,id',
-            'description' => 'nullable|string',
+            'net_weight' => 'nullable|string',
+            'gross_weight' => 'nullable|string',
             'each_box_weight' => 'nullable|numeric',
             'packaging_type' => 'required|string',
             'quantity' => 'required|integer',
