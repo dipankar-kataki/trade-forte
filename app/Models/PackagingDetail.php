@@ -43,8 +43,13 @@ class PackagingDetail extends Model
         ];
     }
 
+    // public function invoiceItem()
+    // {
+    //     return $this->belongsTo(InvoiceItem::class, 'invoice_item_id', 'id');
+    // }
     public function invoiceItem()
     {
-        return $this->belongsTo(InvoiceItem::class, 'invoice_item_id', 'id');
+        return $this->belongsTo(InvoiceItem::class, 'invoice_item_id');
     }
+
 }
