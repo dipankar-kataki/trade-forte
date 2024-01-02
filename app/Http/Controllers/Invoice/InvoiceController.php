@@ -54,15 +54,15 @@ class InvoiceController extends Controller
                 'updated_at'
             )->with([
                         'exporters:id,name',
-                        'conginees:id,name',
-                    ])
-                ->paginate(50);
+                        'consignees:id,name',
+                    ])->paginate(50);
 
             return $this->success("Invoice list.", $invoices, null, 200);
         } catch (\Exception $e) {
             return $this->error('Oops! Something Went Wrong.' . $e->getMessage(), null, null, 500);
         }
     }
+
 
 
     public function show(Request $request)
