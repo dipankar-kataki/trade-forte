@@ -74,12 +74,12 @@ class UserController extends Controller
                 }
                 $user = Auth::guard('sanctum')->user();
                 $token = $user->createToken('api-token')->plainTextToken;
-                // $moduleIds = json_decode($user->module_id);
+                $moduleIds = json_decode($user->module_id);
                 // $modulesData = Module::whereIn("id", $moduleIds)->get()->toArray();
 
                 $this->createLog($user->id, "User logged in.", "users", null);
                 return $this->success("Login successful.", [
-                    'modules' => $modulesData,
+                    'modules' => $moduleIds,
                 ], $token, 200);
             } catch (\Exception $e) {
                 return $this->error('Oops! Something Went Wrong.' . $e->getMessage(), null, null, 500);
