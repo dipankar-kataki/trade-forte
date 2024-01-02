@@ -37,7 +37,7 @@ class InvoiceController extends Controller
                 $invoice = InvoiceDetail::create($data);
                 $this->createLog($user_id, "Invoice details added.", "invoice", $request->id);
                 DB::commit();
-                return $this->success("Invoice created Successfully!", $invoice->id, null, 201);
+                return $this->success("Invoice created Successfully!", $invoice->invoice_id, null, 201);
             } catch (\Exception $e) {
                 DB::rollBack();
                 return $this->error('Oops! Something Went Wrong.' . $e->getMessage(), null, null, 500);
@@ -72,17 +72,17 @@ class InvoiceController extends Controller
             $invoice = InvoiceDetail::with(['exporters', 'consignees', 'items', 'declarations'])
                 ->where('invoice_id', $request->id)
                 ->get();
-    
+
             if ($invoice->isEmpty()) {
                 return $this->error("Invoice not found.", null, null, 404);
             }
-    
+
             return $this->success("Invoice details.", $invoice, null, 200);
         } catch (\Exception $e) {
             return $this->error('Oops! Something Went Wrong.' . $e->getMessage(), null, null, 500);
         }
     }
-    
+
 
     public function update(Request $request)
     {
