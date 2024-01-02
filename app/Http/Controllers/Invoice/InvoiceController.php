@@ -50,9 +50,9 @@ class InvoiceController extends Controller
         try {
             $invoices = InvoiceDetail::select(
                 'id',
-                // 'invoice_id',
-                // 'exporter_id',
-                // 'consignee_id',
+                'invoice_id',
+                'exporter_id',
+                'consignee_id',
                 'created_at',
                 'updated_at'
             )->with([
