@@ -23,10 +23,11 @@ class LorryController extends Controller
             return $this->error('Oops!' . $validator->errors()->first(), null, null, 400);
         } else {
             try {
-                DB::beginTransaction();
-                $data = $validator->validated();
-                Lorry::create($data);
                 $user_id = Auth::id();
+                $data = $validator->validated();
+                $data["details_added_by"] = $user_id;
+                DB::beginTransaction();
+                Lorry::create($data);
                 $this->createLog($user_id, "Lorry details added.", "lorry_details", null);
                 DB::commit();
                 return $this->success("Lorry details registered Successfully!", null, null, 201);
@@ -36,6 +37,7 @@ class LorryController extends Controller
             }
         }
     }
+
     public function index(Request $request)
     {
         $lorry = Lorry::latest()->paginate(10);

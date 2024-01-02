@@ -29,8 +29,6 @@ class InvoiceController extends Controller
                 $data = $request->all();
                 $user_id = Auth::id();
                 $data["details_added_by"] = $user_id;
-
-
                 $data["invoice_id"] = 'INV-' . now()->format('dmy') . '-' . Str::random(8);
                 DB::beginTransaction();
                 $invoice = InvoiceDetail::create($data);
@@ -44,13 +42,22 @@ class InvoiceController extends Controller
         }
     }
 
-
-
     public function index(Request $request)
     {
         try {
-            $invoice = InvoiceDetail::paginate(50);
-            return $this->success("Invoice list.", $invoice, null, 200);
+            $invoices = InvoiceDetail::select(
+                'id',
+                'invoice_id',
+                'exporter_id',
+                'consignee_id'
+            )
+                ->with([
+                    'exporters:id,name',
+                    'conginees:id,name',
+                ])
+                ->paginate(50);
+
+            return $this->success("Invoice list.", $invoices, null, 200);
         } catch (\Exception $e) {
             return $this->error('Oops! Something Went Wrong.' . $e->getMessage(), null, null, 500);
         }

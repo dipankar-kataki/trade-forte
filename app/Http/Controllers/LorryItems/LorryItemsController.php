@@ -23,10 +23,11 @@ class LorryItemsController extends Controller
             return $this->error('Oops!' . $validator->errors()->first(), null, null, 400);
         } else {
             try {
-                DB::beginTransaction();
                 $data = $validator->validated();
-                LorryItems::create($data);
                 $user_id = Auth::id();
+                $data["items_added_by"] = $user_id;
+                DB::beginTransaction();
+                LorryItems::create($data);
                 $this->createLog($user_id, "Lorry items added.", "lorryitems", null);
                 DB::commit();
                 return $this->success("Lorry items registered Successfully!", null, null, 201);
@@ -88,13 +89,13 @@ class LorryItemsController extends Controller
     public function delete(Request $request)
     {
         try {
+            $user_id = Auth::id();
             DB::beginTransaction();
             $lorry = LorryItems::find($request->id);
             if (!$lorry) {
                 return $this->error("Lorry Item not found.", null, null, 404);
             }
             $lorry->delete();
-            $user_id = Auth::id();
             $this->createLog($user_id, "Lorry items deleted.", "lorryitems", $request->id);
             DB::commit();
             return $this->success("Lorry Item deleted successfully.", null, null, 200);

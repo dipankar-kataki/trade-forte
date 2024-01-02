@@ -4,6 +4,7 @@ namespace App\Http\Controllers\BankAccounts;
 
 use App\Http\Controllers\Controller;
 use App\Models\BankAccount;
+use App\Models\Exporter;
 use App\Traits\ApiResponse;
 use App\Traits\CreateUserActivityLog;
 use Illuminate\Database\QueryException;
@@ -22,25 +23,37 @@ class BankAccountController extends Controller
         $validator = Validator::make($request->all(), BankAccount::createRule());
         if ($validator->fails()) {
             return $this->error('Oops!' . $validator->errors()->first(), null, null, 400);
-        } else {
-            try {
-                $data = $validator->validated();
-                $user_id = Auth::id();
-                $data["account_created_by"] = $user_id;
-                DB::beginTransaction();
+        }
+
+        try {
+            $data = $validator->validated();
+            $user_id = Auth::id();
+            $data["account_created_by"] = $user_id;
+
+            $bankExistForExporter = Exporter::find($request->exporter_id);
+
+            DB::beginTransaction();
+
+            if ($bankExistForExporter) {
+                $bank = BankAccount::create($data);
+                $this->createLog($user_id, "Bank account updated.", "bankaccount", $bank->id);
+            } else {
                 $bank = BankAccount::create($data);
                 $this->createLog($user_id, "Bank account added.", "bankaccount", $bank->id);
-                DB::commit();
-                return $this->success("Bank Account registered Successfully!", null, null, 201);
-            } catch (QueryException $e) {
-                DB::rollBack();
-                if ($e->errorInfo[1] == 1062) {
-                    return $this->error("Bank account number already exists. Please provide another value", null, null, 422);
-                }
-                return $this->error('Oops! Something Went Wrong.' . $e->getMessage(), null, null, 500);
             }
+
+            DB::commit();
+
+            return $this->success("Bank Account registered Successfully!", null, null, 201);
+        } catch (QueryException $e) {
+            DB::rollBack();
+            if ($e->errorInfo[1] == 1062) {
+                return $this->error("Bank account number already exists. Please provide another value", null, null, 422);
+            }
+            return $this->error('Oops! Something Went Wrong.' . $e->getMessage(), null, null, 500);
         }
     }
+
     public function index(Request $request)
     {
         $accounts = BankAccount::latest()->paginate(10);
