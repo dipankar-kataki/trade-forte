@@ -67,7 +67,7 @@ class PackagingController extends Controller
                 return $this->error("Packaging not found.", null, null, 404);
             }
             // Query for Invoice Items
-            $invoiceItems = InvoiceItem::where('invoice_id', $request->id)->get();
+            $invoiceItems = ($invoice && $invoice->id) ? InvoiceItem::where('invoice_id', $invoice->id)->get() : InvoiceItem::where('invoice_id', $invoiceId)->get();
             // Organize the result
             $result = [
                 'invoice_items' => $invoiceItems->toArray(),
