@@ -69,18 +69,20 @@ class InvoiceController extends Controller
     public function show(Request $request)
     {
         try {
-            $invoice = InvoiceDetail::with('items', 'declarations')->where(function ($query) use ($request) {
-                $query->where('id', $request->id)
-                    ->orWhere('invoice_id', $request->id);
-            })->get();
+            $invoice = InvoiceDetail::with(['exporters', 'consignees', 'items', 'declarations'])
+                ->where('invoice_id', $request->id)
+                ->get();
+
             if (!$invoice) {
                 return $this->error("Invoice not found.", null, null, 404);
             }
-            return $this->success("Invoice list.", $invoice, null, 200);
+
+            return $this->success("Invoice details.", $invoice, null, 200);
         } catch (\Exception $e) {
             return $this->error('Oops! Something Went Wrong.' . $e->getMessage(), null, null, 500);
         }
     }
+
     public function update(Request $request)
     {
         $validator = Validator::make($request->all(), InvoiceDetail::updateRule());
