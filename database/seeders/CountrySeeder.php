@@ -16,7 +16,7 @@ class CountrySeeder extends Seeder
     {
         // List of countries that share a border with India
         $borderCountries = [
-            'Afghanistan', 'Bangladesh', 'Bhutan', 'China', 'Myanmar', 'Nepal', 'Pakistan', 'Sri Lanka'
+            'Bangladesh', 'Bhutan',
             // Add more countries as needed
         ];
 
