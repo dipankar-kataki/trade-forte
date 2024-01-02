@@ -28,7 +28,7 @@ class CreateInvoiceItemsTable extends Migration
             $table->integer('total_value')->default(0);
             $table->timestamps();
             $table->foreign('items_added_by')->references('id')->on('users');
-            $table->foreign('invoice_id')->references('invoice_id')->on('invoice_details');
+            $table->foreign('invoice_id')->references('id')->on('invoice_details');
         });
     }
 
