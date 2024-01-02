@@ -47,7 +47,6 @@ class UserController extends Controller
                     'role' => $request->input('role'),
                     'module_id' => $request->input('module_id'),
                 ]);
-                // Access the user_id of the created user
                 $user_id = $user->id;
                 $created_by = Auth::id();
                 $this->createLog($created_by, "Created user account", "users", $user_id);
@@ -75,8 +74,8 @@ class UserController extends Controller
                 }
                 $user = Auth::guard('sanctum')->user();
                 $token = $user->createToken('api-token')->plainTextToken;
-                $moduleIds = json_decode($user->module_id);
-                $modulesData = Module::whereIn("id", $moduleIds)->get()->toArray();
+                // $moduleIds = json_decode($user->module_id);
+                // $modulesData = Module::whereIn("id", $moduleIds)->get()->toArray();
 
                 $this->createLog($user->id, "User logged in.", "users", null);
                 return $this->success("Login successful.", [
