@@ -29,7 +29,10 @@ class InvoiceController extends Controller
                 $data = $request->all();
                 $user_id = Auth::id();
                 $data["details_added_by"] = $user_id;
-                $data["invoice_id"] = 'INV-' . now()->format('dmy') . '-' . Str::random(8);
+                $uuid = Str::uuid()->toString();
+                $uniqueIdentifier = substr($uuid, -8);
+                $data["invoice_id"] = 'INV-' . now()->format('dmy') . '-' . $uniqueIdentifier;
+
                 DB::beginTransaction();
                 $invoice = InvoiceDetail::create($data);
                 $this->createLog($user_id, "Invoice details added.", "invoice", $request->id);
@@ -49,7 +52,9 @@ class InvoiceController extends Controller
                 'id',
                 'invoice_id',
                 'exporter_id',
-                'consignee_id'
+                'consignee_id',
+                'created_at',
+                'updated_at'
             )
                 ->with([
                     'exporters:id,name',
