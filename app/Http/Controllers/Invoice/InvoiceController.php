@@ -58,7 +58,7 @@ class InvoiceController extends Controller
             )
                 ->with([
                     'exporters:id,name',
-                    'conginees:id,name',
+                    'consignees:id,name',
                 ])
                 ->paginate(50);
 
