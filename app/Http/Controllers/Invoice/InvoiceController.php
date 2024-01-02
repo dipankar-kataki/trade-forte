@@ -73,7 +73,7 @@ class InvoiceController extends Controller
                 ->where('invoice_id', $request->id)
                 ->get();
 
-            if ($invoice == []) {
+            if ($invoice == null) {
                 return $this->error("Invoice not found.", null, null, 404);
             }
 
