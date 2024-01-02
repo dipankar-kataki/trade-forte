@@ -19,7 +19,7 @@ class CreateInvoiceDetailsTable extends Migration
             $table->unsignedBigInteger('details_added_by');
             $table->unsignedBigInteger('exporter_id');
             $table->unsignedBigInteger('consignee_id');
-            $table->string('invoice_id')->unique();
+            $table->string('invoice_id')->unique()->index();
             $table->string('country_of_origin');
             $table->string('country_of_export');
             $table->string('auth_dealer_code')->nullable();
