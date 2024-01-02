@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\InvoiceItems;
 
 use App\Http\Controllers\Controller;
+use App\Models\InvoiceDetail;
 use App\Models\InvoiceItem;
 use App\Traits\ApiResponse;
 use App\Traits\CreateUserActivityLog;
@@ -50,15 +51,13 @@ class InvoiceItemsController extends Controller
         }
     }
 
-
-
-
     public function show(Request $request)
     {
         try {
             $invoiceId = $request->id;
-            // dd($invoiceId);
-            $invoiceItems = InvoiceItem::where('invoice_id', $invoiceId)->get();
+            $invoice = InvoiceDetail::where("invoice_id", $invoiceId)->first();
+
+            $invoiceItems = ($invoice && $invoice->id) ? InvoiceItem::where('invoice_id', $invoice->id)->get() : InvoiceItem::where('invoice_id', $invoiceId)->get();
 
             if ($invoiceItems->isEmpty()) {
                 return $this->error("No invoice items found for the given invoice_id.", null, null, 404);
@@ -69,6 +68,7 @@ class InvoiceItemsController extends Controller
             return $this->error('Oops! Something Went Wrong.' . $e->getMessage(), null, null, 500);
         }
     }
+
 
     public function update(Request $request)
     {

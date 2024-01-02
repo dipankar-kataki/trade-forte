@@ -71,6 +71,7 @@ class InvoiceController extends Controller
         try {
             $invoice = InvoiceDetail::with(['exporters', 'consignees'])
                 ->where('invoice_id', $request->id)
+                ->orWhere("id", $request->id)
                 ->get();
 
             if ($invoice->isEmpty()) {
