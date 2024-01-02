@@ -72,16 +72,17 @@ class InvoiceController extends Controller
             $invoice = InvoiceDetail::with(['exporters', 'consignees', 'items', 'declarations'])
                 ->where('invoice_id', $request->id)
                 ->get();
-
-            if ($invoice == null) {
+    
+            if ($invoice->isEmpty()) {
                 return $this->error("Invoice not found.", null, null, 404);
             }
-
+    
             return $this->success("Invoice details.", $invoice, null, 200);
         } catch (\Exception $e) {
             return $this->error('Oops! Something Went Wrong.' . $e->getMessage(), null, null, 500);
         }
     }
+    
 
     public function update(Request $request)
     {
