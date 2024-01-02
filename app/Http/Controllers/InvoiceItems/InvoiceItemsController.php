@@ -57,8 +57,7 @@ class InvoiceItemsController extends Controller
     {
         try {
             $invoiceId = $request->id;
-
-            // Retrieve all invoice items for the specified invoice_id
+            dd($invoiceId);
             $invoiceItems = InvoiceItem::where('invoice_id', $invoiceId)->get();
 
             if ($invoiceItems->isEmpty()) {
