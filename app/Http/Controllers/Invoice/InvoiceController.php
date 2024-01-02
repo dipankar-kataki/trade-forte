@@ -50,19 +50,23 @@ class InvoiceController extends Controller
         try {
             $invoices = InvoiceDetail::select(
                 'id',
+                'invoice_id',
+                'exporter_id',
+                'consignee_id',
                 'created_at',
                 'updated_at'
-            )->with([
-                        'exporters:id,name',
-                        'consignees:id,name',
-                    ])->paginate(50);
-            dd($invoices);
+            )
+                ->with([
+                    'exporters:id,name',
+                    'conginees:id,name',
+                ])
+                ->paginate(50);
+
             return $this->success("Invoice list.", $invoices, null, 200);
         } catch (\Exception $e) {
             return $this->error('Oops! Something Went Wrong.' . $e->getMessage(), null, null, 500);
         }
     }
-
 
 
     public function show(Request $request)
