@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Lorries;
 
 use App\Http\Controllers\Controller;
 use App\Models\BankAccount;
+use App\Models\InvoiceDetail;
 use App\Models\Lorry;
 use App\Traits\ApiResponse;
 use App\Traits\CreateUserActivityLog;
@@ -16,20 +17,31 @@ class LorryController extends Controller
 {
     use ApiResponse;
     use CreateUserActivityLog;
+
     public function create(Request $request)
     {
         $validator = Validator::make($request->all(), Lorry::createRule());
+
         if ($validator->fails()) {
             return $this->error('Oops!' . $validator->errors()->first(), null, null, 400);
         } else {
             try {
                 $user_id = Auth::id();
                 $data = $validator->validated();
+                $invoice = InvoiceDetail::find($request->invoice_id);
                 $data["details_added_by"] = $user_id;
+
+                $data["exporter_id"] = $invoice->exporter_id;
+
+                $data["consignee_id"] = $invoice->consignee_id;
+
+                $data["bank_id"] = $invoice->exporter->bank_id;
+
                 DB::beginTransaction();
                 Lorry::create($data);
                 $this->createLog($user_id, "Lorry details added.", "lorry_details", null);
                 DB::commit();
+
                 return $this->success("Lorry details registered Successfully!", null, null, 201);
             } catch (\Exception $e) {
                 DB::rollBack();
@@ -37,6 +49,7 @@ class LorryController extends Controller
             }
         }
     }
+
 
     public function index(Request $request)
     {
