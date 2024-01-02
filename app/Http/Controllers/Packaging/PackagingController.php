@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Packaging;
 
 use App\Http\Controllers\Controller;
+use App\Models\InvoiceDetail;
 use App\Models\InvoiceItem;
 use App\Models\PackagingDetail;
 use App\Traits\CreateUserActivityLog;
@@ -57,7 +58,11 @@ class PackagingController extends Controller
     public function show(Request $request)
     {
         try {
-            $packagingItems = PackagingDetail::where('invoice_id', $request->id)->get();
+            $invoiceId = $request->id;
+            $invoice = InvoiceDetail::where("invoice_id", $invoiceId)->first();
+
+            $packagingItems = ($invoice && $invoice->id) ? PackagingDetail::where('invoice_id', $invoice->id)->get() : PackagingDetail::where('invoice_id', $invoiceId)->get();
+
             if ($packagingItems->isEmpty()) {
                 return $this->error("Packaging not found.", null, null, 404);
             }
