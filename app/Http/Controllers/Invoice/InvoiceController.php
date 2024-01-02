@@ -55,12 +55,10 @@ class InvoiceController extends Controller
                 'consignee_id',
                 'created_at',
                 'updated_at'
-            )
-                ->with([
-                    'exporters:id,name',
-                    'consignees:id,name',
-                ])
-                ->paginate(50);
+            )->with([
+                        'exporters:id,name',
+                        'consignees:id,name',
+                    ])->paginate(50);
 
             return $this->success("Invoice list.", $invoices, null, 200);
         } catch (\Exception $e) {
