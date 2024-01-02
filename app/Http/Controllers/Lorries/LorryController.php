@@ -35,7 +35,7 @@ class LorryController extends Controller
 
                 $data["consignee_id"] = $invoice->consignee_id;
 
-                $data["bank_id"] = $invoice->exporter->bank_id;
+                $data["bank_id"] = BankAccount::find($invoice->exporter_id)->first()->id;
 
                 DB::beginTransaction();
                 Lorry::create($data);
