@@ -43,7 +43,7 @@ class InvoiceDetail extends Model
     {
         return $this->belongsTo(Exporter::class, 'exporter_id', 'id');
     }
-    public function conginees()
+    public function consignees()
     {
         return $this->belongsTo(Consignee::class, 'consignee_id', 'id');
     }
