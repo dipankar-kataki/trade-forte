@@ -1,16 +1,19 @@
 <?php
 
+use App\Models\PackagingDetail;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateInvoiceItemsTable extends Migration {
+class CreateInvoiceItemsTable extends Migration
+{
     /**
      * Run the migrations.
      *
      * @return void
      */
-    public function up() {
+    public function up()
+    {
         Schema::create('invoice_items', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('invoice_id');
@@ -29,7 +32,8 @@ class CreateInvoiceItemsTable extends Migration {
         });
     }
 
-    public function packagingDetails() {
+    public function packagingDetails()
+    {
         return $this->hasMany(PackagingDetail::class, 'invoice_item_id', 'id');
     }
 
@@ -38,7 +42,8 @@ class CreateInvoiceItemsTable extends Migration {
      *
      * @return void
      */
-    public function down() {
+    public function down()
+    {
         Schema::dropIfExists('invoice_items');
     }
 }
