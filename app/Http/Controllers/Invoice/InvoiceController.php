@@ -56,7 +56,7 @@ class InvoiceController extends Controller
                         'exporters:id,name',
                         'consignees:id,name',
                     ])->paginate(50);
-
+            dd($invoices);
             return $this->success("Invoice list.", $invoices, null, 200);
         } catch (\Exception $e) {
             return $this->error('Oops! Something Went Wrong.' . $e->getMessage(), null, null, 500);
