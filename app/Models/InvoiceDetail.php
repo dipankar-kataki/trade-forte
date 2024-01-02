@@ -38,8 +38,9 @@ class InvoiceDetail extends Model
     }
     public function items()
     {
-        return $this->hasMany(InvoiceItem::class, 'invoice_id');
+        return $this->hasMany(InvoiceItem::class, 'invoice_id', 'invoice_id');
     }
+
     public function exporters()
     {
         return $this->belongsTo(Exporter::class, 'exporter_id', 'id');
