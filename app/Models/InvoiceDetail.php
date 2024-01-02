@@ -10,6 +10,7 @@ class InvoiceDetail extends Model
     use HasFactory;
 
     protected $table = 'invoice_details';
+    protected $with = ['exporters', 'consignees'];
     protected $guarded = [];
 
     public static function createRule()
