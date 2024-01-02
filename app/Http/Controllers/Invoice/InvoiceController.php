@@ -54,7 +54,6 @@ class InvoiceController extends Controller
                 'exporter_id',
                 'consignee_id',
                 'created_at',
-                'updated_at'
             )->with([
                         'exporters:id,name',
                         'consignees:id,name',
