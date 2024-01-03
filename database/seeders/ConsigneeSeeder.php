@@ -23,7 +23,8 @@ class ConsigneeSeeder extends Seeder
             'name' => 'Consignee Name',
             'address' => 'Consignee Address',
             'country' => 'India',
-            'tpn_no' => 'TPN123456',
+            "phone" => 1243567890,
+            'tpn_no' => '1234564584',
             'pin_code' => '123456',
             'status' => 1,
         ]);
