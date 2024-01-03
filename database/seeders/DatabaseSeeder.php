@@ -15,6 +15,9 @@ class DatabaseSeeder extends Seeder
     // php artisan db:seed --class=CountrySeeder
     // php artisan db:seed --class=ExporterSeeder
     // php artisan db:seed --class=ConsigneeSeeder
+    // php artisan db:seed --class=BankAccountsTableSeeder
+    // php artisan db:seed --class=InvoiceDetailsTableSeeder
+    // php artisan db:seed --class=InvoiceItemsTableSeeder
 
     public function run()
     {
@@ -23,6 +26,12 @@ class DatabaseSeeder extends Seeder
             CountrySeeder::class,
             ExporterSeeder::class,
             ConsigneeSeeder::class,
+            BankAccountsTableSeeder::class,
+            InvoiceDetailsTableSeeder::class,
+            InvoiceItemsTableSeeder::class,
+            PackagingDetailsTableSeeder::class,
+            LorriesTableSeeder::class,
+            LorryItemsTableSeeder::class,
 
         ]);
     }

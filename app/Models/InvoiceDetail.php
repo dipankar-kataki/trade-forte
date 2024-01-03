@@ -18,6 +18,7 @@ class InvoiceDetail extends Model
         return [
             'country_of_origin' => 'required|string',
             'country_of_export' => 'required|string',
+            'import_export_code' => 'nullable|string',
             "exporter_id" => "required|exists:exporters,id",
             "consignee_id" => "required|exists:consignees,id",
             'auth_dealer_code' => 'nullable|string',

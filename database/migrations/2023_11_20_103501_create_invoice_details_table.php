@@ -22,6 +22,7 @@ class CreateInvoiceDetailsTable extends Migration
             $table->string('invoice_id')->unique()->index();
             $table->string('country_of_origin');
             $table->string('country_of_export');
+            $table->string('import_export_code');
             $table->string('auth_dealer_code')->nullable();
             $table->string('port_of_loading')->nullable();
             $table->string('port_of_destination')->nullable();

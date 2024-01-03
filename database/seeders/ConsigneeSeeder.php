@@ -20,13 +20,12 @@ class ConsigneeSeeder extends Seeder
 
         Consignee::create([
             'account_created_by' => 1,
-            'name' => 'Consignee Name', // Replace with actual consignee name
-            'address' => 'Consignee Address', // Replace with actual address
-            'country' => 'India', // Replace with actual country
-            'tpn_no' => 'TPN123456', // Replace with actual TPN number
-            'phone' => '1234567890', // Replace with actual phone number
-            'pin_code' => '123456', // Replace with actual pin code
-            'status' => 1, // Replace with actual status
+            'name' => 'Consignee Name',
+            'address' => 'Consignee Address',
+            'country' => 'India',
+            'tpn_no' => 'TPN123456',
+            'pin_code' => '123456',
+            'status' => 1,
         ]);
     }
 
