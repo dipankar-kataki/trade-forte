@@ -17,7 +17,7 @@ class LorriesItemsTable extends Migration
             $table->id();
             $table->date("date");
             $table->string('trip');
-            $table->string('vehiclle_no');
+            $table->string('vehicle_no');
             $table->string('quantity');
             $table->unsignedBigInteger('items_added_by');
             $table->foreign('items_added_by')->references('id')->on('users');
