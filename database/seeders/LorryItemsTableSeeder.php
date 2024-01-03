@@ -15,7 +15,6 @@ class LorryItemsTableSeeder extends Seeder
     public function run()
     {
         // Clear existing data in the table
-        DB::table('lorry_items')->truncate();
 
         // Seed data
         $lorryItems = [

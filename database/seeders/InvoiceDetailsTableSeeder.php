@@ -16,7 +16,6 @@ class InvoiceDetailsTableSeeder extends Seeder
     public function run()
     {
         // Clear existing data in the table
-        DB::table('invoice_details')->truncate();
 
         // Seed data
         $invoiceDetails = [

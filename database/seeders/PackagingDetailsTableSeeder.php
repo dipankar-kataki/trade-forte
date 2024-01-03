@@ -15,7 +15,6 @@ class PackagingDetailsTableSeeder extends Seeder
     public function run()
     {
         // Clear existing data in the table
-        DB::table('packaging_details')->truncate();
 
         // Seed data
         $packagingDetails = [

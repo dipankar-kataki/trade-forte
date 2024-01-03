@@ -14,7 +14,6 @@ class BankAccountsTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('bank_accounts')->truncate();
 
         // Seed data
         $bankAccounts = [

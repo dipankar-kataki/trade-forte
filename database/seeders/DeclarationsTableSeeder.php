@@ -15,7 +15,6 @@ class DeclarationsTableSeeder extends Seeder
     public function run()
     {
         // Clear existing data in the table
-        DB::table('declarations')->truncate();
 
         // Seed data
         $declarations = [
