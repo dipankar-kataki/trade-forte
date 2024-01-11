@@ -24,10 +24,10 @@ class CreateExportersTable extends Migration
             $table->string('gst_no')->nullable();
             $table->string('iec_no')->nullable();
             $table->string('logo')->nullable();
+            $table->string('logo_height')->nullable();
+            $table->string('logo_width')->nullable();
             $table->string('lut_no')->nullable();
-            $table->string('ppc_lic_no')->nullable();
-            $table->string('seed_lic_no')->nullable();
-            $table->string('fertilizer_lic_no')->nullable();
+            $table->string('pan_no')->nullable();
             $table->boolean('status')->default(1);
             $table->timestamps();
 

@@ -40,10 +40,10 @@ class Exporter extends Model
             'gst_no' => 'sometimes|string|max:30',
             'iec_no' => 'sometimes|string|max:30',
             'logo' => 'sometimes|image|mimes:jpeg,png,jpg,gif|max:10240',
+            "logo_height" => "sometimes|string",
+            "logo_width" => "sometimes|string",
             'lut_no' => 'sometimes|string|max:30',
-            'ppc_lic_no' => 'sometimes|string|max:30',
-            'seed_lic_no' => 'sometimes|string|max:30',
-            'fertilizer_lic_no' => 'sometimes|string|max:30',
+            'pan_no' => 'sometimes|string|max:30',
             'status' => 'sometimes|boolean',
         ];
     }

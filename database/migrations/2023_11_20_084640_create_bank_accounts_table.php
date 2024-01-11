@@ -15,12 +15,14 @@ class CreateBankAccountsTable extends Migration
     {
         Schema::create('bank_accounts', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('exporter_id')->unique();
+            $table->unsignedBigInteger('exporter_id');
             $table->unsignedBigInteger('account_created_by');
             $table->string('bank_name');
+            $table->string('branch_name');
             $table->string('account_name');
             $table->string('account_no')->unique();
             $table->string('ifsc_code');
+            $table->string('auth_dealer_code');
             $table->string('swift_code')->nullable();
             $table->boolean('status')->default(1);
             $table->timestamps();

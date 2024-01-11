@@ -7,11 +7,7 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateInvoiceDetailsTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
+
     public function up()
     {
         Schema::create('invoice_details', function (Blueprint $table) {
@@ -20,10 +16,10 @@ class CreateInvoiceDetailsTable extends Migration
             $table->unsignedBigInteger('exporter_id');
             $table->unsignedBigInteger('consignee_id');
             $table->string('invoice_id')->unique()->index();
-            $table->string('country_of_origin');
+            $table->string('country_of_destination');
             $table->string('country_of_export');
+            $table->string('country_of_origin');
             $table->string('import_export_code')->nullable();
-            $table->string('auth_dealer_code')->nullable();
             $table->string('port_of_loading')->nullable();
             $table->string('port_of_destination')->nullable();
             $table->string('freight')->nullable();
@@ -40,11 +36,6 @@ class CreateInvoiceDetailsTable extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('invoice_details');
