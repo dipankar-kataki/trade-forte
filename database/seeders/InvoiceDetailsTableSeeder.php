@@ -24,10 +24,10 @@ class InvoiceDetailsTableSeeder extends Seeder
                 'exporter_id' => 1,
                 'consignee_id' => 1,
                 'invoice_id' => 'INV-001',
-                'country_of_origin' => 'Sample Country',
-                'country_of_export' => 'Another Country',
+                'coutry_of_origin' => 'China', // Replace with actual seed license number
+                'coutry_of_export' => 'India', // Replace with actual fertilizer license number
+                "coutry_of_import" => "Bhutan",
                 'import_export_code' => 'IEC123456',
-                'auth_dealer_code' => 'DEALER123',
                 'port_of_loading' => 'Sample Port',
                 'port_of_destination' => 'Another Port',
                 'freight' => 'Air Freight',

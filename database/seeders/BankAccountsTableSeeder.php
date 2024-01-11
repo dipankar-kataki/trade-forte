@@ -22,6 +22,7 @@ class BankAccountsTableSeeder extends Seeder
                 'account_created_by' => 1,
                 'bank_name' => 'Sample Bank',
                 'branch_name' => 'Sample Branch',
+                'auth_dealer_code' => 123,
                 'account_name' => 'John Doe',
                 'account_no' => '1234567890',
                 'ifsc_code' => 'SAMPLEIFSC',

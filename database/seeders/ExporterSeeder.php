@@ -30,10 +30,9 @@ class ExporterSeeder extends Seeder
             'gst_no' => 'ABC123456789', // Replace with actual GST number
             'iec_no' => 'IEC123456', // Replace with actual IEC number
             'logo' => 'path/to/logo.jpg', // Replace with actual logo path
-            'lut_no' => 'LUT123456', // Replace with actual LUT number
-            'ppc_lic_no' => 'PPC123456', // Replace with actual PPC license number
-            'seed_lic_no' => 'SEED123456', // Replace with actual seed license number
-            'fertilizer_lic_no' => 'FERT123456', // Replace with actual fertilizer license number
+            'logo_height' => 123, // Replace with actual LUT number
+            'logo_width' => 100, // Replace with actual PPC license number
+            'pan_no' => 'CFK10JAP10', // Replace with actual seed license number
             'status' => 1, // Replace with actual status
         ]);
 
