@@ -5,8 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class HsnCode extends Model
+class HsnTable extends Model
 {
     use HasFactory;
-    protected $table = "hsn_code";
 }
