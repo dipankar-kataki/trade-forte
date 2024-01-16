@@ -13,7 +13,7 @@ class HsnController extends Controller
     public function list(Request $request)
     {
         $searchTerm = $request->input('hsn');
-
+        var_dump($searchTerm);
         $searchResults = HsnTable::selectRaw(
             "*, MATCH(hsn_code, hsn_description) AGAINST(? IN BOOLEAN MODE) as relevance",
             [$searchTerm]
