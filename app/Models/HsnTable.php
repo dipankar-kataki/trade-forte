@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class HsnTable extends Model
 {
     use HasFactory;
+    protected $table = "hsn_table";
 }
