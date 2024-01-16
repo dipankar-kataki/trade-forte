@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\HsnCode;
 
 use App\Http\Controllers\Controller;
-use App\Models\HsnCode;
+use App\Models\HsnTable;
 use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
 
@@ -14,7 +14,7 @@ class HsnController extends Controller
     {
         $searchTerm = $request->input('hsn');
 
-        $searchResults = HsnCode::selectRaw(
+        $searchResults = HsnTable::selectRaw(
             "*, MATCH(hsn_code, hsn_description) AGAINST(? IN BOOLEAN MODE) as relevance",
             [$searchTerm]
         )
