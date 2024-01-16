@@ -12,7 +12,7 @@ class HsnController extends Controller
     use ApiResponse;
     public function list(Request $request)
     {
-        $searchTerm = $request->input('hsn');
+        $searchTerm = $request->hsn;
         var_dump($searchTerm);
         $searchResults = HsnTable::selectRaw(
             "*, MATCH(hsn_code, hsn_description) AGAINST(? IN BOOLEAN MODE) as relevance",
