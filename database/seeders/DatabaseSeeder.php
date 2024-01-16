@@ -32,7 +32,7 @@ class DatabaseSeeder extends Seeder
             PackagingDetailsTableSeeder::class,
             LorriesTableSeeder::class,
             LorryItemsTableSeeder::class,
-
+            Hsnseeder::class,
         ]);
     }
 }
