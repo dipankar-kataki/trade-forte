@@ -44,7 +44,6 @@ class InvoiceController extends Controller
             }
         }
     }
-
     public function index(Request $request)
     {
         try {
@@ -64,8 +63,6 @@ class InvoiceController extends Controller
             return $this->error('Oops! Something Went Wrong.' . $e->getMessage(), null, null, 500);
         }
     }
-
-
     public function show(Request $request)
     {
         try {
@@ -83,8 +80,6 @@ class InvoiceController extends Controller
             return $this->error('Oops! Something Went Wrong.' . $e->getMessage(), null, null, 500);
         }
     }
-
-
     public function update(Request $request)
     {
         $validator = Validator::make($request->all(), InvoiceDetail::updateRule());
