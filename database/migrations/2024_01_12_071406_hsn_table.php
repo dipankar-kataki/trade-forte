@@ -17,7 +17,7 @@ class HsnTable extends Migration
             $table->id();
             $table->text('hsn_code');
             $table->longText('hsn_description');
-            $table->index(['hsn_code', 'hsn_description'], 'fulltext_search');
+            $table->fullText(['hsn_code', 'hsn_description']);
         });
     }
 
