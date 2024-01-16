@@ -5,6 +5,7 @@ use App\Http\Controllers\Consignees\ConsigneeController;
 use App\Http\Controllers\Country\CountryController;
 use App\Http\Controllers\Declarations\DeclarationController;
 use App\Http\Controllers\Exporters\ExporterController;
+use App\Http\Controllers\HsnCode\HsnController;
 use App\Http\Controllers\Invoice\InvoiceController;
 use App\Http\Controllers\InvoiceItems\InvoiceItemsController;
 use App\Http\Controllers\Lorries\LorryController;
@@ -128,7 +129,7 @@ Route::group(["middleware" => 'auth:sanctum'], function () {
         Route::get('get/{id}', [UserActivityController::class, 'show']);
     });
     Route::group(['prefix' => 'hsncode'], function () {
-        Route::get('list/{hsn}', [UserActivityController::class, 'list']);
+        Route::get('list/{hsn}', [HsnController::class, 'list']);
     });
 });
 
