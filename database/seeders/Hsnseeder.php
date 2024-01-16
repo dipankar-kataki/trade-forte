@@ -16,7 +16,8 @@ class Hsnseeder extends Seeder
     public function run()
     {
         // Path to your CSV file
-        $csvFilePath = database_path('../../HSN_SAC_csv.csv');
+        $csvFilePath = base_path('HSN_SAC_csv.csv');
+
 
         // Open the CSV file for reading
         $csvFile = fopen($csvFilePath, 'r');
