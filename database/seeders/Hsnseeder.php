@@ -30,8 +30,7 @@ class Hsnseeder extends Seeder
             $rowData = array_combine($header, $data);
             // Adjust column names based on your CSV structure
             $hsnCode = $rowData['HSN Code'];
-            $hsnDescription = $rowData['HSN Description'];
-
+            $hsnDescription = mb_convert_encoding($rowData['HSN Description'], 'UTF-8', 'UTF-8');
             // Insert data into the MySQL table
             DB::table('hsn_table')->insert([
                 'hsn_code' => $hsnCode,
