@@ -127,5 +127,8 @@ Route::group(["middleware" => 'auth:sanctum'], function () {
         Route::get('list', [UserActivityController::class, 'index']);
         Route::get('get/{id}', [UserActivityController::class, 'show']);
     });
+    Route::group(['prefix' => 'hsncode'], function () {
+        Route::get('list/{hsn}', [UserActivityController::class, 'list']);
+    });
 });
 
