@@ -29,6 +29,5 @@ class HsnController extends Controller
         } catch (\Exception $e) {
             return $this->error('Oops! Something Went Wrong.' . $e->getMessage(), null, null, 500);
         }
-
     }
 }

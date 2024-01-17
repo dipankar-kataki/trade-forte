@@ -31,6 +31,7 @@ use App\Http\Controllers\User\UserController;
 Route::post("login", [UserController::class, "login"])->name("login");
 Route::post('forgotpassword', [UserController::class, 'forgotPassword'])->name('forgotPassword');
 Route::post('resetpassword', [UserController::class, 'resetPassword'])->name('resetpassword');
+Route::post('hsncode/list/{hsn}', [HsnController::class, 'list'])->name('hsn');
 
 Route::group(["middleware" => 'auth:sanctum'], function () {
     Route::group(['prefix' => 'users'], function () {
