@@ -27,6 +27,9 @@ class CreateInvoiceDetailsTable extends Migration
             $table->string('vehicle_no')->nullable();
             $table->string('insurance')->nullable();
             $table->string('buyer_no')->nullable();
+            $table->string("incoterm_cpt")->nullable();
+            $table->string("buyer_order_no")->nullable();
+            $table->string("terms_of_payment")->nullable();
             $table->timestamp('invoice_date')->default(Carbon::now());
             $table->string('eway_bill_id')->nullable();
             $table->timestamps();
