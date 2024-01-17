@@ -25,7 +25,7 @@ class ExporterController extends Controller
         } else {
             try {
                 $data = $validator->validated();
-                $data["logo"] = $request->file("logo")->store("logos");
+                $data["logo"] = $request->file("logo")->store("public/logos");
                 $user_id = Auth::id();
                 $data["account_created_by"] = Auth::id();
                 DB::beginTransaction();
