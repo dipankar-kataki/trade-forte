@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\HsnTable;
 use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class HsnController extends Controller
 {
@@ -22,7 +23,7 @@ class HsnController extends Controller
             ->orderByDesc('relevance')
             ->limit(5)
             ->get();
-
+        Log::info("Fetched hsn list");
         return $this->success("Hsn List.", $searchResults, null, 200);
     }
 }
