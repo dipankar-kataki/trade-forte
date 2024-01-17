@@ -112,7 +112,7 @@ class ExporterController extends Controller
             }
             $user_id = Auth::id();
             DB::beginTransaction();
-            $exporter->delete();
+            $exporter->delete()->cascade();
             $this->createLog($user_id, "Exporter detaild deleted.", "exporters", $request->id);
             DB::commit();
             return $this->success("Exporter deleted successfully.", null, null, 200);
