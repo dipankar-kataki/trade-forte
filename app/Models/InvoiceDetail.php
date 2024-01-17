@@ -26,7 +26,7 @@ class InvoiceDetail extends Model
             'port_of_loading' => 'nullable|string',
             'port_of_destination' => 'nullable|string',
             "incoterm_cpt" => "nullable|string",
-            "buyer_order_no" => "nullable|string",
+            "remarks" => "nullable|string",
             "terms_of_payment" => "nullable|string",
             'freight' => 'nullable|string',
             'valid_upto' => 'nullable|date',
