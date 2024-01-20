@@ -15,7 +15,6 @@ class HsnController extends Controller
     {
         try {
             $searchTerm = $request->hsn;
-            // var_dump($searchTerm);
             $searchResults = HsnTable::selectRaw(
                 "*, MATCH(hsn_code, hsn_description) AGAINST(? IN BOOLEAN MODE) as relevance",
                 [$searchTerm]
@@ -24,7 +23,7 @@ class HsnController extends Controller
                 ->orderByDesc('relevance')
                 ->limit(5)
                 ->get();
-            Log::info("Fetched hsn list");
+            // Log::info("Fetched hsn list");
             return $this->success("Hsn List.", $searchResults, null, 200);
         } catch (\Exception $e) {
             return $this->error('Oops! Something Went Wrong.' . $e->getMessage(), null, null, 500);
