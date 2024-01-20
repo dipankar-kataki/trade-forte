@@ -31,7 +31,7 @@ use App\Http\Controllers\User\UserController;
 Route::post("login", [UserController::class, "login"])->name("login");
 Route::post('forgotpassword', [UserController::class, 'forgotPassword'])->name('forgotPassword');
 Route::post('resetpassword', [UserController::class, 'resetPassword'])->name('resetpassword');
-// Route::get('hsncodes/list/{hsn}', [HsnController::class, 'list'])->name('hsn');
+Route::get('hsncode/list/{hsn}', [HsnController::class, 'list'])->name('hsncode');
 
 Route::group(["middleware" => 'auth:sanctum'], function () {
     Route::group(['prefix' => 'users'], function () {
@@ -129,8 +129,8 @@ Route::group(["middleware" => 'auth:sanctum'], function () {
         Route::get('list', [UserActivityController::class, 'index']);
         Route::get('get/{id}', [UserActivityController::class, 'show']);
     });
-    Route::group(['prefix' => 'hsncode'], function () {
-        Route::get('list/{hsn}', [HsnController::class, 'list']);
-    });
+    // Route::group(['prefix' => 'hsncode'], function () {
+    //     Route::get('list/{hsn}', [HsnController::class, 'list']);
+    // });
 });
 
