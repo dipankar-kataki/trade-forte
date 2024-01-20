@@ -15,7 +15,7 @@ class HsnController extends Controller
     {
         try {
             $searchTerm = $request->hsn;
-            var_dump($searchTerm);
+            // var_dump($searchTerm);
             $searchResults = HsnTable::selectRaw(
                 "*, MATCH(hsn_code, hsn_description) AGAINST(? IN BOOLEAN MODE) as relevance",
                 [$searchTerm]
