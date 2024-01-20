@@ -16,10 +16,10 @@ class HsnController extends Controller
         try {
             $searchTerm = $request->hsn;
             $searchResults = HsnTable::selectRaw(
-                "*, MATCH(hsn_code, hsn_description) AGAINST(? IN BOOLEAN MODE) as relevance",
+                "*, MATCH(hsn_code) AGAINST(? IN BOOLEAN MODE) as relevance",
                 [$searchTerm]
             )
-                ->whereRaw("MATCH(hsn_code, hsn_description) AGAINST(? IN BOOLEAN MODE)", [$searchTerm])
+                ->whereRaw("MATCH(hsn_code) AGAINST(? IN BOOLEAN MODE)", [$searchTerm])
                 ->orderByDesc('relevance')
                 ->limit(5)
                 ->get();
