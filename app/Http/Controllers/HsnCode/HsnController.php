@@ -15,13 +15,9 @@ class HsnController extends Controller
     {
         try {
             $searchTerm = $request->hsn;
-            $searchResults = HsnTable::selectRaw(
-                "*, MATCH(hsn_code) AGAINST(? IN BOOLEAN MODE) as relevance",
-                [$searchTerm]
-            )
-                ->whereRaw("MATCH(hsn_code) AGAINST(? IN BOOLEAN MODE)", [$searchTerm])
-                ->orderByDesc('relevance')
-                ->limit(5)
+            $searchResults = HsnTable::where('hsn_code', 'LIKE', $searchTerm . '%')
+                ->orderBy('hsn_code')
+                ->limit(8)
                 ->get();
             // Log::info("Fetched hsn list");
             return $this->success("Hsn List.", $searchResults, null, 200);
