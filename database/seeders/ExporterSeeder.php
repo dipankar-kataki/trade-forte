@@ -33,6 +33,7 @@ class ExporterSeeder extends Seeder
             'customer_category' => 'EXPORTER', // Replace with actual customer category
             'lut_no' => 'LUT123', // Replace with actual LUT number
             'state' => 'State Name', // Replace with actual state
+            "organization_type" => "PRIVATE",
             'organization_reg_no' => 'ORG123', // Replace with actual organization registration number
             'authorised_signatory_name' => 'Authorized Signatory', // Replace with actual authorized signatory name
             'authorised_signatory_designation' => 'CEO', // Replace with actual designation
