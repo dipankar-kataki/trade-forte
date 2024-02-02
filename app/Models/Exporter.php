@@ -18,7 +18,6 @@ class Exporter extends Model
     public static function createRule()
     {
         return [
-            'account_created_by' => 'required|exists:users,id',
             'name' => 'required|string|max:255',
             'email' => 'nullable|email|max:255',
             'addresses' => 'required|string|max:255',
@@ -48,7 +47,6 @@ class Exporter extends Model
     {
         return [
             "exporterId" => "required|exists:exporters,id",
-            'account_created_by' => 'sometimes|exists:users,id',
             'name' => 'sometimes|string|max:255',
             'email' => 'sometimes|email|max:255',
             'addresses' => 'sometimes|string|max:255',
