@@ -20,10 +20,12 @@ class Consignee extends Model
             'country' => 'required|string|max:255',
             'state' => 'required|string|max:255',
             'license_no' => 'nullable|string|max:255',
-            'phone' => 'required|string|max:255',
+            'organization_phone' => 'sometimes|string|max:255',
+            'organization_email' => 'sometimes|string|max:255',
             'pin_code' => 'nullable|string|max:255',
             'customer_category' => 'required|string|in:importer,exporter',
-
+            'authorised_signatory_name' => 'required|string|max:255',
+            'authorised_signatory_designation' => 'required|string|max:255',
         ];
     }
 
@@ -34,11 +36,14 @@ class Consignee extends Model
             'addresses' => 'sometimes|string|max:255',
             'country' => 'sometimes|string|max:255',
             'license_no' => 'sometimes|string|max:255',
-            'phone' => 'sometimes|string|max:255',
+            'organization_phone' => 'sometimes|string|max:255',
+            'organization_email' => 'sometimes|string|max:255',
+
             'pin_code' => 'sometimes|string|max:255',
             'status' => 'sometimes|boolean',
-            'category' => 'sometimes|string|max:255',
-
+            'customer_category' => 'sometimes|string|max:255',
+            'authorised_signatory_name' => 'sometimes|string|max:255',
+            'authorised_signatory_designation' => 'sometimes|string|max:255',
         ];
     }
     public function user()
