@@ -28,6 +28,7 @@ class ConsigneeSeeder extends Seeder
             'license_no' => '1234564584',
             'pin_code' => '123456',
             'status' => 1,
+            "customer_category" => "importer"
         ]);
     }
 

@@ -22,7 +22,7 @@ class Consignee extends Model
             'license_no' => 'nullable|string|max:255',
             'phone' => 'required|string|max:255',
             'pin_code' => 'nullable|string|max:255',
-            'category' => 'required|string|max:255',
+            'customer_category' => 'required|string|in:importer,exporter',
 
         ];
     }
@@ -37,6 +37,8 @@ class Consignee extends Model
             'phone' => 'sometimes|string|max:255',
             'pin_code' => 'sometimes|string|max:255',
             'status' => 'sometimes|boolean',
+            'category' => 'sometimes|string|max:255',
+
         ];
     }
     public function user()
