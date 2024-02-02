@@ -26,7 +26,6 @@ class ExporterSeeder extends Seeder
             'email' => 'exporter@example.com', // Replace with actual email
             'addresses' => 'Exporter Address', // Replace with actual address
             'pincode' => '123456', // Replace with actual pincode
-            'phone' => '1234567890', // Replace with actual phone number
             'gst_no' => 'ABC123456789', // Replace with actual GST number
             'iec_no' => 'IEC123456', // Replace with actual IEC number
             'logo' => '', // Replace with actual logo path
