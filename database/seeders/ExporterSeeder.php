@@ -24,7 +24,7 @@ class ExporterSeeder extends Seeder
             'account_created_by' => 1,
             'name' => 'Exporter Name', // Replace with actual exporter name
             'email' => 'exporter@example.com', // Replace with actual email
-            'address' => 'Exporter Address', // Replace with actual address
+            'addresses' => 'Exporter Address', // Replace with actual address
             'pincode' => '123456', // Replace with actual pincode
             'phone' => '1234567890', // Replace with actual phone number
             'gst_no' => 'ABC123456789', // Replace with actual GST number
