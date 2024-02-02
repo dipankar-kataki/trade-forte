@@ -20,7 +20,7 @@ class Exporter extends Model
         return [
             'name' => 'required|string|max:255',
             'email' => 'nullable|email|max:255',
-            'addresses' => 'required|string|max:255',
+            'addresses' => 'required',
             'pincode' => 'required|integer|max:9999999999',
             'phone' => 'required|string|max:15',
             'gst_no' => 'required|string|max:30',
