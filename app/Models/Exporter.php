@@ -26,7 +26,7 @@ class Exporter extends Model
             'iec_no' => 'required|string|max:30',
             'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:10240',
             'customer_category' => 'required|string',
-            'organization_type' => 'required|string|in:PROPRITORY,PARTNERSHIP,PRIVATE,OPC,HUF,SOCIETY,TRUST',
+            'organization_type' => 'required|string|in:PROPRIETORSHIP,PARTNERSHIP,PRIVATE,OPC,HUF,SOCIETY,TRUST',
             'lut_no' => 'nullable|string|max:30',
             'state' => 'nullable|string|max:255',
             'organization_reg_no' => 'nullable|string|max:30',
