@@ -50,7 +50,6 @@ class Exporter extends Model
             'email' => 'sometimes|email|max:255',
             'addresses' => 'sometimes|string|max:255',
             'pincode' => 'sometimes|integer|max:9999999999',
-            'phone' => 'sometimes|string|max:15',
             'gst_no' => 'sometimes|string|max:30',
             'iec_no' => 'sometimes|string|max:30',
             'logo' => 'sometimes|image|mimes:jpeg,png,jpg,gif|max:10240',

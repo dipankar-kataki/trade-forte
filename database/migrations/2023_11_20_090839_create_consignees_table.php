@@ -20,7 +20,6 @@ class CreateConsigneesTable extends Migration
             $table->string('address')->nullable();
             $table->string('country');
             $table->string('license_no')->nullable();
-            $table->string('phone');
             $table->string('pin_code')->nullable();
             $table->boolean('status')->default(1);
             $table->string('authorised_signatory_name')->nullable();
