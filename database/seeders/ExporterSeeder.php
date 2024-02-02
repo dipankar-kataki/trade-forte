@@ -24,17 +24,26 @@ class ExporterSeeder extends Seeder
             'account_created_by' => 1,
             'name' => 'Exporter Name', // Replace with actual exporter name
             'email' => 'exporter@example.com', // Replace with actual email
-            'addresses' => 'Exporter Address', // Replace with actual address
+            'address' => 'Exporter Address', // Replace with actual address
             'pincode' => '123456', // Replace with actual pincode
             'phone' => '1234567890', // Replace with actual phone number
             'gst_no' => 'ABC123456789', // Replace with actual GST number
             'iec_no' => 'IEC123456', // Replace with actual IEC number
-            'logo' => 'path/to/logo.jpg', // Replace with actual logo path
-            'logo_height' => 123, // Replace with actual LUT number
-            'logo_width' => 100, // Replace with actual PPC license number
-            'pan_no' => 'CFK10JAP10', // Replace with actual seed license number
+            'logo' => '', // Replace with actual logo path
+            'customer_category' => 'EXPORTER', // Replace with actual customer category
+            'lut_no' => 'LUT123', // Replace with actual LUT number
+            'state' => 'State Name', // Replace with actual state
+            'organization_reg_no' => 'ORG123', // Replace with actual organization registration number
+            'authorised_signatory_name' => 'Authorized Signatory', // Replace with actual authorized signatory name
+            'authorised_signatory_designation' => 'CEO', // Replace with actual designation
+            'authorised_signatory_sex' => 'MALE', // Replace with actual sex
+            'authorised_signatory_dob' => '1990-01-01', // Replace with actual date of birth
+            'authorised_signatory_pan' => 'ABCDE1234F', // Replace with actual PAN number
+            'authorised_signatory_aadhar' => '123456789012', // Replace with actual Aadhar number
+            'organization_email' => 'organization@example.com', // Replace with actual organization email
+            'organization_phone' => '9876543210', // Replace with actual organization phone number
+            'firm_pan_no' => 'FIRMPAN123', // Replace with actual firm PAN number
             'status' => 1, // Replace with actual status
         ]);
-
     }
 }
