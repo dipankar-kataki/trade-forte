@@ -23,7 +23,6 @@ class ExporterSeeder extends Seeder
         Exporter::create([
             'account_created_by' => 1,
             'name' => 'Exporter Name', // Replace with actual exporter name
-            'email' => 'exporter@example.com', // Replace with actual email
             'addresses' => 'Exporter Address', // Replace with actual address
             'pincode' => '123456', // Replace with actual pincode
             'gst_no' => 'ABC123456789', // Replace with actual GST number

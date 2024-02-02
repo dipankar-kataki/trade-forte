@@ -17,7 +17,6 @@ class CreateExportersTable extends Migration
             $table->id();
             $table->unsignedBigInteger('account_created_by');
             $table->string('name');
-            $table->string('email');
             $table->string('addresses');
             $table->string('pincode');
             $table->string('gst_no');
