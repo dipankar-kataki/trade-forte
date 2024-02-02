@@ -16,11 +16,14 @@ class Consignee extends Model
     {
         return [
             'name' => 'required|string|max:255',
-            'address' => 'nullable|string|max:255',
+            'addresses' => 'nullable|string|max:255',
             'country' => 'required|string|max:255',
+            'state' => 'required|string|max:255',
             'license_no' => 'nullable|string|max:255',
             'phone' => 'required|string|max:255',
             'pin_code' => 'nullable|string|max:255',
+            'category' => 'required|string|max:255',
+
         ];
     }
 
@@ -28,7 +31,7 @@ class Consignee extends Model
     {
         return [
             'name' => 'sometimes|string|max:255',
-            'address' => 'sometimes|string|max:255',
+            'addresses' => 'sometimes|string|max:255',
             'country' => 'sometimes|string|max:255',
             'license_no' => 'sometimes|string|max:255',
             'phone' => 'sometimes|string|max:255',

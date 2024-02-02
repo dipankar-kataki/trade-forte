@@ -18,19 +18,28 @@ class CreateExportersTable extends Migration
             $table->unsignedBigInteger('account_created_by');
             $table->string('name');
             $table->string('email');
-            $table->string('address');
+            $table->string('addresses');
             $table->string('pincode');
             $table->string('phone')->unique();
-            $table->string('gst_no')->nullable();
-            $table->string('iec_no')->nullable();
-            $table->string('logo')->nullable();
-            $table->string('logo_height')->nullable();
-            $table->string('logo_width')->nullable();
-            $table->string('lut_no')->nullable();
-            $table->string('pan_no')->nullable();
+            $table->string('gst_no');
+            $table->string('iec_no');
+            $table->string('logo');
+            $table->string('customer_category');
+            $table->string("organization_type");
+            $table->string('lut_no');
+            $table->string('state')->nullable();
+            $table->string('organization_reg_no')->nullable();
+            $table->string('authorised_signatory_name')->nullable();
+            $table->string('authorised_signatory_designation')->nullable();
+            $table->string('authorised_signatory_sex')->nullable();
+            $table->string('authorised_signatory_dob')->nullable();
+            $table->string('authorised_signatory_pan')->nullable();
+            $table->string('authorised_signatory_aadhar')->nullable();
+            $table->string('organization_email')->nullable();
+            $table->string('organization_phone')->nullable();
+            $table->string('firm_pan_no')->nullable();
             $table->boolean('status')->default(1);
             $table->timestamps();
-
             $table->foreign('account_created_by')->references('id')->on('users');
         });
     }

@@ -22,7 +22,7 @@ class CreateBankAccountsTable extends Migration
             $table->string('account_name');
             $table->string('account_no')->unique();
             $table->string('ifsc_code');
-            $table->string('auth_dealer_code');
+            $table->string('auth_dealer_code')->nullable();
             $table->string('swift_code')->nullable();
             $table->boolean('status')->default(1);
             $table->timestamps();

@@ -41,6 +41,7 @@ class BankAccount extends Model
             'ifsc_code' => 'sometimes|string|max:255',
             'swift_code' => 'sometimes|string|max:255',
             'status' => 'sometimes|boolean',
+
         ];
     }
 

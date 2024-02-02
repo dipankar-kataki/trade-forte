@@ -23,6 +23,10 @@ class CreateConsigneesTable extends Migration
             $table->string('phone');
             $table->string('pin_code')->nullable();
             $table->boolean('status')->default(1);
+            $table->string('authorised_signatory_name')->nullable();
+            $table->string('authorised_signatory_designation')->nullable();
+            $table->string('organization_email')->nullable();
+            $table->string('organization_phone')->nullable();
             $table->timestamps();
             $table->foreign('account_created_by')->references('id')->on('users');
         });
