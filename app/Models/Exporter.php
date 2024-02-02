@@ -22,7 +22,6 @@ class Exporter extends Model
             'email' => 'nullable|email|max:255',
             'addresses' => 'required',
             'pincode' => 'required|integer|max:9999999999',
-            'phone' => 'required|string|max:15',
             'gst_no' => 'required|string|max:30',
             'iec_no' => 'required|string|max:30',
             'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:10240',
