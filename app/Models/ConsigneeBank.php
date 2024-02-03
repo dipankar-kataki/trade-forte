@@ -20,7 +20,7 @@ class ConsigneeBank extends Model
     public static function createRule()
     {
         return [
-            'consignees_id' => 'required|exists:consignees,id',
+            'consignee_id' => 'required|exists:consignees,id',
             'bank_name' => 'required|string|max:255',
             'branch_name' => 'required|string|max:255',
             'forex_account_name' => 'required|string|max:255',
