@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\ConsigneesBankController;
+namespace App\Http\Controllers\ConsigneesBank;
 
 use App\Http\Controllers\Controller;
-use App\Models\ConsigneeBankModel;
 use App\Models\Consignee;
+use App\Models\ConsigneeBank;
 use App\Traits\ApiResponse;
 use App\Traits\CreateUserActivityLog;
 use Illuminate\Database\QueryException;
@@ -13,13 +13,13 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
-class ConsigneesBankController extends Controller
+class ConsigneeBankController extends Controller
 {
     use ApiResponse;
     use CreateUserActivityLog;
     public function create(Request $request)
     {
-        $validator = Validator::make($request->all(), ConsigneeBankModel::createRule());
+        $validator = Validator::make($request->all(), ConsigneeBank::createRule());
         if ($validator->fails()) {
             return $this->error('Oops!' . $validator->errors()->first(), null, null, 400);
         }
@@ -33,10 +33,10 @@ class ConsigneesBankController extends Controller
             DB::beginTransaction();
 
             if ($bankExistForExporter) {
-                $bank = ConsigneeBankModel::create($data);
+                $bank = ConsigneeBank::create($data);
                 $this->createLog($user_id, "Bank account updated.", "bankaccount", $bank->id);
             } else {
-                $bank = ConsigneeBankModel::create($data);
+                $bank = ConsigneeBank::create($data);
                 $this->createLog($user_id, "Bank account added.", "bankaccount", $bank->id);
             }
 
@@ -54,14 +54,14 @@ class ConsigneesBankController extends Controller
 
     public function index(Request $request)
     {
-        $accounts = ConsigneeBankModel::latest()->paginate(10);
+        $accounts = ConsigneeBank::latest()->paginate(10);
         return $this->success("Bank account list.", $accounts, null, 200);
     }
 
     public function show(Request $request)
     {
         try {
-            $account = ConsigneeBankModel::where(function ($query) use ($request) {
+            $account = ConsigneeBank::where(function ($query) use ($request) {
                 $query->where('id', $request->id)
                     ->orWhere('account_no', $request->id);
             })->get();
@@ -76,21 +76,21 @@ class ConsigneesBankController extends Controller
 
     public function update(Request $request)
     {
-        $account = ConsigneeBankModel::where(function ($query) use ($request) {
+        $account = ConsigneeBank::where(function ($query) use ($request) {
             $query->where('id', $request->id)
                 ->orWhere('account_no', $request->id);
         })->first();
         if (!$account) {
             return $this->error("Account not found.", null, null, 404);
         }
-        $validator = Validator::make($request->all(), ConsigneeBankModel::updateRule());
+        $validator = Validator::make($request->all(), ConsigneeBank::updateRule());
         if ($validator->fails()) {
             return $this->error('Oops!' . $validator->errors()->first(), null, null, 400);
         } else {
             try {
                 $user_id = Auth::id();
                 DB::beginTransaction();
-                ConsigneeBankModel::where('id', $request->bankAccountId)->update($request->all());
+                ConsigneeBank::where('id', $request->bankAccountId)->update($request->all());
                 $this->createLog($user_id, "Bank account updated.", "bankaccount", $request->id);
                 DB::commit();
                 return $this->success("Bank Account updated successfully.", null, null, 200);
@@ -105,7 +105,7 @@ class ConsigneesBankController extends Controller
     }
     public function destroy(Request $request)
     {
-        $account = ConsigneeBankModel::where(function ($query) use ($request) {
+        $account = ConsigneeBank::where(function ($query) use ($request) {
             $query->where('id', $request->id)
                 ->orWhere('account_no', $request->id);
         })->first();
@@ -113,7 +113,7 @@ class ConsigneesBankController extends Controller
             return $this->error("Account not found.", null, null, 404);
         } else {
             try {
-                $account = ConsigneeBankModel::find($request->id);
+                $account = ConsigneeBank::find($request->id);
                 if (!$account) {
                     return $this->error("Bank account not found.", null, null, 404);
                 }
@@ -130,3 +130,4 @@ class ConsigneesBankController extends Controller
         }
     }
 }
+
