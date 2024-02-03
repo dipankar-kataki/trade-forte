@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\BankAccounts\BankAccountController;
-use App\Http\Controllers\BankAccounts\ConsigneesBankController;
+use App\Http\Controllers\ConsigneeBank\ConsigneesBankController;
 use App\Http\Controllers\Consignees\ConsigneeController;
 use App\Http\Controllers\Country\CountryController;
 use App\Http\Controllers\Declarations\DeclarationController;
