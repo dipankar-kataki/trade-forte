@@ -17,13 +17,13 @@ class Consignee extends Model
         return [
             'name' => 'required|string|max:255',
             'address' => 'nullable|string|max:255',
-            'country' => 'required|string|max:255',
+            'foreign_business_country' => 'required|string|max:255',
             'state' => 'required|string|max:255',
             'license_no' => 'nullable|string|max:255',
             'organization_phone' => 'sometimes|string|max:255',
             'organization_email' => 'sometimes|string|max:255',
             'pin_code' => 'nullable|string|max:255',
-            'customer_category' => 'required|string|in:importer,exporter',
+            'foreign_category' => 'required|string|in:importer,exporter',
             'authorised_signatory_name' => 'required|string|max:255',
             'authorised_signatory_designation' => 'required|string|max:255',
         ];
