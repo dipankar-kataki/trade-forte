@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\BankAccounts;
+namespace App\Http\Controllers\ConsigneesBankController;
 
 use App\Http\Controllers\Controller;
 use App\Models\ConsigneeBankModel;
