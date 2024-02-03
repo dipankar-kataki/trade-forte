@@ -22,7 +22,7 @@ class ConsigneeSeeder extends Seeder
             'account_created_by' => 1,
             'name' => 'Consignee Name',
             'address' => 'Consignee Address',
-            'country' => 'India',
+            'foreign_business_country' => 'India',
             "organization_phone" => 1243567890,
             "organization_email" => "temp@gmail.com",
             'license_no' => '1234564584',
