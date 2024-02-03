@@ -27,6 +27,7 @@ class ConsigneeSeeder extends Seeder
             "organization_email" => "temp@gmail.com",
             'license_no' => '1234564584',
             'pin_code' => '123456',
+            'state' => 'new york',
             'status' => 1,
             "foreign_category" => "importer"
         ]);

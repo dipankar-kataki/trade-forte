@@ -18,6 +18,7 @@ class CreateConsigneesTable extends Migration
             $table->unsignedBigInteger('account_created_by');
             $table->string('name');
             $table->string('address')->nullable();
+            $table->string('state')->nullable();
             $table->string('foreign_business_country');
             $table->string('foreign_category');
             $table->string('license_no')->nullable();
