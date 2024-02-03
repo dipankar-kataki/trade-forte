@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BankAccounts\BankAccountController;
+use App\Http\Controllers\BankAccounts\ConsigneesBankController;
 use App\Http\Controllers\Consignees\ConsigneeController;
 use App\Http\Controllers\Country\CountryController;
 use App\Http\Controllers\Declarations\DeclarationController;
@@ -50,19 +51,27 @@ Route::group(["middleware" => 'auth:sanctum'], function () {
         Route::put('update/{exporterId}', [ExporterController::class, 'update']);
         Route::delete('delete/{exporterId}', [ExporterController::class, 'destroy']);
     });
-    Route::group(['prefix' => 'bankaccount'], function () {
+    Route::group(['prefix' => 'exporters/bankaccount'], function () {
         Route::post('create', [BankAccountController::class, 'create']);
         Route::get('list', [BankAccountController::class, 'index']);
         Route::get('get/{id}', [BankAccountController::class, 'show']);
         Route::put('update/{id}', [BankAccountController::class, 'update']);
         Route::delete('delete/{id}', [BankAccountController::class, 'destroy']);
     });
+
     Route::group(['prefix' => 'consignees'], function () {
         Route::post('create', [ConsigneeController::class, 'create']);
         Route::get('list', [ConsigneeController::class, 'index']);
         Route::get('get/{id}', [ConsigneeController::class, 'show']);
         Route::put('update/{id}', [ConsigneeController::class, 'update']);
         Route::delete('delete/{id}', [ConsigneeController::class, 'destroy']);
+    });
+    Route::group(['prefix' => 'consignees/bankaccount'], function () {
+        Route::post('create', [ConsigneesBankController::class, 'create']);
+        Route::get('list', [ConsigneesBankController::class, 'index']);
+        Route::get('get/{id}', [ConsigneesBankController::class, 'show']);
+        Route::put('update/{id}', [ConsigneesBankController::class, 'update']);
+        Route::delete('delete/{id}', [ConsigneesBankController::class, 'destroy']);
     });
     Route::group(['prefix' => 'country'], function () {
         Route::post('create', [CountryController::class, 'create']);
@@ -85,10 +94,7 @@ Route::group(["middleware" => 'auth:sanctum'], function () {
     });
     Route::group(['prefix' => 'invoiceitems'], function () {
         Route::post('create', [InvoiceItemsController::class, 'create']);
-        // Route::get('list', [InvoiceItemsController::class, 'index']);
         Route::get('get/{id}', [InvoiceItemsController::class, 'show']);
-        // Route::put('update/{bankAccountId}', [InvoiceItemsController::class, 'update']);
-        // Route::delete('delete/{bankAccountId}', [InvoiceItemsController::class, 'destroy']);
     });
     Route::group(['prefix' => 'modules'], function () {
         Route::post('create', [ModuleController::class, 'create']);
