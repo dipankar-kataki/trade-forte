@@ -19,8 +19,8 @@ class Declaration extends Model
     public static function createRule()
     {
         return [
-            "declaration" => "required|string",
-            "invoice_id" => "required|exists:invoice_details,id",
+            "invoice_details_id" => "required|exists:invoice_details,id",
+            "declaration" => "required|text",
         ];
     }
     public static function updateRule()
@@ -31,6 +31,6 @@ class Declaration extends Model
     }
     public function getdeclaration()
     {
-        return $this->belongsTo(InvoiceDetail::class, 'invoice_id', 'invoice_id');
+        return $this->belongsTo(InvoiceDetail::class, 'invoice_details_id', 'id');
     }
 }

@@ -144,5 +144,8 @@ Route::group(["middleware" => 'auth:sanctum'], function () {
     Route::group(['prefix' => 'payments'], function () {
         Route::post('create', [PaymentsController::class, 'create']);
     });
+    Route::group(['prefix' => 'transport'], function () {
+        Route::post('create', [PaymentsController::class, 'create']);
+    });
 });
 
