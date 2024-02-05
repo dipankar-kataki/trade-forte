@@ -26,12 +26,14 @@ class InvoiceController extends Controller
             return $this->error('Oops!' . $validator->errors()->first(), null, null, 400);
         } else {
             try {
-                $data = $request->all();
+                $data = $validator->validated();
                 $user_id = Auth::id();
                 $data["users_id"] = $user_id;
                 $uuid = Str::uuid()->toString();
                 $uniqueIdentifier = substr($uuid, -8);
                 $data["invoice_id"] = 'INV-' . now()->format('dmy') . '-' . $uniqueIdentifier;
+                $data["invoice_date"] = Carbon::parse($data['invoice_date']);
+                $data["po_contract_date"] = Carbon::parse($data['po_contract_date']);
 
                 DB::beginTransaction();
                 $invoice = InvoiceDetail::create($data);
