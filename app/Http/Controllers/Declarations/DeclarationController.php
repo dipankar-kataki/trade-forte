@@ -20,7 +20,7 @@ class DeclarationController extends Controller
     public function create(Request $request)
     {
         $user_id = Auth::id();
-        $declarations = $request->declarations;
+        $declarations = $request->declaration;
 
         // Ensure that $invoiceItemsData is an array
         if (!is_array($declarations)) {
