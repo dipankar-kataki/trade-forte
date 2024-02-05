@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Declaration;
 use App\Traits\ApiResponse;
 use App\Traits\CreateUserActivityLog;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -18,21 +19,35 @@ class DeclarationController extends Controller
     use CreateUserActivityLog;
     public function create(Request $request)
     {
-        $validator = Validator::make($request->all(), Declaration::createRule());
-        if ($validator->fails()) {
-            return $this->error('Oops!' . $validator->errors()->first(), null, null, 400);
+        $user_id = Auth::id();
+        $declarations = $request->declarations;
+
+        // Ensure that $invoiceItemsData is an array
+        if (!is_array($declarations)) {
+            return $this->error('Invalid data format. Expected an array of declarations.', null, null, 400);
         } else {
             try {
-                $data = $request->all();
-                $user_id = Auth::id();
+                $data["users_id"] = $user_id;
+
                 DB::beginTransaction();
-                Declaration::create($data);
-                $this->createLog($user_id, "Declaration added.", "declarations", $request->id);
+                // Check if payment already exists
+                $declaration = Declaration::where("invoice_details_id", $request->invoice_details_id)->first();
+                if (!$declaration) {
+                    // Create a new payment if it doesn't exist
+                    $declaration = Declaration::create($data);
+                    $this->createLog($user_id, "Declaration details added.", "declarationS", $declaration->id);
+                } else {
+                    // Update existing payment
+                    $declaration->declarations = $request->declarations;
+
+                    $this->createLog($user_id, "Tranportation details edited.", "payments", $declaration->id);
+                    $declaration->save();
+                }
                 DB::commit();
-                return $this->success("Declaration created Successfully!", null, null, 201);
-            } catch (\Exception $e) {
+                return $this->success("Transportation details added Successfully!", null, null, 201);
+            } catch (QueryException $e) {
                 DB::rollBack();
-                return $this->error('Oops! Something Went Wrong.' . $e->getMessage(), null, null, 500);
+                return $this->error('Oops! Something Went Wrong. ' . $e->getMessage(), null, null, 500);
             }
         }
     }
