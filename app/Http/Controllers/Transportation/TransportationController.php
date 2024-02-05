@@ -52,7 +52,7 @@ class TransportationController extends Controller
                     $tranport->save();
                 }
                 DB::commit();
-                return $this->success("Payments details added Successfully!", null, null, 201);
+                return $this->success("Transportation details added Successfully!", null, null, 201);
             } catch (QueryException $e) {
                 DB::rollBack();
                 return $this->error('Oops! Something Went Wrong. ' . $e->getMessage(), null, null, 500);
