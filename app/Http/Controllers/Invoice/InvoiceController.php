@@ -73,7 +73,7 @@ class InvoiceController extends Controller
                 ->orWhere("id", $request->id)
                 ->get()->first();
 
-            if ($invoice->isEmpty()) {
+            if (!$invoice) {
                 return $this->error("Invoice not found.", null, null, 404);
             }
             json_decode($invoice->declarations->declaration);
