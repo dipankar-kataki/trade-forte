@@ -40,7 +40,7 @@ class DeclarationController extends Controller
                     $this->createLog($user_id, "Declaration details added.", "declarationS", $declaration->id);
                 } else {
                     // Update existing payment
-                    $declaration->declarations = $request->declarations;
+                    $declaration->declaration = $request->declaration;
                     $declaration->save();
                     $this->createLog($user_id, "Tranportation details edited.", "payments", $declaration->id);
                 }
