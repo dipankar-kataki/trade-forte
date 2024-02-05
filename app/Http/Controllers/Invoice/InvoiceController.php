@@ -71,12 +71,12 @@ class InvoiceController extends Controller
             $invoice = InvoiceDetail::with(['exporters', 'consignees', 'payments', 'transport', 'declarations'])
                 ->where('invoice_id', $request->id)
                 ->orWhere("id", $request->id)
-                ->get();
+                ->get()->first();
 
             if ($invoice->isEmpty()) {
                 return $this->error("Invoice not found.", null, null, 404);
             }
-            // json_decode($invoice->declarations->declaration);
+            json_decode($invoice->declarations->declaration);
             return $this->success("Invoice details.", $invoice, null, 200);
         } catch (\Exception $e) {
             return $this->error('Oops! Something Went Wrong.' . $e->getMessage(), null, null, 500);
