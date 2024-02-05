@@ -13,7 +13,7 @@ class TransportationTable extends Migration
      */
     public function up()
     {
-        Schema::create('payments', function (Blueprint $table) {
+        Schema::create('transportation', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('users_id');
             $table->unsignedBigInteger('invoice_details_id');
