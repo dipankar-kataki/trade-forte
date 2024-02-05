@@ -70,8 +70,12 @@ class InvoiceDetail extends Model
     {
         return $this->hasOne(Payments::class, 'invoice_details_id');
     }
+    public function transport()
+    {
+        return $this->hasOne(Transportation::class, 'invoice_details_id');
+    }
     public function declarations()
     {
-        return $this->hasOne(Declaration::class, 'invoice_id');
+        return $this->hasOne(Declaration::class, 'invoice_details_id');
     }
 }
