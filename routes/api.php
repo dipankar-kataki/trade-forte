@@ -13,6 +13,7 @@ use App\Http\Controllers\Lorries\LorryController;
 use App\Http\Controllers\LorryItems\LorryItemsController;
 use App\Http\Controllers\Module\ModuleController;
 use App\Http\Controllers\Packaging\PackagingController;
+use App\Http\Controllers\Payments\PaymentsController;
 use App\Http\Controllers\ShippingAddress\ShippingAddressController;
 use App\Http\Controllers\UserActivity\UserActivityController;
 use Illuminate\Support\Facades\Route;
@@ -139,6 +140,9 @@ Route::group(["middleware" => 'auth:sanctum'], function () {
     });
     Route::group(['prefix' => 'hsncode'], function () {
         Route::get('list/{hsn}', [HsnController::class, 'list']);
+    });
+    Route::group(['prefix' => 'payments'], function () {
+        Route::post('create', [PaymentsController::class, 'create']);
     });
 });
 

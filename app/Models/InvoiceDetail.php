@@ -66,8 +66,12 @@ class InvoiceDetail extends Model
             'id'
         );
     }
+    public function payments()
+    {
+        return $this->hasOne(Payments::class, 'invoice_details_id');
+    }
     public function declarations()
     {
-        return $this->hasMany(Declaration::class, 'invoice_id');
+        return $this->hasOne(Declaration::class, 'invoice_id');
     }
 }

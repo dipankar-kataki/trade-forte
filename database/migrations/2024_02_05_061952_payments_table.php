@@ -17,10 +17,12 @@ class PaymentsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('bank_accounts_id');
             $table->unsignedBigInteger('users_id');
+            $table->unsignedBigInteger('invoice_details_id');
             $table->string('invoice_currency');
             $table->string('terms_of_payment');
             $table->foreign('bank_accounts_id')->references('id')->on('bank_accounts');
             $table->foreign('users_id')->references('id')->on('users');
+            $table->foreign('invoice_details_id')->references('id')->on('invoice_details');
             $table->timestamps();
         });
     }

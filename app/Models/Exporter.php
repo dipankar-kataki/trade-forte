@@ -74,8 +74,12 @@ class Exporter extends Model
     }
 
 
-    public function account_created_by(
-    ) {
+    public function account_created_by()
+    {
         return $this->belongsTo(User::class, 'users_id', 'id');
+    }
+    public function invoices()
+    {
+        return $this->hasMany(InvoiceDetail::class, 'exporter_id', 'id');
     }
 }
