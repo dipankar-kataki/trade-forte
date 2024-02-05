@@ -20,11 +20,11 @@ class DeclarationController extends Controller
     public function create(Request $request)
     {
         $user_id = Auth::id();
-        $declarations = $request->declaration;
+        $declaration = $request->declaration;
 
         // Ensure that $invoiceItemsData is an array
-        if (!is_array($declarations)) {
-            return $this->error('Invalid data format. Expected an array of declarations.', null, null, 400);
+        if (!is_array($declaration)) {
+            return $this->error('Invalid data format. Expected an array of declaration.', null, null, 400);
         } else {
             try {
                 $data["users_id"] = $user_id;
@@ -34,18 +34,17 @@ class DeclarationController extends Controller
                 $declaration = Declaration::where("invoice_details_id", $request->invoice_details_id)->first();
                 if (!$declaration) {
                     // Create a new payment if it doesn't exist
-                    $data["invoice_details_id"] = $user_id;
-
+                    $data["invoice_details_id"] = $request->invoice_details_id;
                     $declaration = Declaration::create($data);
-                    $this->createLog($user_id, "Declaration details added.", "declarationS", $declaration->id);
+                    $this->createLog($user_id, "Declaration details added.", "declarations", $declaration->id);
                 } else {
                     // Update existing payment
                     $declaration->declaration = $request->declaration;
                     $declaration->save();
-                    $this->createLog($user_id, "Tranportation details edited.", "payments", $declaration->id);
+                    $this->createLog($user_id, "Declaration details edited.", "payments", $declaration->id);
                 }
                 DB::commit();
-                return $this->success("Transportation details added Successfully!", null, null, 201);
+                return $this->success("Declaration details added Successfully!", null, null, 201);
             } catch (QueryException $e) {
                 DB::rollBack();
                 return $this->error('Oops! Something Went Wrong. ' . $e->getMessage(), null, null, 500);
