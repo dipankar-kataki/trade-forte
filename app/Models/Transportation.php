@@ -18,11 +18,17 @@ class Transportation extends Model
     {
         return [
             'invoice_details_id' => 'required|exists:invoice_details,id',
-            'details_created_by' => 'exists:users,id',
             'mode_of_transport' => 'required|string',
             'bl_awb_lr_no' => 'required|string',
-            'bl_awb_lr_date' => 'required|string',
+            'bl_awb_lr_date' => 'required|date',
             'transporter_name' => 'required|string',
+            'vehicle_vessel_flight_no' => 'required|string',
+            'challan_number' => 'required|string',
+            'challan_date' => 'required|date',
+            'eway_biil_no' => 'required|string',
+            'eway_biil_date' => 'required|date',
+            'pre_carriage_by' => 'required|string',
+            'place_of_pre_carriage' => 'required|string',
         ];
     }
     public function invoice()

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Transportation;
 use App\Traits\ApiResponse;
 use App\Traits\CreateUserActivityLog;
+use Carbon\Carbon;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -30,17 +31,17 @@ class TransportationController extends Controller
                 $data = $validator->validated();
                 $user_id = Auth::id();
                 $data["users_id"] = $user_id;
+                $data["bl_awb_lr_date"] = Carbon::parse($data['bl_awb_lr_date']);
+                $data["challan_date"] = Carbon::parse($data['challan_date']);
+                $data["eway_biil_date"] = Carbon::parse($data['eway_biil_date']);
 
                 DB::beginTransaction();
-
                 // Check if payment already exists
                 $tranport = Transportation::where("invoice_details_id", $request->invoice_details_id)->first();
-
                 if (!$tranport) {
                     // Create a new payment if it doesn't exist
                     $tranport = Transportation::create($data);
                     $this->createLog($user_id, "Tranportation details added.", "payments", $tranport->id);
-
                 } else {
                     // Update existing payment
                     $tranport->mode_of_transport = $request->mode_of_transport;
@@ -50,9 +51,7 @@ class TransportationController extends Controller
                     $this->createLog($user_id, "Tranportation details edited.", "payments", $tranport->id);
                     $tranport->save();
                 }
-
                 DB::commit();
-
                 return $this->success("Payments details added Successfully!", null, null, 201);
             } catch (QueryException $e) {
                 DB::rollBack();

@@ -21,6 +21,15 @@ class TransportationTable extends Migration
             $table->string('bl_awb_lr_no');
             $table->date('bl_awb_lr_date');
             $table->string('transporter_name');
+
+            $table->string('vehicle_vessel_flight_no');
+            $table->string('challan_number');
+            $table->date('challan_date');
+            $table->string('eway_biil_no');
+            $table->date('eway_biil_date');
+            $table->string('pre_carriage_by');
+            $table->string('place_of_pre_carriage');
+
             $table->foreign('users_id')->references('id')->on('users');
             $table->foreign('invoice_details_id')->references('id')->on('invoice_details');
             $table->timestamps();
