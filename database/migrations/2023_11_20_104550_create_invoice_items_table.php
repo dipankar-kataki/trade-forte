@@ -20,8 +20,6 @@ class CreateInvoiceItemsTable extends Migration
             $table->unsignedBigInteger('users_id');
             $table->string('hsn_code');
             $table->text('product_name');
-            $table->string('unit_type');
-            $table->integer('unit_value');
             $table->integer('uqc');
             $table->integer('quantity');
             $table->integer('net_weight_of_each_unit');

@@ -21,13 +21,13 @@ class InvoiceItem extends Model
     {
         return [
             'invoice_details_id' => 'required|exists:invoice_details,id',
-            'hsn_code' => 'nullable|string',
-            'description' => 'required|string',
-            'unit_type' => 'required|string',
-            'unit_value' => 'required|integer',
-            'weight' => 'required|integer',
-            'net_weight' => 'nullable|integer',
-            'total_value' => 'nullable|integer',
+            'hsn_code' => 'required|string',
+            'product_name' => 'required|string',
+            'cess_rate' => 'required|integer',
+            'quantity' => 'required|integer',
+            'gst_rate' => 'required|integer',
+            'net_weight_of_each_unit' => 'required|integer',
+            'uqc' => 'required|string',
         ];
     }
 
