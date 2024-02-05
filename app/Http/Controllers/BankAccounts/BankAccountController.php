@@ -64,7 +64,7 @@ class BankAccountController extends Controller
     {
         try {
             $account = BankAccount::where(function ($query) use ($request) {
-                $query->where('id', $request->id)
+                $query->where('exporter_id', $request->id)
                     ->orWhere('account_no', $request->id);
             })->get();
             if (!$account) {
