@@ -20,7 +20,7 @@ class Declaration extends Model
     {
         return [
             "invoice_details_id" => "required|exists:invoice_details,id",
-            "declaration" => "required|text",
+            "declaration" => "required|string|max:65535",
         ];
     }
     public static function updateRule()

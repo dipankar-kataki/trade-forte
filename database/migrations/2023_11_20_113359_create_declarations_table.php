@@ -15,10 +15,11 @@ class CreateDeclarationsTable extends Migration
     {
         Schema::create('declarations', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('country_id');
+            $table->unsignedBigInteger('invoice_details_id');
+            $table->unsignedBigInteger('users_id');
             $table->longText('declaration');
-            $table->string("type");
-            $table->foreign('country_id')->references('id')->on('countries');
+            $table->foreign('invoice_details_id')->references('id')->on('invoice_details');
+            $table->foreign('users_id')->references('id')->on('users');
             $table->timestamps();
         });
     }
