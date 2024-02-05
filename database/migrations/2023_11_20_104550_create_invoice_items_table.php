@@ -16,21 +16,20 @@ class CreateInvoiceItemsTable extends Migration
     {
         Schema::create('invoice_items', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('invoice_id');
-            $table->unsignedBigInteger('items_added_by');
-            $table->string('hsn_code')->nullable();
-            $table->text('product_name')->nullable();
-            $table->string('unit_type')->nullable();
+            $table->unsignedBigInteger('invoice_details_id');
+            $table->unsignedBigInteger('users_id');
+            $table->string('hsn_code');
+            $table->text('product_name');
+            $table->string('unit_type');
             $table->integer('unit_value');
             $table->integer('uqc');
             $table->integer('quantity');
             $table->integer('net_weight_of_each_unit');
-            $table->integer('total_value');
             $table->integer('gst_rate');
             $table->integer('cess_rate');
             $table->timestamps();
-            $table->foreign('items_added_by')->references('id')->on('users');
-            $table->foreign('invoice_id')->references('id')->on('invoice_details');
+            $table->foreign('users_id')->references('id')->on('users');
+            $table->foreign('invoice_details_id')->references('id')->on('invoice_details');
         });
     }
 

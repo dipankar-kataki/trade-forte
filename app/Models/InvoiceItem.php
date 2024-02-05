@@ -20,7 +20,7 @@ class InvoiceItem extends Model
     public static function createRule()
     {
         return [
-            'invoice_id' => 'required|exists:invoice_details,id',
+            'invoice_details_id' => 'required|exists:invoice_details,id',
             'hsn_code' => 'nullable|string',
             'description' => 'required|string',
             'unit_type' => 'required|string',
