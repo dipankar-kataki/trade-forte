@@ -76,6 +76,6 @@ class Exporter extends Model
 
     public function account_created_by(
     ) {
-        return $this->belongsTo(User::class, 'account_created_by', 'id');
+        return $this->belongsTo(User::class, 'users_id', 'id');
     }
 }

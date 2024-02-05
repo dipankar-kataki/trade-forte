@@ -28,7 +28,7 @@ class ExporterController extends Controller
                 $data["logo"] = $request->file("logo")->store("logos");
                 $user_id = Auth::id();
                 $data["addresses"] = json_encode($request->addresses);
-                $data["account_created_by"] = Auth::id();
+                $data["users_id"] = Auth::id();
                 DB::beginTransaction();
                 Exporter::create($data);
                 $this->createLog($user_id, "Exporter details added.", "exporters", $request->id);

@@ -12,7 +12,7 @@ class CreateInvoiceDetailsTable extends Migration
     {
         Schema::create('invoice_details', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('details_added_by');
+            $table->unsignedBigInteger('users_id');
             $table->unsignedBigInteger('exporter_id');
             $table->unsignedBigInteger('consignee_id');
             $table->string('invoice_id')->unique()->index();
@@ -37,7 +37,7 @@ class CreateInvoiceDetailsTable extends Migration
             $table->string('po_contract_date')->nullable();
             $table->string("remarks")->nullable();
 
-            $table->foreign('details_added_by')->references('id')->on('users');
+            $table->foreign('users_id')->references('id')->on('users');
             $table->foreign('exporter_id')->references('id')->on('exporters');
             $table->foreign('consignee_id')->references('id')->on('consignees');
             $table->timestamps();

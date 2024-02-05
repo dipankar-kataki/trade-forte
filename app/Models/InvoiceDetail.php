@@ -40,17 +40,10 @@ class InvoiceDetail extends Model
             'p.o/contract_date' => 'required|date',
         ];
     }
-    public static function updateRule()
-    {
-        return [
-            'invoice_currency' => 'required|string',
-            'bank_details' => 'required|exists:bank_accounts, id',
-            "terms_of_payment" => "required|string",
-        ];
-    }
+
     public function user()
     {
-        return $this->belongsTo(User::class, 'details_added_by', 'id');
+        return $this->belongsTo(User::class, 'users_id', 'id');
     }
     public function items()
     {

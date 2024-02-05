@@ -4,17 +4,19 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateShippingAddressesTable extends Migration {
+class CreateShippingAddressesTable extends Migration
+{
     /**
      * Run the migrations.
      *
      * @return void
      */
-    public function up() {
+    public function up()
+    {
         Schema::create('shipping_addresses', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('consignee_id');
-            $table->unsignedBigInteger('details_created_by');
+            $table->unsignedBigInteger('users_id');
             $table->string('name');
             $table->string('address');
             $table->string('country');
@@ -25,7 +27,7 @@ class CreateShippingAddressesTable extends Migration {
             $table->timestamps();
 
             $table->foreign('consignee_id')->references('id')->on('consignees');
-            $table->foreign('details_created_by')->references('id')->on('users');
+            $table->foreign('users_id')->references('id')->on('users');
         });
     }
 
@@ -34,7 +36,8 @@ class CreateShippingAddressesTable extends Migration {
      *
      * @return void
      */
-    public function down() {
+    public function down()
+    {
         Schema::dropIfExists('shipping_addresses');
     }
 }

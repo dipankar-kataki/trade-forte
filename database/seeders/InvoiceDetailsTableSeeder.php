@@ -16,17 +16,18 @@ class InvoiceDetailsTableSeeder extends Seeder
     public function run()
     {
         // Clear existing data in the table
+        DB::table('invoice_details')->truncate();
 
         // Seed data
         $invoiceDetails = [
             [
-                'details_added_by' => 1,
+                'users_id' => 1,
                 'exporter_id' => 1,
                 'consignee_id' => 1,
                 'invoice_id' => 'INV-001',
-                'country_of_origin' => 'China', // Replace with actual seed license number
-                'country_of_export' => 'India', // Replace with actual fertilizer license number
-                "country_of_destination" => "Bhutan",
+                'country_of_origin' => 'China',
+                'country_of_export' => 'India',
+                'country_of_destination' => 'Bhutan',
                 'import_export_code' => 'IEC123456',
                 'port_of_loading' => 'Sample Port',
                 'port_of_destination' => 'Another Port',
@@ -34,11 +35,13 @@ class InvoiceDetailsTableSeeder extends Seeder
                 'valid_upto' => '2025-01-01',
                 'vehicle_no' => 'ABC123',
                 'insurance' => 'Yes',
-                // 'buyer_no' => 'BUYER456',
+                'incoterm' => 'FOB', // Add the missing fields with appropriate values
                 'invoice_date' => Carbon::now(),
                 'eway_bill_id' => 'EWB-001',
-                'created_at' => now(),
-                'updated_at' => now(),
+                'po_contract_number' => 'PO123',
+                'po_contract_date' => '2023-01-01',
+                'remarks' => 'Sample remarks',
+
             ],
             // Add more sample data as needed
         ];

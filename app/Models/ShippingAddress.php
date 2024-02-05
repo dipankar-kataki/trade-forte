@@ -5,17 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ShippingAddress extends Model {
+class ShippingAddress extends Model
+{
     use HasFactory;
 
     protected $table = 'shipping_addresses';
 
     protected $guarded = [];
 
-    public function user() {
-        return $this->belongsTo(User::class, 'details_created_by', 'id');
-    }
-    public static function createRule() {
+
+    public static function createRule()
+    {
         return [
             'consignee_id' => 'required|exists:consignees,id',
             'details_created_by' => 'exists:users,id',
@@ -27,7 +27,12 @@ class ShippingAddress extends Model {
             'status' => 'boolean',
         ];
     }
-    public function consignee() {
+    public function consignee()
+    {
         return $this->belongsTo(Consignee::class, 'consignee_id', 'id');
+    }
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'users_id', 'id');
     }
 }
