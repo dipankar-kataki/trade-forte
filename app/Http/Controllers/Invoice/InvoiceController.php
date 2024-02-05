@@ -28,7 +28,7 @@ class InvoiceController extends Controller
             try {
                 $data = $request->all();
                 $user_id = Auth::id();
-                $data["details_added_by"] = $user_id;
+                $data["users_id"] = $user_id;
                 $uuid = Str::uuid()->toString();
                 $uniqueIdentifier = substr($uuid, -8);
                 $data["invoice_id"] = 'INV-' . now()->format('dmy') . '-' . $uniqueIdentifier;
