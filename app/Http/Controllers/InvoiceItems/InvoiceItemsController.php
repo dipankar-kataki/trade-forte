@@ -32,7 +32,7 @@ class InvoiceItemsController extends Controller
             // Loop through each invoice item in the array and create a record
             foreach ($invoiceItemsData as $itemData) {
                 // Add user_id and calculate total_value for each item
-                $itemData["user_id"] = $user_id;
+                $itemData["users_id"] = $user_id;
 
                 // Create the InvoiceItem record
                 $item = InvoiceItem::create($itemData);
