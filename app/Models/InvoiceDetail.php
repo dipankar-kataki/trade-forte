@@ -19,7 +19,6 @@ class InvoiceDetail extends Model
             'country_of_origin' => 'required|string',
             'country_of_export' => 'required|string',
             'country_of_destination' => 'required|string',
-            'import_export_code' => 'required|string',
             "exporter_id" => "required|exists:exporters,id",
             "consignee_id" => "required|exists:consignees,id",
             'auth_dealer_code' => 'required|string',
@@ -36,8 +35,8 @@ class InvoiceDetail extends Model
             'eway_bill_id' => 'required|string',
             'category' => 'required|string|in:Domestic,Export',
             'type' => 'required|string|in:with_payment_of_igst, without_payment_of_igst',
-            'p.o/contract_number' => 'required|string',
-            'p.o/contract_date' => 'required|date',
+            'po_contract_number' => 'required|string',
+            'po_contract_date' => 'required|date',
         ];
     }
 
