@@ -18,7 +18,6 @@ class ShippingAddress extends Model
     {
         return [
             'consignee_id' => 'required|exists:consignees,id',
-            'details_created_by' => 'exists:users,id',
             'name' => 'required|string',
             'address' => 'required|string',
             'country' => 'required|string',

@@ -25,8 +25,9 @@ class ShippingAddressController extends Controller
             ]);
         } else {
             try {
-                $data = $request->all();
-                $data["details_created_by"] = Auth::id();
+                $data = $validator->validated();
+                $user_id = Auth::id();
+                $data["users_id"] = $user_id;
                 DB::beginTransaction();
                 $shipping = ShippingAddress::create($data);
                 $this->createLog($data["details_created_by"], "Shipping address added.", "shipping", $shipping->id);
