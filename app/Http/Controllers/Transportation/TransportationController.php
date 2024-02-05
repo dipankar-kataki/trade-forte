@@ -33,7 +33,7 @@ class TransportationController extends Controller
                 $data["users_id"] = $user_id;
                 $data["bl_awb_lr_date"] = Carbon::parse($data['bl_awb_lr_date']);
                 $data["challan_date"] = Carbon::parse($data['challan_date']);
-                $data["eway_biil_date"] = Carbon::parse($data['eway_biil_date']);
+                $data["eway_bill_date"] = Carbon::parse($data['eway_bill_date']);
 
                 DB::beginTransaction();
                 // Check if payment already exists
