@@ -25,8 +25,8 @@ class TransportationTable extends Migration
             $table->string('vehicle_vessel_flight_no');
             $table->string('challan_number');
             $table->date('challan_date');
-            $table->string('eway_biil_no');
-            $table->date('eway_biil_date');
+            $table->string('eway_bill_no');
+            $table->date('eway_bill_date');
             $table->string('pre_carriage_by');
             $table->string('place_of_pre_carriage');
 
