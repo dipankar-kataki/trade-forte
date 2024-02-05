@@ -34,14 +34,15 @@ class DeclarationController extends Controller
                 $declaration = Declaration::where("invoice_details_id", $request->invoice_details_id)->first();
                 if (!$declaration) {
                     // Create a new payment if it doesn't exist
+                    $data["invoice_details_id"] = $user_id;
+
                     $declaration = Declaration::create($data);
                     $this->createLog($user_id, "Declaration details added.", "declarationS", $declaration->id);
                 } else {
                     // Update existing payment
                     $declaration->declarations = $request->declarations;
-
-                    $this->createLog($user_id, "Tranportation details edited.", "payments", $declaration->id);
                     $declaration->save();
+                    $this->createLog($user_id, "Tranportation details edited.", "payments", $declaration->id);
                 }
                 DB::commit();
                 return $this->success("Transportation details added Successfully!", null, null, 201);
