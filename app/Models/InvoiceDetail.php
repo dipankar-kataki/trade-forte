@@ -21,7 +21,6 @@ class InvoiceDetail extends Model
             'country_of_destination' => 'required|string',
             "exporter_id" => "required|exists:exporters,id",
             "consignee_id" => "required|exists:consignees,id",
-            'auth_dealer_code' => 'required|string',
             'port_of_loading' => 'required|string',
             'port_of_destination' => 'required|string',
             "incoterm_cpt" => "required|string",
