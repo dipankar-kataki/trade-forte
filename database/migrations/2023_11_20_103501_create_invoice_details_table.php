@@ -24,13 +24,13 @@ class CreateInvoiceDetailsTable extends Migration
             $table->string('import_export_code')->nullable();
             $table->string('port_of_loading')->nullable();
             $table->string('port_of_destination')->nullable();
-            $table->string('freight')->nullable();
-            $table->string('valid_upto')->nullable();
-            $table->string('vehicle_no')->nullable();
-            $table->string('insurance')->nullable();
+            // $table->string('freight')->nullable();
+            // $table->string('valid_upto')->nullable();
+            // $table->string('vehicle_no')->nullable();
+            // $table->string('insurance')->nullable();
             $table->string("incoterm")->nullable();
             $table->timestamp('invoice_date')->default(Carbon::now());
-            $table->string('eway_bill_id')->nullable();
+            // $table->string('eway_bill_id')->nullable();
 
             $table->string("po_contract_number")->nullable();
             $table->string('po_contract_date')->nullable();
