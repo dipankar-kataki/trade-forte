@@ -68,7 +68,7 @@ class InvoiceController extends Controller
     public function show(Request $request)
     {
         try {
-            $invoice = InvoiceDetail::with(['exporters', 'consignees', 'payments', 'transport', 'declarations'])
+            $invoice = InvoiceDetail::with(['exporters', 'items', 'consignees', 'payments', 'transport', 'declarations'])
                 ->where('invoice_id', $request->id)
                 ->orWhere("id", $request->id)
                 ->get()->first();
