@@ -34,7 +34,7 @@ class InvoiceDetailsTableSeeder extends Seeder
                 'valid_upto' => '2025-01-01',
                 'vehicle_no' => 'ABC123',
                 'insurance' => 'Yes',
-                'buyer_no' => 'BUYER456',
+                // 'buyer_no' => 'BUYER456',
                 'invoice_date' => Carbon::now(),
                 'eway_bill_id' => 'EWB-001',
                 'created_at' => now(),
