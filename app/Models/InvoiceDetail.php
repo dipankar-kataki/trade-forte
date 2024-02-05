@@ -16,6 +16,8 @@ class InvoiceDetail extends Model
     public static function createRule()
     {
         return [
+            'category' => 'required|string|in:Domestic,Export',
+            'type' => 'required|string|in:with_payment_of_igst, without_payment_of_igst',
             'country_of_origin' => 'required|string',
             'country_of_export' => 'required|string',
             'country_of_destination' => 'required|string',
@@ -23,17 +25,14 @@ class InvoiceDetail extends Model
             "consignee_id" => "required|exists:consignees,id",
             'port_of_loading' => 'required|string',
             'port_of_destination' => 'required|string',
-            "incoterm_cpt" => "required|string",
+            "incoterm" => "required|string|in:EXW,FCA,FAS,FOB,CFR,CIF,CPT,CIP,DAP,DPU,DDP",
             "remarks" => "required|string",
             'freight' => 'required|string',
             'valid_upto' => 'required|date',
             'vehicle_no' => 'required|string',
             'insurance' => 'required|string',
-            'buyer_no' => 'required|string',
             'invoice_date' => 'required|date',
             'eway_bill_id' => 'required|string',
-            'category' => 'required|string|in:Domestic,Export',
-            'type' => 'required|string|in:with_payment_of_igst, without_payment_of_igst',
             'po_contract_number' => 'required|string',
             'po_contract_date' => 'required|date',
         ];
