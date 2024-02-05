@@ -17,7 +17,6 @@ class SuperAdminSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('users')->truncate();
 
         User::create([
             'name' => 'Super Admin',

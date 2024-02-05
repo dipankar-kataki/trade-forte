@@ -27,11 +27,11 @@ class DatabaseSeeder extends Seeder
             ExporterSeeder::class,
             ConsigneeSeeder::class,
             BankAccountsTableSeeder::class,
-            InvoiceDetailsTableSeeder::class,
-            InvoiceItemsTableSeeder::class,
-            PackagingDetailsTableSeeder::class,
-            LorriesTableSeeder::class,
-            LorryItemsTableSeeder::class,
+                // InvoiceDetailsTableSeeder::class,
+                // InvoiceItemsTableSeeder::class,
+                // PackagingDetailsTableSeeder::class,
+                // LorriesTableSeeder::class,
+                // LorryItemsTableSeeder::class,
             Hsnseeder::class,
         ]);
     }
