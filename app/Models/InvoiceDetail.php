@@ -19,22 +19,33 @@ class InvoiceDetail extends Model
             'country_of_origin' => 'required|string',
             'country_of_export' => 'required|string',
             'country_of_destination' => 'required|string',
-            'import_export_code' => 'nullable|string',
+            'import_export_code' => 'required|string',
             "exporter_id" => "required|exists:exporters,id",
             "consignee_id" => "required|exists:consignees,id",
-            'auth_dealer_code' => 'nullable|string',
-            'port_of_loading' => 'nullable|string',
-            'port_of_destination' => 'nullable|string',
-            "incoterm_cpt" => "nullable|string",
-            "remarks" => "nullable|string",
-            "terms_of_payment" => "nullable|string",
-            'freight' => 'nullable|string',
-            'valid_upto' => 'nullable|date',
-            'vehicle_no' => 'nullable|string',
-            'insurance' => 'nullable|string',
-            'buyer_no' => 'nullable|string',
-            'invoice_date' => 'nullable|date',
-            'eway_bill_id' => 'nullable|string',
+            'auth_dealer_code' => 'required|string',
+            'port_of_loading' => 'required|string',
+            'port_of_destination' => 'required|string',
+            "incoterm_cpt" => "required|string",
+            "remarks" => "required|string",
+            'freight' => 'required|string',
+            'valid_upto' => 'required|date',
+            'vehicle_no' => 'required|string',
+            'insurance' => 'required|string',
+            'buyer_no' => 'required|string',
+            'invoice_date' => 'required|date',
+            'eway_bill_id' => 'required|string',
+            'category' => 'required|string|in:Domestic,Export',
+            'type' => 'required|string|in:with_payment_of_igst, without_payment_of_igst',
+            'p.o/contract_number' => 'required|string',
+            'p.o/contract_date' => 'required|date',
+        ];
+    }
+    public static function updateRule()
+    {
+        return [
+            'invoice_currency' => 'required|string',
+            'bank_details' => 'required|exists:bank_accounts, id',
+            "terms_of_payment" => "required|string",
         ];
     }
     public function user()

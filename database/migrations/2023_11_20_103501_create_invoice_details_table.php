@@ -16,6 +16,8 @@ class CreateInvoiceDetailsTable extends Migration
             $table->unsignedBigInteger('exporter_id');
             $table->unsignedBigInteger('consignee_id');
             $table->string('invoice_id')->unique()->index();
+            $table->string('category');
+            $table->string('type');
             $table->string('country_of_destination');
             $table->string('country_of_export');
             $table->string('country_of_origin');
@@ -26,16 +28,20 @@ class CreateInvoiceDetailsTable extends Migration
             $table->string('valid_upto')->nullable();
             $table->string('vehicle_no')->nullable();
             $table->string('insurance')->nullable();
-            $table->string('buyer_no')->nullable();
-            $table->string("incoterm_cpt")->nullable();
-            $table->string("remarks")->nullable();
-            $table->string("terms_of_payment")->nullable();
+            // $table->string('buyer_no')->nullable();
+            $table->string("incoterm")->nullable();
             $table->timestamp('invoice_date')->default(Carbon::now());
             $table->string('eway_bill_id')->nullable();
-            $table->timestamps();
+
+            $table->string("p.o/contract_number")->nullable();
+            $table->string('p.o/contract_date')->nullable();
+            $table->string("remarks")->nullable();
+
             $table->foreign('details_added_by')->references('id')->on('users');
             $table->foreign('exporter_id')->references('id')->on('exporters');
             $table->foreign('consignee_id')->references('id')->on('consignees');
+            $table->timestamps();
+
         });
     }
 

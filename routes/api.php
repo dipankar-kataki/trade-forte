@@ -96,6 +96,7 @@ Route::group(["middleware" => 'auth:sanctum'], function () {
     Route::group(['prefix' => 'invoiceitems'], function () {
         Route::post('create', [InvoiceItemsController::class, 'create']);
         Route::get('get/{id}', [InvoiceItemsController::class, 'show']);
+        Route::delete('delete/{id}', [InvoiceItemsController::class, 'destroy']);
     });
     Route::group(['prefix' => 'modules'], function () {
         Route::post('create', [ModuleController::class, 'create']);

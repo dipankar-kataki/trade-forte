@@ -60,7 +60,7 @@ class ExporterController extends Controller
         try {
             $exporter = Exporter::where(function ($query) use ($request) {
                 $query->where('id', $request->id)
-                    ->orWhere('email', $request->id);
+                    ->orWhere('organization_email', $request->id);
             })->get();
             if (!$exporter) {
                 return $this->error("Exporter not found.", null, null, 404);
