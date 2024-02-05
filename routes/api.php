@@ -15,6 +15,7 @@ use App\Http\Controllers\Module\ModuleController;
 use App\Http\Controllers\Packaging\PackagingController;
 use App\Http\Controllers\Payments\PaymentsController;
 use App\Http\Controllers\ShippingAddress\ShippingAddressController;
+use App\Http\Controllers\Transportation\TransportationController;
 use App\Http\Controllers\UserActivity\UserActivityController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\UserController;
@@ -145,7 +146,7 @@ Route::group(["middleware" => 'auth:sanctum'], function () {
         Route::post('create', [PaymentsController::class, 'create']);
     });
     Route::group(['prefix' => 'transport'], function () {
-        Route::post('create', [PaymentsController::class, 'create']);
+        Route::post('create', [TransportationController::class, 'create']);
     });
 });
 
