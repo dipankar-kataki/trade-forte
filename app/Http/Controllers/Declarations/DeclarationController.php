@@ -35,6 +35,7 @@ class DeclarationController extends Controller
                 if (!$declaration) {
                     // Create a new payment if it doesn't exist
                     $data["invoice_details_id"] = $request->invoice_details_id;
+                    $data["declaration"] = json_encode($request->declaration);
                     $declaration = Declaration::create($data);
                     $this->createLog($user_id, "Declaration details added.", "declarations", $declaration->id);
                 } else {
