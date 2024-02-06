@@ -15,7 +15,7 @@ class CreateExportersTable extends Migration
     {
         Schema::create('exporters', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('account_created_by');
+            $table->unsignedBigInteger('users_id');
             $table->string('name');
             $table->string('addresses');
             $table->string('pincode');
