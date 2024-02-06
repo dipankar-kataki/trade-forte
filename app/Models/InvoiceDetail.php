@@ -17,7 +17,7 @@ class InvoiceDetail extends Model
     {
         return [
             'category' => 'required|string|in:domestic,export',
-            'type' => 'required|string|in:with_payment_of_igst, without_payment_of_igst',
+            'type' => 'required|string|in:with_payment_of_igst,without_payment_of_igst',
             'country_of_origin' => 'required|string',
             'country_of_export' => 'required|string',
             'country_of_destination' => 'required|string',
