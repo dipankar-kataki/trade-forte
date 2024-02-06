@@ -21,7 +21,7 @@ class ExporterSeeder extends Seeder
 
         // foreach ($users as $user) {
         Exporter::create([
-            'account_created_by' => 1,
+            'users_id' => 1,
             'name' => 'Exporter Name', // Replace with actual exporter name
             'addresses' => 'Exporter Address', // Replace with actual address
             'pincode' => '123456', // Replace with actual pincode
