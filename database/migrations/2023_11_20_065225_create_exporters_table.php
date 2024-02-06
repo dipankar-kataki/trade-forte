@@ -38,7 +38,7 @@ class CreateExportersTable extends Migration
             $table->string('firm_pan_no')->nullable();
             $table->boolean('status')->default(1);
             $table->timestamps();
-            $table->foreign('account_created_by')->references('id')->on('users');
+            $table->foreign('users_id')->references('id')->on('users');
         });
     }
 
