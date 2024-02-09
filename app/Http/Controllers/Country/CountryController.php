@@ -44,7 +44,7 @@ class CountryController extends Controller
     public function index(Request $request)
     {
         try {
-            $exporter = Country::paginate(50);
+            $exporter = Country::get();
             return $this->success("Country list.", $exporter, null, 200);
         } catch (\Exception $e) {
             return $this->error('Oops! Something Went Wrong.' . $e->getMessage(), null, null, 500);
