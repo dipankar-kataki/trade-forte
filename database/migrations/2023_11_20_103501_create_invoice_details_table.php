@@ -17,7 +17,7 @@ class CreateInvoiceDetailsTable extends Migration
             $table->unsignedBigInteger('consignee_id');
             $table->string('invoice_id')->unique()->index();
             $table->string('category');
-            $table->string('type');
+            $table->string('type')->nullable();
             $table->string('country_of_destination');
             $table->string('country_of_export');
             $table->string('country_of_origin');

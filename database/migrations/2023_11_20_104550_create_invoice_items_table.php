@@ -23,8 +23,8 @@ class CreateInvoiceItemsTable extends Migration
             $table->string('uqc');
             $table->integer('quantity');
             $table->integer('net_weight_of_each_unit');
-            $table->integer('gst_rate');
-            $table->integer('cess_rate');
+            $table->integer('gst_rate')->nullable();
+            $table->integer('cess_rate')->nullable();
             $table->timestamps();
             $table->foreign('users_id')->references('id')->on('users');
             $table->foreign('invoice_details_id')->references('id')->on('invoice_details');
