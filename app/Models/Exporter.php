@@ -80,6 +80,7 @@ class Exporter extends Model
     }
     public function invoices()
     {
-        return $this->hasMany(InvoiceDetail::class, 'exporter_id', 'id');
+        return $this->hasMany(InvoiceDetail::class, 'exporter_id', 'id')->latest();
     }
+    
 }

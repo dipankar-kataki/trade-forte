@@ -57,18 +57,22 @@ class ExporterController extends Controller
     public function show(Request $request)
     {
         try {
-            $exporter = Exporter::where(function ($query) use ($request) {
+            // Fetch exporter along with associated invoices (sorted by latest first)
+            $exporter = Exporter::with('invoices')->where(function ($query) use ($request) {
                 $query->where('id', $request->id)
                     ->orWhere('organization_email', $request->id);
-            })->get();
+            })->first();
+    
             if (!$exporter) {
                 return $this->error("Exporter not found.", null, null, 404);
             }
-            return $this->success("Exporter list.", $exporter, null, 200);
+    
+            return $this->success("Exporter details with invoices (latest first).", $exporter, null, 200);
         } catch (\Exception $e) {
             return $this->error('Oops! Something Went Wrong.' . $e->getMessage(), null, null, 500);
         }
     }
+    
     public function update(Request $request)
     {
         $id = $request->exporterId;
