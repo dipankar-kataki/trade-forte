@@ -52,7 +52,7 @@ class Exporter extends Model
             'pincode' => 'sometimes|integer|max:9999999999',
             'gst_no' => 'sometimes|string|max:30',
             'iec_no' => 'sometimes|string|max:30',
-            'logo' => 'sometimes|image|mimes:jpeg,png,jpg,gif|max:10240',
+            'logo' => 'sometimes',
             'customer_category' => 'sometimes|string',
             'organization_type' => 'sometimes|string|in:PROP,PARTNERSHIP,PRIVATE,OPC,HUF,SOCIETY,TRUST',
             'lut_no' => 'sometimes|string|max:30',
