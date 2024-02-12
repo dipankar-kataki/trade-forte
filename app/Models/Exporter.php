@@ -34,6 +34,7 @@ class Exporter extends Model
             'authorised_signatory_sex' => 'nullable|string|in:MALE,FEMALE',
             'authorised_signatory_dob' => 'nullable|date',
             'authorised_signatory_pan' => 'nullable|string|max:30',
+            'authorised_signatory_father' => 'nullable|string|max:30',
             'authorised_signatory_aadhar' => 'nullable|string|max:30',
             'organization_email' => 'nullable|email|max:255',
             'organization_phone' => 'nullable|string|max:15',

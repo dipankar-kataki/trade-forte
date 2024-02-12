@@ -33,6 +33,7 @@ class CreateExportersTable extends Migration
             $table->string('authorised_signatory_dob')->nullable();
             $table->string('authorised_signatory_pan')->nullable();
             $table->string('authorised_signatory_aadhar')->nullable();
+            $table->string("authorised_signatory_father")->nullable();
             $table->string('organization_email');
             $table->string('organization_phone');
             $table->string('firm_pan_no')->nullable();
