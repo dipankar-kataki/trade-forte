@@ -47,11 +47,11 @@ Route::group(["middleware" => 'auth:sanctum'], function () {
         Route::post('logout', [UserController::class, 'logout']);
     });
     Route::group(['prefix' => 'exporters'], function () {
-        Route::post('create', [ExporterController::class, 'create']);
+        Route::post('create', [ExporterController::class, 'storeOrUpdate']);
         Route::get('list', [ExporterController::class, 'index']);
         Route::get('get/{id}', [ExporterController::class, 'show']);
-        Route::put('update/{exporterId}', [ExporterController::class, 'update']);
-        Route::delete('delete/{exporterId}', [ExporterController::class, 'destroy']);
+        Route::put('update/{exporter_Id}', [ExporterController::class, 'storeOrUpdate']);
+        Route::delete('delete/{exporter_Id}', [ExporterController::class, 'destroy']);
     });
 
     Route::group(['prefix' => 'consignee/bankaccount'], function () {

@@ -21,7 +21,7 @@ class CreateExportersTable extends Migration
             $table->string('pincode');
             $table->string('gst_no');
             $table->string('iec_no');
-            $table->string('logo');
+            $table->longText('logo');
             $table->string('customer_category');
             $table->string("organization_type");
             $table->string('lut_no');
