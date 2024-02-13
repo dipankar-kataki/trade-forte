@@ -35,18 +35,16 @@ class ConsigneeController extends Controller
                     // Update operation
                     $consignee = Consignee::find($consigneeId);
                     if (!$consignee) {
-                        return $this->error('Exporter not found.', null, null, 404);
+                        return $this->error('Consignee not found.', null, null, 404);
                     }
-                    $consignee->fill($request->except('exporter_id'));
+                    $consignee->fill($request->except('consignee_id'));
                     $consignee->save();
                     $this->createLog($user_id, "Consignee details updated.", "consignees", $consignee->id);
 
                     $message = "Consignee updated successfully.";
                 } else {
                     // Create operation
-                    $data["addresses"] = json_encode($request->addresses);
                     $data["users_id"] = Auth::id();
-        
                     DB::beginTransaction();
                     $consignee = Consignee::create($data);
                     $this->createLog($user_id, "Consignee details added.", "consignees", $consignee->id);
