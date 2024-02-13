@@ -21,7 +21,7 @@ class ConsigneeBankController extends Controller
         $bankAccountId = $request->input('bank_account_id');
     
         // Validation rules for both create and update
-        $validator = Validator::make($request->all(), $bankAccountId ? BankAccount::updateRule() : BankAccount::createRule());
+        $validator = Validator::make($request->all(), $bankAccountId ? ConsigneeBank::updateRule() : ConsigneeBank::createRule());
     
         if ($validator->fails()) {
             return $this->error('Oops!' . $validator->errors()->first(), null, null, 400);
@@ -32,21 +32,21 @@ class ConsigneeBankController extends Controller
     
                 if ($bankAccountId) {
                     // Update operation
-                    $bankAccount = BankAccount::find($bankAccountId);
+                    $bankAccount = ConsigneeBank::find($bankAccountId);
                     if (!$bankAccount) {
                         return $this->error('Bank account not found.', null, null, 404);
                     }
                     $bankAccount->fill($request->except('bank_account_id'));
                     $bankAccount->save();
-                    $this->createLog($user_id, "Bank account details updated.", "bank_accounts", $bankAccount->id);
+                    $this->createLog($user_id, "Bank account details updated.", "consignees_bank_accounts", $bankAccount->id);
 
                     $message = "Bank account updated successfully.";
                 } else {
                     // Create operation
                     $data["users_id"] = Auth::id();
                     DB::beginTransaction();
-                    $bankAccount = BankAccount::create($data);
-                    $this->createLog($user_id, "Bank account details added.", "bank_accounts", $bankAccount->id);
+                    $bankAccount = ConsigneeBank::create($data);
+                    $this->createLog($user_id, "Bank account details added.", "consignees_bank_accounts", $bankAccount->id);
                     DB::commit();
                     $message = "Bank account created successfully.";
                 }
