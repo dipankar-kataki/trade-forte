@@ -21,17 +21,17 @@ class BankAccountController extends Controller
     public function storeOrUpdate(Request $request)
     {
         $bankAccountId = $request->input('bank_account_id');
-    
+
         // Validation rules for both create and update
         $validator = Validator::make($request->all(), $bankAccountId ? BankAccount::updateRule() : BankAccount::createRule());
-    
+
         if ($validator->fails()) {
             return $this->error('Oops! ' . $validator->errors()->first(), null, null, 400);
         } else {
             try {
                 $user_id = Auth::id();
                 $data = $validator->validated();
-    
+                $data['users_id'] = $user_id;
                 if ($bankAccountId) {
                     // Update operation
                     $bankAccount = BankAccount::find($bankAccountId);
@@ -41,32 +41,33 @@ class BankAccountController extends Controller
                     $bankAccount->fill($data);
                     $bankAccount->save();
                     $this->createLog($user_id, "Bank account details updated.", "bank_accounts", $bankAccount->id);
-    
+
                     $message = "Bank account updated successfully.";
                 } else {
                     // Create operation
+
                     DB::beginTransaction();
                     $bankAccount = BankAccount::create($data);
                     $this->createLog($user_id, "Bank account details added.", "bank_accounts", $bankAccount->id);
                     DB::commit();
                     $message = "Bank account created successfully.";
                 }
-    
+
                 return $this->success($message, ["bank_account_id" => $bankAccountId], null, 200);
             } catch (QueryException $e) {
                 if (DB::transactionLevel() > 0) {
                     DB::rollBack();
                 }
-    
+
                 if ($e->errorInfo[1] == 1062) {
                     return $this->error("Phone number already exists. Please provide another value", null, null, 422);
                 }
-    
+
                 return $this->error('Oops! Something Went Wrong. ' . $e->getMessage(), null, null, 500);
             }
         }
     }
-    
+
 
 
     public function index(Request $request)
