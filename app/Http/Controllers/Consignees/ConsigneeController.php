@@ -17,8 +17,7 @@ class ConsigneeController extends Controller
 {
     use ApiResponse;
     use CreateUserActivityLog;
-    public function storeOrUpdate(Request $request)
-    {
+    public function storeOrUpdate(Request $request){
         $consigneeId = $request->input('consignee_id');
     
         // Validation rules for both create and update
