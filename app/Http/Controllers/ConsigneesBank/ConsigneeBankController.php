@@ -17,51 +17,41 @@ class ConsigneeBankController extends Controller
 {
     use ApiResponse;
     use CreateUserActivityLog;
-    public function storeOrUpdate(Request $request){
-        $bankAccountId = $request->input('bank_account_id');
-    
-        // Validation rules for both create and update
-        $validator = Validator::make($request->all(), $bankAccountId ? ConsigneeBank::updateRule() : ConsigneeBank::createRule());
-    
+    public function create(Request $request)
+    {
+        $validator = Validator::make($request->all(), ConsigneeBank::createRule());
         if ($validator->fails()) {
             return $this->error('Oops!' . $validator->errors()->first(), null, null, 400);
-        } else {
-            try {
-                $user_id = Auth::id();
-                $data = $validator->validated();
-    
-                if ($bankAccountId) {
-                    // Update operation
-                    $bankAccount = ConsigneeBank::find($bankAccountId);
-                    if (!$bankAccount) {
-                        return $this->error('Bank account not found.', null, null, 404);
-                    }
-                    $bankAccount->fill($request->except('bank_account_id'));
-                    $bankAccount->save();
-                    $this->createLog($user_id, "Bank account details updated.", "consignees_bank_accounts", $bankAccount->id);
+        }
+        try {
+            $data = $validator->validated();
+            $user_id = Auth::id();
+            $data["account_created_by"] = $user_id;
 
-                    $message = "Bank account updated successfully.";
-                } else {
-                    // Create operation
-                    $data["users_id"] = Auth::id();
-                    DB::beginTransaction();
-                    $bankAccount = ConsigneeBank::create($data);
-                    $this->createLog($user_id, "Bank account details added.", "consignees_bank_accounts", $bankAccount->id);
-                    DB::commit();
-                    $message = "Bank account created successfully.";
-                }
-    
-                return $this->success($message, ["bank_account_id" => $bankAccountId], null, 200);
-            } catch (QueryException $e) {
-                DB::rollBack();
-                if ($e->errorInfo[1] == 1062) {
-                    return $this->error("Phone number already exists. Please provide another value", null, null, 422);
-                }
-                return $this->error('Oops! Something Went Wrong.' . $e->getMessage(), null, null, 500);
+            $bankExistForExporter = Consignee::find($request->exporter_id);
+
+            DB::beginTransaction();
+
+            if ($bankExistForExporter) {
+                $bank = ConsigneeBank::create($data);
+                $this->createLog($user_id, "Bank account updated.", "bankaccount", $bank->id);
+            } else {
+                $bank = ConsigneeBank::create($data);
+                $this->createLog($user_id, "Bank account added.", "bankaccount", $bank->id);
             }
+
+            DB::commit();
+
+            return $this->success("Bank Account registered Successfully!", null, null, 201);
+        } catch (QueryException $e) {
+            DB::rollBack();
+            if ($e->errorInfo[1] == 1062) {
+                return $this->error("Bank account number already exists. Please provide another value", null, null, 422);
+            }
+            return $this->error('Oops! Something Went Wrong.' . $e->getMessage(), null, null, 500);
         }
     }
-    
+
     public function index(Request $request)
     {
         $accounts = ConsigneeBank::latest()->paginate(10);
