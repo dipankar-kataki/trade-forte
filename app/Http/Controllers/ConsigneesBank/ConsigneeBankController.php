@@ -26,7 +26,7 @@ class ConsigneeBankController extends Controller
         try {
             $data = $validator->validated();
             $user_id = Auth::id();
-            $data["account_created_by"] = $user_id;
+            $data["users_id"] = $user_id;
 
             $bankExistForExporter = Consignee::find($request->exporter_id);
 

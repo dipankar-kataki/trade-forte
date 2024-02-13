@@ -28,7 +28,7 @@ class BankAccountController extends Controller
         try {
             $data = $validator->validated();
             $user_id = Auth::id();
-            $data["account_created_by"] = $user_id;
+            $data["users_id"] = $user_id;
 
             $bankExistForExporter = Exporter::find($request->exporter_id);
 

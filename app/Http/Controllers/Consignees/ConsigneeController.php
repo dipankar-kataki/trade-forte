@@ -26,7 +26,7 @@ class ConsigneeController extends Controller
             try {
                 $data = $validator->validated();
                 $user_id = Auth::id();
-                $data["account_created_by"] = $user_id;
+                $data["users_id"] = $user_id;
                 DB::beginTransaction();
                 $consignee = Consignee::create($data);
                 $this->createLog($user_id, "Consignee added.", "consignees", $consignee->id);
