@@ -21,7 +21,7 @@ class PackagingDetailsTableSeeder extends Seeder
             [
                 'invoice_item_id' => 1,
                 'invoice_id' => 1,
-                'details_added_by' => 1,
+                'users_id' => 1,
                 'net_weight' => '30 Kg',
                 'gross_weight' => '35 Kg',
                 'each_box_weight' => 2.5,
@@ -35,7 +35,7 @@ class PackagingDetailsTableSeeder extends Seeder
             [
                 'invoice_item_id' => 2,
                 'invoice_id' => 1,
-                'details_added_by' => 1,
+                'users_id' => 1,
                 'net_weight' => '80 Kg',
                 'gross_weight' => '85 Kg',
                 'each_box_weight' => 4.5,
@@ -49,7 +49,7 @@ class PackagingDetailsTableSeeder extends Seeder
             [
                 'invoice_item_id' => 3,
                 'invoice_id' => 1,
-                'details_added_by' => 1,
+                'users_id' => 1,
                 'net_weight' => '100 Kg',
                 'gross_weight' => '105 Kg',
                 'each_box_weight' => 3.5,

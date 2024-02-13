@@ -23,7 +23,7 @@ class LorriesTableSeeder extends Seeder
                 'exporter_id' => 1,
                 'consignee_id' => 1,
                 'bank_id' => 1,
-                'details_added_by' => 1,
+                'users_id' => 1,
                 'created_at' => now(),
                 'updated_at' => now(),
             ],

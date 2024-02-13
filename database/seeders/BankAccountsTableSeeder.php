@@ -19,7 +19,7 @@ class BankAccountsTableSeeder extends Seeder
         $bankAccounts = [
             [
                 'exporter_id' => 1,
-                'account_created_by' => 1,
+                'users_id' => 1,
                 'bank_name' => 'Sample Bank',
                 'branch_name' => 'Sample Branch',
                 'auth_dealer_code' => 123,

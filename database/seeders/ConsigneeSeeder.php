@@ -19,7 +19,7 @@ class ConsigneeSeeder extends Seeder
         $users = User::find(1);
 
         Consignee::create([
-            'account_created_by' => 1,
+            'users_id' => 1,
             'name' => 'Consignee Name',
             'address' => 'Consignee Address',
             'foreign_business_country' => 'India',

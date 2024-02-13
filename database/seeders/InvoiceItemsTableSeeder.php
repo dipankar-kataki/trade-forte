@@ -20,7 +20,7 @@ class InvoiceItemsTableSeeder extends Seeder
         $items = [
             [
                 'invoice_id' => 1,
-                'items_added_by' => 1,
+                'users_id' => 1,
                 'hsn_code' => '123456',
                 'description' => 'Sample Item 1',
                 'unit_type' => 'Piece',
@@ -34,7 +34,7 @@ class InvoiceItemsTableSeeder extends Seeder
             ],
             [
                 'invoice_id' => 1,
-                'items_added_by' => 1,
+                'users_id' => 1,
                 'hsn_code' => '654321',
                 'description' => 'Sample Item 2',
                 'unit_type' => 'Kg',
@@ -48,7 +48,7 @@ class InvoiceItemsTableSeeder extends Seeder
             ],
             [
                 'invoice_id' => 1,
-                'items_added_by' => 1,
+                'users_id' => 1,
                 'hsn_code' => '987654',
                 'description' => 'Sample Item 3',
                 'unit_type' => 'Box',
