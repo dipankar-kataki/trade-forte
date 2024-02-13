@@ -25,6 +25,16 @@ class CreatePackagingDetailsTable extends Migration
             $table->integer('quantity')->default(1);
             $table->decimal('total_gross_weight')->default(0);
             $table->string('vehicle_no')->nullable();
+            $table->string('custom_column_name_1');
+            $table->string('custom_column_value_1');
+            $table->string('custom_column_name_2');
+            $table->string('custom_column_value_2');
+            $table->string('custom_column_name_3');
+            $table->string('custom_column_value_3');
+            $table->string('custom_column_name_4');
+            $table->string('custom_column_value_4');
+            $table->string('custom_column_name_5');
+            $table->string('custom_column_value_5');
             $table->timestamps();
             $table->foreign('details_added_by')->references('id')->on('users');
             $table->foreign('invoice_item_id')->references('id')->on('invoice_items');

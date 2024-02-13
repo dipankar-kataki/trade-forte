@@ -22,6 +22,16 @@ class CreateInvoiceItemsTable extends Migration
             $table->text('product_name');
             $table->string('uqc');
             $table->integer('quantity');
+            $table->string('custom_column_name_1');
+            $table->string('custom_column_value_1');
+            $table->string('custom_column_name_2');
+            $table->string('custom_column_value_2');
+            $table->string('custom_column_name_3');
+            $table->string('custom_column_value_3');
+            $table->string('custom_column_name_4');
+            $table->string('custom_column_value_4');
+            $table->string('custom_column_name_5');
+            $table->string('custom_column_value_5');
             $table->integer('net_weight_of_each_unit');
             $table->integer('gst_rate')->nullable();
             $table->integer('cess_rate')->nullable();

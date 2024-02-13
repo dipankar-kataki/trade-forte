@@ -41,7 +41,7 @@ class ExporterController extends Controller
                     }
     
                     $exporter->fill($request->except('exporter_id'));
-    
+                    $exporter['addresses'] = json_encode($request->addresses);
                     // Set the logo attribute with the base64-encoded logo
                     $exporter->logo = $request->input('logo');
     
