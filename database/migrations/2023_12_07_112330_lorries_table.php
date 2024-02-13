@@ -19,8 +19,8 @@ class LorriesTable extends Migration
             $table->unsignedBigInteger("exporter_id");
             $table->unsignedBigInteger("consignee_id");
             $table->unsignedBigInteger("bank_id");
-            $table->unsignedBigInteger('details_added_by');
-            $table->foreign('details_added_by')->references('id')->on('users');
+            $table->unsignedBigInteger('users_id');
+            $table->foreign('users_id')->references('id')->on('users');
             $table->foreign('invoice_id')->references('id')->on('invoice_details');
             $table->foreign('exporter_id')->references('id')->on('exporters');
             $table->foreign('consignee_id')->references('id')->on('users');

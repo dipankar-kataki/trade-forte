@@ -15,7 +15,7 @@ class CreateConsigneesTable extends Migration
     {
         Schema::create('consignees', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('account_created_by');
+            $table->unsignedBigInteger('users_id');
             $table->string('name');
             $table->string('address')->nullable();
             $table->string('state')->nullable();
@@ -29,7 +29,7 @@ class CreateConsigneesTable extends Migration
             $table->string('organization_email')->nullable();
             $table->string('organization_phone')->nullable();
             $table->timestamps();
-            $table->foreign('account_created_by')->references('id')->on('users');
+            $table->foreign('users_id')->references('id')->on('users');
         });
     }
 

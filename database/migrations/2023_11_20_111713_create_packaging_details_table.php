@@ -17,7 +17,7 @@ class CreatePackagingDetailsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('invoice_item_id');
             $table->unsignedBigInteger('invoice_id');
-            $table->unsignedBigInteger('details_added_by');
+            $table->unsignedBigInteger('users_id');
             $table->text('net_weight')->nullable();
             $table->text('gross_weight')->nullable();
             $table->decimal('each_box_weight')->default(0);
@@ -36,7 +36,7 @@ class CreatePackagingDetailsTable extends Migration
             $table->string('custom_column_name_5');
             $table->string('custom_column_value_5');
             $table->timestamps();
-            $table->foreign('details_added_by')->references('id')->on('users');
+            $table->foreign('users_id')->references('id')->on('users');
             $table->foreign('invoice_item_id')->references('id')->on('invoice_items');
             $table->foreign('invoice_id')->references('id')->on('invoice_details');
         });

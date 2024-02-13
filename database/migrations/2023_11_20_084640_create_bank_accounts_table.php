@@ -16,7 +16,7 @@ class CreateBankAccountsTable extends Migration
         Schema::create('bank_accounts', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('exporter_id');
-            $table->unsignedBigInteger('account_created_by');
+            $table->unsignedBigInteger('users_id');
             $table->string('bank_name');
             $table->string('branch_name');
             $table->string('account_name');
@@ -27,7 +27,7 @@ class CreateBankAccountsTable extends Migration
             $table->boolean('status')->default(1);
             $table->timestamps();
             $table->foreign('exporter_id')->references('id')->on('exporters');
-            $table->foreign('account_created_by')->references('id')->on('users');
+            $table->foreign('users_id')->references('id')->on('users');
         });
     }
 
