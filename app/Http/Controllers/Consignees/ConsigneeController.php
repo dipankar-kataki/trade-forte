@@ -17,21 +17,44 @@ class ConsigneeController extends Controller
 {
     use ApiResponse;
     use CreateUserActivityLog;
-    public function create(Request $request)
+    public function storeOrUpdate(Request $request)
     {
-        $validator = Validator::make($request->all(), Consignee::createRule());
+        $consigneeId = $request->input('consignee_id');
+    
+        // Validation rules for both create and update
+        $validator = Validator::make($request->all(), $consigneeId ? Consignee::updateRule() : Consignee::createRule());
+    
         if ($validator->fails()) {
             return $this->error('Oops!' . $validator->errors()->first(), null, null, 400);
         } else {
             try {
-                $data = $validator->validated();
                 $user_id = Auth::id();
-                $data["account_created_by"] = $user_id;
-                DB::beginTransaction();
-                $consignee = Consignee::create($data);
-                $this->createLog($user_id, "Consignee added.", "consignees", $consignee->id);
-                DB::commit();
-                return $this->success("Consignee created Successfully!", null, null, 201);
+                $data = $validator->validated();
+    
+                if ($consigneeId) {
+                    // Update operation
+                    $consignee = Consignee::find($consigneeId);
+                    if (!$consignee) {
+                        return $this->error('Exporter not found.', null, null, 404);
+                    }
+                    $consignee->fill($request->except('exporter_id'));
+                    $consignee->save();
+                    $this->createLog($user_id, "Consignee details updated.", "consignees", $consignee->id);
+
+                    $message = "Consignee updated successfully.";
+                } else {
+                    // Create operation
+                    $data["addresses"] = json_encode($request->addresses);
+                    $data["users_id"] = Auth::id();
+        
+                    DB::beginTransaction();
+                    $consignee = Consignee::create($data);
+                    $this->createLog($user_id, "Consignee details added.", "consignees", $consignee->id);
+                    DB::commit();
+                    $message = "Consignee created successfully.";
+                }
+    
+                return $this->success($message, ["consignee_id" => $consignee->id], null, 200);
             } catch (QueryException $e) {
                 DB::rollBack();
                 if ($e->errorInfo[1] == 1062) {
@@ -41,7 +64,7 @@ class ConsigneeController extends Controller
             }
         }
     }
-
+    
 
 
     public function index(Request $request)

@@ -70,10 +70,10 @@ Route::group(["middleware" => 'auth:sanctum'], function () {
     });
 
     Route::group(['prefix' => 'consignees'], function () {
-        Route::post('create', [ConsigneeController::class, 'create']);
+        Route::post('create', [ConsigneeController::class, 'storeOrUpdate']);
         Route::get('list', [ConsigneeController::class, 'index']);
         Route::get('get/{id}', [ConsigneeController::class, 'show']);
-        Route::put('update/{id}', [ConsigneeController::class, 'update']);
+        Route::put('update/{id}', [ConsigneeController::class, 'storeOrUpdate']);
         Route::delete('delete/{id}', [ConsigneeController::class, 'destroy']);
     });
     Route::group(['prefix' => 'country'], function () {
