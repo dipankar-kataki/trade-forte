@@ -47,33 +47,33 @@ Route::group(["middleware" => 'auth:sanctum'], function () {
         Route::post('logout', [UserController::class, 'logout']);
     });
     Route::group(['prefix' => 'exporters'], function () {
-        Route::post('create', [ExporterController::class, 'storeOrUpdate']);
+        Route::post('create', [ExporterController::class, 'create']);
         Route::get('list', [ExporterController::class, 'index']);
         Route::get('get/{id}', [ExporterController::class, 'show']);
-        Route::put('update/{exporter_Id}', [ExporterController::class, 'storeOrUpdate']);
-        Route::delete('delete/{exporter_Id}', [ExporterController::class, 'destroy']);
+        Route::put('update/{exporterId}', [ExporterController::class, 'update']);
+        Route::delete('delete/{exporterId}', [ExporterController::class, 'destroy']);
     });
 
     Route::group(['prefix' => 'consignee/bankaccount'], function () {
-        Route::post('create', [ConsigneeBankController::class, 'storeOrUpdate']);
+        Route::post('create', [ConsigneeBankController::class, 'create']);
         Route::get('list', [ConsigneeBankController::class, 'index']);
         Route::get('get/{id}', [ConsigneeBankController::class, 'show']);
-        Route::put('update/{id}', [ConsigneeBankController::class, 'storeOrUpdate']);
+        Route::put('update/{id}', [ConsigneeBankController::class, 'update']);
         Route::delete('delete/{id}', [ConsigneeBankController::class, 'destroy']);
     });
     Route::group(['prefix' => 'exporters/bankaccount'], function () {
-        Route::post('create', [BankAccountController::class, 'storeOrUpdate']);
+        Route::post('create', [BankAccountController::class, 'create']);
         Route::get('list', [BankAccountController::class, 'index']);
         Route::get('get/{id}', [BankAccountController::class, 'show']);
-        Route::put('update/{id}', [BankAccountController::class, 'storeOrUpdate']);
+        Route::put('update/{id}', [BankAccountController::class, 'update']);
         Route::delete('delete/{id}', [BankAccountController::class, 'destroy']);
     });
 
     Route::group(['prefix' => 'consignees'], function () {
-        Route::post('create', [ConsigneeController::class, 'storeOrUpdate']);
+        Route::post('create', [ConsigneeController::class, 'create']);
         Route::get('list', [ConsigneeController::class, 'index']);
         Route::get('get/{id}', [ConsigneeController::class, 'show']);
-        Route::put('update/{id}', [ConsigneeController::class, 'storeOrUpdate']);
+        Route::put('update/{id}', [ConsigneeController::class, 'update']);
         Route::delete('delete/{id}', [ConsigneeController::class, 'destroy']);
     });
     Route::group(['prefix' => 'country'], function () {
