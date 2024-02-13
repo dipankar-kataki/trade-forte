@@ -60,7 +60,7 @@ class BankAccountController extends Controller
                 }
 
                 if ($e->errorInfo[1] == 1062) {
-                    return $this->error("Phone number already exists. Please provide another value", null, null, 422);
+                    return $this->error("Account number already exists. Please provide another value", null, null, 422);
                 }
 
                 return $this->error('Oops! Something Went Wrong. ' . $e->getMessage(), null, null, 500);
