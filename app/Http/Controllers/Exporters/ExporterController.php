@@ -29,10 +29,10 @@ class ExporterController extends Controller
                 $data["addresses"] = json_encode($request->addresses);
                 $data["users_id"] = Auth::id();
                 DB::beginTransaction();
-                Exporter::create($data);
+                $exporter = Exporter::create($data);
                 $this->createLog($user_id, "Exporter details added.", "exporters", $request->id);
                 DB::commit();
-                return $this->success("Exporter created Successfully!", null, null, 201);
+                return $this->success("Exporter created Successfully!", $exporter->id, null, 201);
             } catch (QueryException $e) {
                 DB::rollBack();
                 if ($e->errorInfo[1] == 1062) {
