@@ -25,7 +25,6 @@ class ExporterController extends Controller
         } else {
             try {
                 $data = $validator->validated();
-                $data["logo"] = $request->file("logo")->store("logos");
                 $user_id = Auth::id();
                 $data["addresses"] = json_encode($request->addresses);
                 $data["users_id"] = Auth::id();
@@ -41,7 +40,7 @@ class ExporterController extends Controller
                 }
                 return $this->error('Oops! Something Went Wrong.' . $e->getMessage(), null, null, 500);
             }
-        }
+        } 
     }
 
     public function index(Request $request)
