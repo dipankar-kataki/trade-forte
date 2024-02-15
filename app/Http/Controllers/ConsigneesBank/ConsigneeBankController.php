@@ -27,22 +27,11 @@ class ConsigneeBankController extends Controller
             $data = $validator->validated();
             $user_id = Auth::id();
             $data["users_id"] = $user_id;
-
-            $bankExistForExporter = Consignee::find($request->exporter_id);
-
             DB::beginTransaction();
-
-            if ($bankExistForExporter) {
-                $bank = ConsigneeBank::create($data);
-                $this->createLog($user_id, "Bank account updated.", "bankaccount", $bank->id);
-            } else {
-                $bank = ConsigneeBank::create($data);
-                $this->createLog($user_id, "Bank account added.", "bankaccount", $bank->id);
-            }
-
+            $bank = ConsigneeBank::create($data);
+            $this->createLog($user_id, "Bank account added.", "bankaccount", $bank->id);
             DB::commit();
-
-            return $this->success("Bank Account registered Successfully!", null, null, 201);
+            return $this->success("Bank Account registered Successfully!", $bank->id, null, 201);
         } catch (QueryException $e) {
             DB::rollBack();
             if ($e->errorInfo[1] == 1062) {
