@@ -20,31 +20,23 @@ class BankAccountController extends Controller
     use CreateUserActivityLog;
     public function create(Request $request)
     {
-        $validator = Validator::make($request->all(), BankAccount::createRule());
-        if ($validator->fails()) {
-            return $this->error('Oops!' . $validator->errors()->first(), null, null, 400);
-        }
-
         try {
-            $data = $validator->validated();
             $user_id = Auth::id();
-            $data["users_id"] = $user_id;
-
-            $bankExistForExporter = Exporter::find($request->exporter_id);
+            $requestData = $request->banks;
 
             DB::beginTransaction();
-
-            if ($bankExistForExporter) {
-                $bank = BankAccount::create($data);
-                $this->createLog($user_id, "Bank account updated.", "bankaccount", $bank->id);
-            } else {
+            foreach ($requestData as $item) {
+                $validator = Validator::make($item, BankAccount::createRule());
+                if ($validator->fails()) {
+                    return $this->error('Oops!' . $validator->errors()->first(), null, null, 400);
+                }
+                $data = $validator->validated();
+                $data["users_id"] = $user_id;
                 $bank = BankAccount::create($data);
                 $this->createLog($user_id, "Bank account added.", "bankaccount", $bank->id);
             }
-
             DB::commit();
-
-            return $this->success("Bank Account registered Successfully!", null, null, 201);
+            return $this->success("Bank Accounts registered Successfully!", null, null, 201);
         } catch (QueryException $e) {
             DB::rollBack();
             if ($e->errorInfo[1] == 1062) {
