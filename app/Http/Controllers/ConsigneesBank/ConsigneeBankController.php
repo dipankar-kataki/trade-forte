@@ -19,19 +19,23 @@ class ConsigneeBankController extends Controller
     use CreateUserActivityLog;
     public function create(Request $request)
     {
-        $validator = Validator::make($request->all(), ConsigneeBank::createRule());
-        if ($validator->fails()) {
-            return $this->error('Oops!' . $validator->errors()->first(), null, null, 400);
-        }
         try {
-            $data = $validator->validated();
             $user_id = Auth::id();
-            $data["users_id"] = $user_id;
+            $requestData = $request->banks;
+
             DB::beginTransaction();
-            $bank = ConsigneeBank::create($data);
-            $this->createLog($user_id, "Bank account added.", "bankaccount", $bank->id);
+            foreach ($requestData as $item) {
+                $validator = Validator::make($item, ConsigneeBank::createRule());
+                if ($validator->fails()) {
+                    return $this->error('Oops!' . $validator->errors()->first(), null, null, 400);
+                }
+                $data = $validator->validated();
+                $data["users_id"] = $user_id;
+                $bank = ConsigneeBank::create($data);
+                $this->createLog($user_id, "Bank account added.", "bankaccount", $bank->id);
+            }
             DB::commit();
-            return $this->success("Bank Account registered Successfully!", $bank->id, null, 201);
+            return $this->success("Bank Accounts registered Successfully!", null, null, 201);
         } catch (QueryException $e) {
             DB::rollBack();
             if ($e->errorInfo[1] == 1062) {

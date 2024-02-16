@@ -25,7 +25,7 @@ class BankAccountController extends Controller
             $requestData = $request->banks;
 
             DB::beginTransaction();
-            foreach ($requestData as $item) {
+            foreach ($requestData as $item) { 
                 $validator = Validator::make($item, BankAccount::createRule());
                 if ($validator->fails()) {
                     return $this->error('Oops!' . $validator->errors()->first(), null, null, 400);

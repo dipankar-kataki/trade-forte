@@ -31,7 +31,7 @@ class ConsigneeController extends Controller
                 $consignee = Consignee::create($data);
                 $this->createLog($user_id, "Consignee added.", "consignees", $consignee->id);
                 DB::commit();
-                return $this->success("Consignee created Successfully!", null, null, 201);
+                return $this->success("Consignee created Successfully!",  $consignee->id, null, 201);
             } catch (QueryException $e) {
                 DB::rollBack();
                 if ($e->errorInfo[1] == 1062) {
