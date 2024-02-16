@@ -98,6 +98,7 @@ Route::group(["middleware" => 'auth:sanctum'], function () {
     Route::group(['prefix' => 'invoiceitems'], function () {
         Route::post('create', [InvoiceItemsController::class, 'create']);
         Route::get('get/{id}', [InvoiceItemsController::class, 'show']);
+        Route::put('update/{id}', [InvoiceItemsController::class, 'update']);
         Route::delete('delete/{id}', [InvoiceItemsController::class, 'destroy']);
     });
     Route::group(['prefix' => 'modules'], function () {
@@ -144,9 +145,11 @@ Route::group(["middleware" => 'auth:sanctum'], function () {
     });
     Route::group(['prefix' => 'payments'], function () {
         Route::post('create', [PaymentsController::class, 'create']);
+        Route::put('update/{id}', [PaymentsController::class, 'update']);
     });
     Route::group(['prefix' => 'transport'], function () {
         Route::post('create', [TransportationController::class, 'create']);
+        Route::post('update/{id}', [TransportationController::class, 'update']);
     });
 });
 

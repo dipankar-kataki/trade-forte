@@ -22,18 +22,19 @@ class CreateInvoiceItemsTable extends Migration
             $table->text('product_name');
             $table->string('uqc');
             $table->integer('quantity');
-            $table->string('custom_column_name_1');
-            $table->string('custom_column_value_1');
-            $table->string('custom_column_name_2');
-            $table->string('custom_column_value_2');
-            $table->string('custom_column_name_3');
-            $table->string('custom_column_value_3');
-            $table->string('custom_column_name_4');
-            $table->string('custom_column_value_4');
-            $table->string('custom_column_name_5');
-            $table->string('custom_column_value_5');
+            $table->string('custom_column_name_1')->nullable();
+            $table->string('custom_column_value_1')->nullable();
+            $table->string('custom_column_name_2')->nullable();
+            $table->string('custom_column_value_2')->nullable();
+            $table->string('custom_column_name_3')->nullable();
+            $table->string('custom_column_value_3')->nullable();
+            $table->string('custom_column_name_4')->nullable();
+            $table->string('custom_column_value_4')->nullable();
+            $table->string('custom_column_name_5')->nullable();
+            $table->string('custom_column_value_5')->nullable();
             $table->integer('net_weight_of_each_unit');
             $table->integer('gst_rate')->nullable();
+            $table->integer('unit_value')->nullable();
             $table->integer('cess_rate')->nullable();
             $table->timestamps();
             $table->foreign('users_id')->references('id')->on('users');
@@ -41,10 +42,7 @@ class CreateInvoiceItemsTable extends Migration
         });
     }
 
-    public function packagingDetails()
-    {
-        return $this->hasMany(PackagingDetail::class, 'invoice_item_id', 'id');
-    }
+
 
     /**
      * Reverse the migrations.

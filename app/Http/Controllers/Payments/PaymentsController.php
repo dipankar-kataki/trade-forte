@@ -29,26 +29,10 @@ class PaymentsController extends Controller
                 $data = $validator->validated();
                 $user_id = Auth::id();
                 $data["users_id"] = $user_id;
-
                 DB::beginTransaction();
-
-                // Check if payment already exists
-                $payments = Payments::where("invoice_details_id", $request->invoice_details_id)->first();
-
-                if (!$payments) {
-                    // Create a new payment if it doesn't exist
-                    $payments = Payments::create($data);
-                } else {
-                    // Update existing payment
-                    $payments->bank_accounts_id = $request->bank_accounts_id;
-                    $payments->invoice_currency = $request->invoice_currency;
-                    $payments->terms_of_payment = $request->terms_of_payment;
-                    $payments->save();
-                }
-
+                $payments = Payments::create($data);
                 $this->createLog($user_id, "Payments details added.", "payments", $payments->id);
                 DB::commit();
-
                 return $this->success("Payments details added Successfully!", null, null, 201);
             } catch (QueryException $e) {
                 DB::rollBack();
@@ -57,5 +41,34 @@ class PaymentsController extends Controller
         }
     }
 
+    public function update(Request $request)
+    {
+        $validator = Validator::make($request->all(), Payments::createRule());
+
+        if ($validator->fails()) {
+            return $this->error('Oops! ' . $validator->errors()->first(), null, null, 400);
+        } else {
+            try {
+                $data = $validator->validated();
+                $user_id = Auth::id();
+                $data["users_id"] = $user_id;
+                $payments = Payments::where("invoice_details_id", $request->invoice_details_id)->first();
+                if (!$payments) {
+                    return $this->error('Oops! payment details not found ', null, null, 400);
+                }
+                DB::beginTransaction();
+                $payments->bank_accounts_id = $request->bank_accounts_id;
+                $payments->invoice_currency = $request->invoice_currency;
+                $payments->terms_of_payment = $request->terms_of_payment;
+                $payments->save();
+                $this->createLog($user_id, "Payments details updated.", "payments", $payments->id);
+                DB::commit();
+                return $this->success("Payments details added Successfully!", null, null, 201);
+            } catch (\Exception $e) {
+                DB::rollBack();
+                return $this->error('Oops! Something Went Wrong. ' . $e->getMessage(), null, null, 500);
+            }
+        }
+    }
 
 }

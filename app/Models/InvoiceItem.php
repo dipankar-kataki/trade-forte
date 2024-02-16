@@ -21,19 +21,34 @@ class InvoiceItem extends Model
     {
         return [
             'invoice_details_id' => 'required|exists:invoice_details,id',
+            'users_id' => 'required|exists:users,id',
             'hsn_code' => 'required|string',
             'product_name' => 'required|string',
-            'cess_rate' => 'required|integer',
-            'quantity' => 'required|integer',
-            'gst_rate' => 'required|integer',
-            'net_weight_of_each_unit' => 'required|integer',
             'uqc' => 'required|string',
+            'quantity' => 'required|integer',
+            'net_weight_of_each_unit' => 'required|integer',
+            'custom_column_name_1' => 'nullable|string',
+            'custom_column_value_1' => 'nullable|string',
+            'custom_column_name_2' => 'nullable|string',
+            'custom_column_value_2' => 'nullable|string',
+            'custom_column_name_3' => 'nullable|string',
+            'custom_column_value_3' => 'nullable|string',
+            'custom_column_name_4' => 'nullable|string',
+            'custom_column_value_4' => 'nullable|string',
+            'custom_column_name_5' => 'nullable|string',
+            'custom_column_value_5' => 'nullable|string',
+            'gst_rate' => 'nullable|integer',
+            'unit_value' => 'nullable|integer',
+            'cess_rate' => 'nullable|integer',
         ];
     }
-
+    
     public function invoiceDetails()
     {
         return $this->belongsTo(InvoiceDetail::class, 'invoice_id', 'invoice_id');
     }
-
+    public function packagingDetails()
+    {
+        return $this->hasMany(PackagingDetail::class, 'invoice_item_id', 'id');
+    }
 }
