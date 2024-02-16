@@ -22,7 +22,6 @@ class ConsigneeBankController extends Controller
         try {
             $user_id = Auth::id();
             $requestData = $request->banks;
-
             DB::beginTransaction();
             foreach ($requestData as $item) {
                 $validator = Validator::make($item, ConsigneeBank::createRule());
@@ -32,7 +31,7 @@ class ConsigneeBankController extends Controller
                 $data = $validator->validated();
                 $data["users_id"] = $user_id;
                 $bank = ConsigneeBank::create($data);
-                $this->createLog($user_id, "Bank account added.", "bankaccount", $bank->id);
+                $this->createLog($user_id, "Consignees Bank account added.", "consignees_bank_accounts", $bank->id);
             }
             DB::commit();
             return $this->success("Bank Accounts registered Successfully!", null, null, 201);
