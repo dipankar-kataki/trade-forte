@@ -107,7 +107,6 @@ class InvoiceController extends Controller
     }
     public function delete(Request $request)
     {
-
         try {
             $invoice = InvoiceDetail::find($request->id);
             if (!$invoice) {
@@ -123,6 +122,5 @@ class InvoiceController extends Controller
             DB::rollBack();
             return $this->error('Oops! Something Went Wrong.' . $e->getMessage(), null, null, 500);
         }
-
     }
 }
