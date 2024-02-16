@@ -53,6 +53,10 @@ class InvoiceController extends Controller
                 'id',
                 'invoice_id',
                 'exporter_id',
+                "category",
+                "invoice_date",
+                "port_of_loading",
+                "port_of_destination",
                 'consignee_id',
                 'created_at',
             )->with([
