@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\HsnTable;
 use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class HsnController extends Controller
