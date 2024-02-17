@@ -25,7 +25,7 @@ class BankAccountController extends Controller
             $requestData = $request->banks;
 
             DB::beginTransaction();
-            foreach ($requestData as $item) { 
+            foreach ($requestData as $item) {
                 $validator = Validator::make($item, BankAccount::createRule());
                 if ($validator->fails()) {
                     return $this->error('Oops!' . $validator->errors()->first(), null, null, 400);
@@ -71,8 +71,8 @@ class BankAccountController extends Controller
     public function update(Request $request)
     {
         $account = BankAccount::where(function ($query) use ($request) {
-            $query->where('id', $request->id)
-                ->orWhere('account_no', $request->id);
+            $query->where('id', $request->bank_id)
+                ->orWhere('account_no', $request->bank_id);
         })->first();
         if (!$account) {
             return $this->error("Account not found.", null, null, 404);
