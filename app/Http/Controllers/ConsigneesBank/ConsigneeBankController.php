@@ -34,7 +34,7 @@ class ConsigneeBankController extends Controller
                 $this->createLog($user_id, "Consignees Bank account added.", "consignees_bank_accounts", $bank->id);
             }
             DB::commit();
-            return $this->success("Bank Accounts registered Successfully!", null, null, 201);
+            return $this->success("Bank Accounts registered Successfully!", $request->all(), null, 201);
         } catch (QueryException $e) {
             DB::rollBack();
             if ($e->errorInfo[1] == 1062) {
