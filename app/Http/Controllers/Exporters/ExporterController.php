@@ -80,14 +80,12 @@ class ExporterController extends Controller
         try {
             $user_id = Auth::id();
             $exporter = Exporter::findOrFail($request->exporterId);
-            
             $this->handleFile($request, $exporter);
-    
             DB::beginTransaction();
             $exporter->update($request->except(['exporterId', 'logo']));
+            $exporter->save();
             $this->createLog($user_id, "Exporter details updated.", "exporters", $request->id);
             DB::commit();
-    
             return $this->success("Exporter updated successfully.", $request->all(), null, 200);
         } catch (ModelNotFoundException $e) {
             return $this->error("Exporter not found.", null, null, 404);
@@ -108,7 +106,7 @@ class ExporterController extends Controller
             $logo = $request->file('logo');
             $logoPath = $logo->store('logos');
             $exporter->logo = $logoPath;
-    
+            
             if ($previousLogoPath && Storage::disk('public')->exists($previousLogoPath)) {
                 Storage::disk('public')->delete($previousLogoPath);
             }
