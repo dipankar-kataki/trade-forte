@@ -98,7 +98,7 @@ class ExporterController extends Controller
             $this->handleFile($request, $exporter);
             $exporter["addresses"] = json_encode($request->addresses);
             DB::beginTransaction();
-            $exporter->update($request->except(['exporterId', 'logo','addresses']));
+            $exporter->update($request->except(['exporter_id', 'logo','addresses']));
             $exporter->save();
             $this->createLog($user_id, "Exporter details updated.", "exporters", $request->id);
             DB::commit();
