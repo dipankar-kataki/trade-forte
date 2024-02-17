@@ -74,6 +74,7 @@ class ExporterController extends Controller
 
     public function update(Request $request)
     {
+        return response()->json(["message"=>"request received", "data"=>$request->all()]);
         $id = $request->exporterId;
         $data = array_merge(['exporterId' => $id], $request->all());
         $validator = Validator::make($data, Exporter::updateRule());
