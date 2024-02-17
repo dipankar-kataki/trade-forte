@@ -70,13 +70,7 @@ class BankAccountController extends Controller
 
     public function update(Request $request)
     {
-        $account = BankAccount::where(function ($query) use ($request) {
-            $query->where('id', $request->bank_id)
-                ->orWhere('account_no', $request->bank_id);
-        })->first();
-        if (!$account) {
-            return $this->error("Account not found.", null, null, 404);
-        }
+
         $validator = Validator::make($request->all(), BankAccount::updateRule());
         if ($validator->fails()) {
             return $this->error('Oops!' . $validator->errors()->first(), null, null, 400);
@@ -84,8 +78,8 @@ class BankAccountController extends Controller
             try {
                 $user_id = Auth::id();
                 DB::beginTransaction();
-                BankAccount::where('id', $request->bankAccountId)->update($request->except(["bank_id"]));
-                $this->createLog($user_id, "Bank account updated.", "bankaccount", $request->id);
+                BankAccount::where('id', $request->bank_id)->update($request->except(["bank_id"]));
+                $this->createLog($user_id, "Bank account updated.", "bankaccount", $request->bank_id);
                 DB::commit();
                 return $this->success("Bank Account updated successfully.", null, null, 200);
             } catch (QueryException $e) {
