@@ -25,19 +25,19 @@ class ConsigneeBank extends Model
             'branch_name' => 'required|string|max:255',
             'forex_account_name' => 'required|string|max:255',
             'forex_account_no' => 'required|string|max:255',
-            'swift_code' => 'nullable|string|max:255',
+            'swift_code' => 'required|string|max:255',
         ];
     }
     public static function updateRule()
     {
         return [
-            'consignees_id' => 'sometimes|exists:consignees,id',
-            'bank_name' => 'sometimes|string|max:255',
-            'branch_name' => 'sometimes|string|max:255',
-            'forex_account_name' => 'sometimes|string|max:255',
-            'forex_account_no' => 'sometimes|string|max:255',
-            'swift_code' => 'sometimes|string|max:255',
-            'status' => 'sometimes|boolean',
+            'consignees_id' => 'required|exists:consignees,id',
+            'bank_name' => 'required|string|max:255',
+            'branch_name' => 'required|string|max:255',
+            'forex_account_name' => 'required|string|max:255',
+            'forex_account_no' => 'required|string|max:255',
+            'swift_code' => 'required|string|max:255',
+            'status' => 'required|boolean',
 
         ];
     }
