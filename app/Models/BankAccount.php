@@ -33,7 +33,7 @@ class BankAccount extends Model
     public static function updateRule()
     {
         return [
-            'bank_id' => 'required|exists:bank_accounts,id',
+            'id' => 'required|exists:bank_accounts,id',
             'bank_name' => 'required|string|max:255',
             'branch_name' => 'required|string|max:255',
             'account_name' => 'required|string|max:255',

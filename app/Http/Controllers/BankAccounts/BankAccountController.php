@@ -78,7 +78,7 @@ class BankAccountController extends Controller
             try {
                 $user_id = Auth::id();
                 $data = $validator->validated();
-                $bankId = $request->input('bank_id');
+                $bankId = $request->input('id');
     
                 DB::beginTransaction();
                 $bank = BankAccount::where('id', $bankId)->first();
