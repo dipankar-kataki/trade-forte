@@ -94,7 +94,7 @@ class BankAccountController extends Controller
                 $this->createLog($user_id, "Bank account updated.", "bankaccount", $bankId);
                 DB::commit();
     
-                return $this->success("Bank Account updated successfully.", $request->all(), null, 200);
+                return $this->success("Bank Account updated successfully.", null, null, 200);
             } catch (QueryException $e) {
                 DB::rollBack();
                 if ($e->errorInfo[1] == 1062) {
