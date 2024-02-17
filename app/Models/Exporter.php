@@ -45,7 +45,7 @@ class Exporter extends Model
     public static function updateRule()
     {
         return [
-            "exporter_id" => "required",
+            "exporter_id" => "required|exists:exporters,id",
             'name' => 'sometimes|string|max:255',
             'addresses' => 'sometimes',
             'pincode' => 'sometimes|integer|max:9999999999',
@@ -70,7 +70,7 @@ class Exporter extends Model
             'status' => 'sometimes|boolean',
         ];
     }
-    
+
 
 
     public function account_created_by()
