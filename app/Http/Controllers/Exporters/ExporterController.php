@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Exporters;
 use App\Http\Controllers\Controller;
 use App\Traits\ApiResponse;
 use App\Traits\CreateUserActivityLog;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
