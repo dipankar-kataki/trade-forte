@@ -87,8 +87,7 @@ class ExporterController extends Controller
             $this->createLog($user_id, "Exporter details updated.", "exporters", $request->id);
             DB::commit();
             return $this->success("Exporter updated successfully.", $request->all(), null, 200);
-        } catch (ModelNotFoundException $e) {
-            return $this->error("Exporter not found.", null, null, 404);
+        
         } catch (\Exception $e) {
             DB::rollBack();
             return $this->error('Oops! Something Went Wrong.' . $e->getMessage(), null, null, 500);
