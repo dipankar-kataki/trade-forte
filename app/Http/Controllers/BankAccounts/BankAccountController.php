@@ -70,7 +70,6 @@ class BankAccountController extends Controller
 
     public function update(Request $request)
     {
-
         $validator = Validator::make($request->all(), BankAccount::updateRule());
         if ($validator->fails()) {
             return $this->error('Oops!' . $validator->errors()->first(), null, null, 400);
@@ -81,7 +80,7 @@ class BankAccountController extends Controller
                 BankAccount::where('id', $request->bank_id)->update($request->except(["bank_id"]));
                 $this->createLog($user_id, "Bank account updated.", "bankaccount", $request->bank_id);
                 DB::commit();
-                return $this->success("Bank Account updated successfully.", null, null, 200);
+                return $this->success("Bank Account updated successfully.", $request->all(), null, 200);
             } catch (QueryException $e) {
                 DB::rollBack();
                 if ($e->errorInfo[1] == 1062) {
