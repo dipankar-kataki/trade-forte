@@ -50,7 +50,7 @@ Route::group(["middleware" => 'auth:sanctum'], function () {
         Route::post('create', [ExporterController::class, 'create']);
         Route::get('list', [ExporterController::class, 'index']);
         Route::get('get/{id}', [ExporterController::class, 'show']);
-        Route::put('update/{exporterId}', [ExporterController::class, 'update']);
+        Route::post('update/{exporterId}', [ExporterController::class, 'update']);
         Route::delete('delete/{exporterId}', [ExporterController::class, 'destroy']);
     });
 
