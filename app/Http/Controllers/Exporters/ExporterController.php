@@ -89,11 +89,8 @@ class ExporterController extends Controller
             return $this->success("Exporter updated successfully.", $request->all(), null, 200);
         } catch (ModelNotFoundException $e) {
             return $this->error("Exporter not found.", null, null, 404);
-        } catch (QueryException $e) {
+        } catch (\Exception $e) {
             DB::rollBack();
-            if ($e->errorInfo[1] == 1062) {
-                return $this->error("Phone number already exists. Please provide another value", null, null, 422);
-            }
             return $this->error('Oops! Something Went Wrong.' . $e->getMessage(), null, null, 500);
         }
     }
