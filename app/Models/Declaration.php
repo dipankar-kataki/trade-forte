@@ -10,7 +10,7 @@ class Declaration extends Model
     use HasFactory;
 
     protected $table = 'declarations';
-    protected $hidden = ['created_at', 'updated_at'];
+    protected $hidden = ['created_at', 'updated_at',"status"];
     protected $guarded = [
 
     ];

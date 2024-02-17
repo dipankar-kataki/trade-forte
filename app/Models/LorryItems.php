@@ -10,7 +10,7 @@ class LorryItems extends Model
     use HasFactory;
     protected $table = 'lorry_items';
     protected $guarded = [];
-    protected $hidden = ['created_at', 'updated_at'];
+    protected $hidden = ['created_at', 'updated_at',"status"];
     public static function createRule()
     {
         return [

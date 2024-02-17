@@ -32,8 +32,8 @@ class User extends Authenticatable {
      * @var array<int, string>
      */
  
-    protected $hidden = ['created_at','password', 'updated_at'];
-    public static function createRules() {
+     protected $hidden = ['created_at', 'updated_at',"status", "password"];
+     public static function createRules() {
         return [
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',

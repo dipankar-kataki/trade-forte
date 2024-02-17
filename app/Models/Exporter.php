@@ -10,7 +10,7 @@ class Exporter extends Model
     use HasFactory;
 
     protected $table = 'exporters';
-    protected $hidden = ['created_at', 'updated_at'];
+    protected $hidden = ['created_at', 'updated_at',"status"];
     protected $guarded = [];
     protected $casts = [
         "addresses" => 'array'

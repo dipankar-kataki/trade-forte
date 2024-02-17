@@ -8,6 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class HsnTable extends Model
 {
     use HasFactory;
-    protected $hidden = ['created_at', 'updated_at'];
+    protected $hidden = ['created_at', 'updated_at',"status"];
     protected $table = "hsn_table";
 }
