@@ -31,14 +31,13 @@ class ConsigneeBank extends Model
     public static function updateRule()
     {
         return [
-            'consignees_id' => 'required|exists:consignees,id',
+            'bank_id' => 'required|exists:consignees_bank_accounts,id',
             'bank_name' => 'required|string|max:255',
             'branch_name' => 'required|string|max:255',
             'forex_account_name' => 'required|string|max:255',
             'forex_account_no' => 'required|string|max:255',
             'swift_code' => 'required|string|max:255',
             'status' => 'required|boolean',
-
         ];
     }
 
