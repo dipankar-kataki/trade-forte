@@ -40,7 +40,7 @@ class BankAccount extends Model
             'account_no' => 'required|string|max:255',
             'ifsc_code' => 'required|string|max:255',
             'swift_code' => 'required|string|max:255',
-            'status' => 'required|boolean',
+            'status' => 'sometimes|boolean',
             'auth_dealer_code' => 'required|string|max:255',
         ];
     }
