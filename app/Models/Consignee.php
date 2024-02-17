@@ -15,6 +15,7 @@ class Consignee extends Model
     public static function createRule()
     {
         return [
+            
             'name' => 'required|string|max:255',
             'address' => 'nullable|string|max:255',
             'foreign_business_country' => 'required|string|max:255',
