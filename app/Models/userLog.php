@@ -9,7 +9,7 @@ class userLog extends Model
 {
     use HasFactory;
     protected $guarded = [];
-    protected $hidden = ['created_at', 'updated_at'];
+    protected $hidden = ['created_at', 'updated_at',"status"];
     protected $table = "user_log";
     public static function createRule()
     {
