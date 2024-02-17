@@ -76,8 +76,9 @@ class BankAccountController extends Controller
         } else {
             try {
                 $user_id = Auth::id();
+                $data = $validator->validated();
                 DB::beginTransaction();
-                BankAccount::where('id', $request->bank_id)->update($request->except(["bank_id"]));
+                BankAccount::where('id', $request->bank_id)->update($data->except(["bank_id"]));
                 $this->createLog($user_id, "Bank account updated.", "bankaccount", $request->bank_id);
                 DB::commit();
                 return $this->success("Bank Account updated successfully.", $request->all(), null, 200);
