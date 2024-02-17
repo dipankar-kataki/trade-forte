@@ -48,7 +48,7 @@ class Exporter extends Model
             "exporterId" => "required|exists:exporters,id",
             'name' => 'sometimes|string|max:255',
             'email' => 'sometimes|email|max:255',
-            'addresses' => 'sometimes|string|max:255',
+            'addresses' => 'sometimes',
             'pincode' => 'sometimes|integer|max:9999999999',
             'gst_no' => 'sometimes|string|max:30',
             'iec_no' => 'sometimes|string|max:30',
