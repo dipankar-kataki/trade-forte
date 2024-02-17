@@ -97,7 +97,7 @@ class ExporterController extends Controller
                 $exporter->save();
                 $this->createLog($user_id, "Exporter details updated.", "exporters", $request->id);
                 DB::commit();
-                return $this->success("Exporter updated successfully.", $request, null, 200);
+                return $this->success("Exporter updated successfully.", $request->all(), null, 200);
             } catch (QueryException $e) {
                 DB::rollBack();
                 if ($e->errorInfo[1] == 1062) {
