@@ -40,7 +40,7 @@ class ExporterController extends Controller
                 }
                 return $this->error('Oops! Something Went Wrong.' . $e->getMessage(), null, null, 500);
             }
-        } 
+        }
     }
 
     public function index(Request $request)
@@ -61,23 +61,22 @@ class ExporterController extends Controller
                 $query->where('id', $request->id)
                     ->orWhere('organization_email', $request->id);
             })->first();
-    
+
             if (!$exporter) {
                 return $this->error("Exporter not found.", null, null, 404);
             }
-    
+
             return $this->success("Exporter details with invoices (latest first).", $exporter, null, 200);
         } catch (\Exception $e) {
             return $this->error('Oops! Something Went Wrong.' . $e->getMessage(), null, null, 500);
         }
     }
-    
+
     public function update(Request $request)
     {
         $id = $request->exporterId;
         $data = array_merge(['exporterId' => $id], $request->all());
         $validator = Validator::make($data, Exporter::updateRule());
-        return 
         if ($validator->fails()) {
             return $this->error('Oops!' . $validator->errors()->first(), null, null, 400);
         } else {
@@ -98,7 +97,7 @@ class ExporterController extends Controller
                 $exporter->save();
                 $this->createLog($user_id, "Exporter details updated.", "exporters", $request->id);
                 DB::commit();
-                return $this->success("Exporter updated successfully.", null, null, 200);
+                return $this->success("Exporter updated successfully.", $request, null, 200);
             } catch (QueryException $e) {
                 DB::rollBack();
                 if ($e->errorInfo[1] == 1062) {
