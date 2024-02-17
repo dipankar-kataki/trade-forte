@@ -54,7 +54,7 @@ class Exporter extends Model
             'iec_no' => 'sometimes|string|max:30',
             'logo' => 'sometimes',
             'customer_category' => 'sometimes|string',
-            'organization_type' => 'sometimes|string|in:PROP,PARTNERSHIP,PRIVATE,OPC,HUF,SOCIETY,TRUST',
+            'organization_type' => 'sometimes|string|in:PROPRIETORSHIP,PARTNERSHIP,PRIVATE,OPC,HUF,SOCIETY,TRUST',
             'lut_no' => 'sometimes|string|max:30',
             'state' => 'sometimes|string|max:255',
             'organization_reg_no' => 'sometimes|string|max:30',
