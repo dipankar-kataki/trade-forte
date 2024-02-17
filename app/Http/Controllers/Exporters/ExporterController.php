@@ -77,6 +77,7 @@ class ExporterController extends Controller
         $id = $request->exporterId;
         $data = array_merge(['exporterId' => $id], $request->all());
         $validator = Validator::make($data, Exporter::updateRule());
+        return 
         if ($validator->fails()) {
             return $this->error('Oops!' . $validator->errors()->first(), null, null, 400);
         } else {
