@@ -12,7 +12,7 @@ class PackagingDetail extends Model
     protected $table = 'packaging_details';
 
     protected $guarded = [];
-
+    protected $hidden = ['created_at', 'updated_at'];
     public function user()
     {
         return $this->belongsTo(User::class, 'details_added_by', 'id');

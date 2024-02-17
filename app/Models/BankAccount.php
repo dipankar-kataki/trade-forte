@@ -12,7 +12,7 @@ class BankAccount extends Model
     protected $table = 'bank_accounts';
 
     protected $guarded = [];
-
+    protected $hidden = ['created_at', 'updated_at'];
     public function user()
     {
         return $this->belongsTo(User::class, 'account_created_by', 'id');

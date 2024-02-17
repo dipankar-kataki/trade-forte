@@ -9,7 +9,7 @@ class ResetPassword extends Model
 {
     use HasFactory;
     protected $table = 'password_resets';
-
+    protected $hidden = ['created_at', 'updated_at'];
     protected $fillable = [
         'token',
         'email',

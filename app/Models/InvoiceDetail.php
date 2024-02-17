@@ -11,6 +11,7 @@ class InvoiceDetail extends Model
 
     protected $table = 'invoice_details';
     protected $with = ['exporters', 'consignees'];
+    protected $hidden = ['created_at', 'updated_at'];
     protected $guarded = [];
 
     public static function createRule()

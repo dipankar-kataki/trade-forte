@@ -10,7 +10,7 @@ class ConsigneeBank extends Model
     use HasFactory;
 
     protected $table = 'consignees_bank_accounts';
-
+    protected $hidden = ['created_at', 'updated_at'];
     protected $guarded = [];
 
     public function user()

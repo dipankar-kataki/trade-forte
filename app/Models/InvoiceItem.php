@@ -10,7 +10,7 @@ class InvoiceItem extends Model
     use HasFactory;
 
     protected $table = 'invoice_items';
-
+    protected $hidden = ['created_at', 'updated_at'];
     protected $guarded = [];
 
     public function user()
