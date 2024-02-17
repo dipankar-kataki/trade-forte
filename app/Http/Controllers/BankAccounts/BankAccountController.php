@@ -88,7 +88,7 @@ class BankAccountController extends Controller
                 $bank->account_no = $data['account_no'];
                 $bank->ifsc_code = $data['ifsc_code'];
                 $bank->swift_code = $data['swift_code'];
-                $bank->status = $data['status'] ?? $bank->status; 
+                $bank->status = $data['status']; 
                 $bank->auth_dealer_code = $data['auth_dealer_code'];
                 $bank->save();
                 $this->createLog($user_id, "Bank account updated.", "bankaccount", $bankId);
