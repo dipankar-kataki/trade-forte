@@ -88,8 +88,10 @@ class ExporterController extends Controller
     }
     public function update(Request $request)
     {
-        $request->validate(Exporter::updateRule());
-    
+        $validator = Validator::make($request->all(), Exporter::updateRule());
+        if ($validator->fails()) {
+            return $this->error('Oops!' . $validator->errors()->first(), null, null, 400);
+        }
         try {
             $user_id = Auth::id();
             $exporter = Exporter::findOrFail($request->exporterId);
