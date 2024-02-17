@@ -71,7 +71,7 @@ class ConsigneeController extends Controller
     }
     public function update(Request $request)
     {
-        $consignee = Consignee::where('id', $request->consignee_id)->first();
+        $consignee = Consignee::where('id', $request->id)->first();
         if (!$consignee) {
             return $this->error("Consignee not found.", null, null, 404);
         }
@@ -82,7 +82,7 @@ class ConsigneeController extends Controller
             try {
                 $user_id = Auth::id();
                 DB::beginTransaction();
-                Consignee::where('id', $request->consignee_id)->update($request->all());
+                Consignee::where('id', $request->id)->update($request->all());
                 $this->createLog($user_id, "Consignee updated.", "consignees", $request->id);
                 DB::commit();
                 return $this->success("Consignee updated successfully.", null, null, 200);
