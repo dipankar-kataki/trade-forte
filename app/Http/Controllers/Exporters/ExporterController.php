@@ -72,7 +72,20 @@ class ExporterController extends Controller
             return $this->error('Oops! Something Went Wrong.' . $e->getMessage(), null, null, 500);
         }
     }
-
+    private function handleFile($request, $exporter)
+    {
+        $previousLogoPath = $exporter->logo;
+    
+        if ($request->hasFile('logo')) {
+            $logo = $request->file('logo');
+            $logoPath = $logo->store('logos');
+            $exporter->logo = $logoPath;
+            
+            if ($previousLogoPath && Storage::disk('public')->exists($previousLogoPath)) {
+                Storage::disk('public')->delete($previousLogoPath);
+            }
+        }
+    }
     public function update(Request $request)
     {
         $request->validate(Exporter::updateRule());
@@ -94,20 +107,7 @@ class ExporterController extends Controller
         }
     }
     
-    private function handleFile($request, $exporter)
-    {
-        $previousLogoPath = $exporter->logo;
-    
-        if ($request->hasFile('logo')) {
-            $logo = $request->file('logo');
-            $logoPath = $logo->store('logos');
-            $exporter->logo = $logoPath;
-            
-            if ($previousLogoPath && Storage::disk('public')->exists($previousLogoPath)) {
-                Storage::disk('public')->delete($previousLogoPath);
-            }
-        }
-    }
+
     
     public function destroy(Request $request)
     {
