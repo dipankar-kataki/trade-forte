@@ -45,34 +45,32 @@ class Exporter extends Model
     public static function updateRule()
     {
         return [
-            "exporterId" => "required|exists:exporters,id",
+            "exporter_id" => "required",
             'name' => 'sometimes|string|max:255',
-            'email' => 'sometimes|email|max:255',
             'addresses' => 'sometimes',
             'pincode' => 'sometimes|integer|max:9999999999',
             'gst_no' => 'sometimes|string|max:30',
             'iec_no' => 'sometimes|string|max:30',
-            'logo' => 'sometimes',
+            'logo' => 'nullable',
             'customer_category' => 'sometimes|string',
             'organization_type' => 'sometimes|string|in:PROPRIETORSHIP,PARTNERSHIP,PRIVATE,OPC,HUF,SOCIETY,TRUST',
-            'lut_no' => 'sometimes|string|max:30',
+            'lut_no' => 'nullable|string|max:30',
             'state' => 'sometimes|string|max:255',
-            'organization_reg_no' => 'sometimes|string|max:30',
+            'organization_reg_no' => 'nullable|string|max:30',
             'authorised_signatory_name' => 'sometimes|string|max:255',
             'authorised_signatory_designation' => 'sometimes|string|max:255',
             'authorised_signatory_sex' => 'sometimes|string|in:MALE,FEMALE',
             'authorised_signatory_dob' => 'sometimes|date',
             'authorised_signatory_pan' => 'sometimes|string|max:30',
+            'authorised_signatory_father' => 'sometimes|string|max:30',
             'authorised_signatory_aadhar' => 'sometimes|string|max:30',
             'organization_email' => 'sometimes|email|max:255',
             'organization_phone' => 'sometimes|string|max:15',
             'firm_pan_no' => 'sometimes|string|max:30',
             'status' => 'sometimes|boolean',
-            'logo_height' => 'sometimes|string',
-            'logo_width' => 'sometimes|string',
-            'pan_no' => 'sometimes|string|max:30',
         ];
     }
+    
 
 
     public function account_created_by()
