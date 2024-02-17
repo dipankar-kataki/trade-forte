@@ -23,7 +23,7 @@ class Exporter extends Model
             'pincode' => 'required|integer|max:9999999999',
             'gst_no' => 'required|string|max:30',
             'iec_no' => 'required|string|max:30',
-            'logo' => 'required',
+            'logo' => 'nullable',
             'customer_category' => 'required|string',
             'organization_type' => 'required|string|in:PROPRIETORSHIP,PARTNERSHIP,PRIVATE,OPC,HUF,SOCIETY,TRUST',
             'lut_no' => 'required|string|max:30',
