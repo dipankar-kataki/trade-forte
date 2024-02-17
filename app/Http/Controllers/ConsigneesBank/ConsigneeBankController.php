@@ -54,7 +54,7 @@ class ConsigneeBankController extends Controller
     {
         try {
             $account = ConsigneeBank::where(function ($query) use ($request) {
-                $query->where('id', $request->id)
+                $query->where('consignee_id', $request->id)
                     ->orWhere('forex_account_no', $request->id);
             })->get();
             if (!$account) {
