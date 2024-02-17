@@ -74,40 +74,46 @@ class ExporterController extends Controller
 
     public function update(Request $request)
     {
-        return response()->json(["message"=>"request received", "data"=>$request->all()]);
-        $id = $request->exporterId;
-        $data = array_merge(['exporterId' => $id], $request->all());
-        $validator = Validator::make($data, Exporter::updateRule());
-        if ($validator->fails()) {
-            return $this->error('Oops!' . $validator->errors()->first(), null, null, 400);
-        } else {
-            try {
-                $user_id = Auth::id();
-                $exporter = Exporter::find($request->exporterId);
-                $previousLogoPath = $exporter->logo;
-                $exporter->fill($request->except('exporterId'));
-                if ($request->hasFile('logo')) {
-                    $logo = $request->file('logo');
-                    $logoPath = $logo->store('logos');
-                    $exporter->logo = $logoPath;
-                    if ($previousLogoPath && Storage::disk('public')->exists($previousLogoPath)) {
-                        Storage::disk('public')->delete($previousLogoPath);
-                    }
-                }
-                DB::beginTransaction();
-                $exporter->save();
-                $this->createLog($user_id, "Exporter details updated.", "exporters", $request->id);
-                DB::commit();
-                return $this->success("Exporter updated successfully.", $request->all(), null, 200);
-            } catch (QueryException $e) {
-                DB::rollBack();
-                if ($e->errorInfo[1] == 1062) {
-                    return $this->error("Phone number already exists. Please provide another value", null, null, 422);
-                }
-                return $this->error('Oops! Something Went Wrong.' . $e->getMessage(), null, null, 500);
+        $request->validate(Exporter::updateRule());
+    
+        try {
+            $user_id = Auth::id();
+            $exporter = Exporter::findOrFail($request->exporterId);
+            
+            $this->handleFile($request, $exporter);
+    
+            DB::beginTransaction();
+            $exporter->update($request->except(['exporterId', 'logo']));
+            $this->createLog($user_id, "Exporter details updated.", "exporters", $request->id);
+            DB::commit();
+    
+            return $this->success("Exporter updated successfully.", $request->all(), null, 200);
+        } catch (ModelNotFoundException $e) {
+            return $this->error("Exporter not found.", null, null, 404);
+        } catch (QueryException $e) {
+            DB::rollBack();
+            if ($e->errorInfo[1] == 1062) {
+                return $this->error("Phone number already exists. Please provide another value", null, null, 422);
+            }
+            return $this->error('Oops! Something Went Wrong.' . $e->getMessage(), null, null, 500);
+        }
+    }
+    
+    private function handleFile($request, $exporter)
+    {
+        $previousLogoPath = $exporter->logo;
+    
+        if ($request->hasFile('logo')) {
+            $logo = $request->file('logo');
+            $logoPath = $logo->store('logos');
+            $exporter->logo = $logoPath;
+    
+            if ($previousLogoPath && Storage::disk('public')->exists($previousLogoPath)) {
+                Storage::disk('public')->delete($previousLogoPath);
             }
         }
     }
+    
     public function destroy(Request $request)
     {
         try {
