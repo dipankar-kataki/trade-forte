@@ -53,7 +53,7 @@ class InvoiceItem extends Model
             'uqc' => 'nullable|string',
             'quantity' => 'nullable|integer',
             'packaging_description' => 'nullable|string',
-            'net_weight_of_each_unit' => 'required|integer',
+            'net_weight_of_each_unit' => 'nullable|integer',
             'custom_column_name_1' => 'nullable|string',
             'custom_column_value_1' => 'nullable|string',
             'custom_column_name_2' => 'nullable|string',
