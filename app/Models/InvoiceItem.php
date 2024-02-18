@@ -46,7 +46,7 @@ class InvoiceItem extends Model
     public static function updateRule()
     {
         return [
-            'invoice_details_id' => 'required|exists:invoice_details,id',
+            'invoice_details_id' => 'nullable|exists:invoice_details,id',
             'users_id' => 'nullable|exists:users,id',
             'hsn_code' => 'nullable|string',
             'product_name' => 'nullable|string',
