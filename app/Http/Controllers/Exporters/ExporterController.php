@@ -47,7 +47,7 @@ class ExporterController extends Controller
     public function index(Request $request)
     {
         try {
-            $exporter = Exporter::select('id', 'name', 'organization_phone',"")->get();
+            $exporter = Exporter::select('id', 'name', 'organization_phone','iec_no','gst_no')->get();
             return $this->success("Exporter list.", $exporter, null, 200);
         } catch (\Exception $e) {
             return $this->error('Oops! Something Went Wrong.' . $e->getMessage(), null, null, 500);
