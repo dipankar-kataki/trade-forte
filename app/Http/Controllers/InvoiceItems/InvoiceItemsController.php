@@ -76,7 +76,7 @@ class InvoiceItemsController extends Controller
                 if ($validator->fails()) {
                     return $this->error('Oops!' . $validator->errors()->first(), null, null, 400);
                 }
-
+                $invItem = InvoiceItem::where('id', $item["id"])->first();
                 // Loop through attributes dynamically and update only if $item value is not null
                 $attributes = $invItem->getFillable();
 
