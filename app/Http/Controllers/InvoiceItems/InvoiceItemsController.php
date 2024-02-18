@@ -88,7 +88,7 @@ class InvoiceItemsController extends Controller
                 $invItem->save(); // Save the changes
             }
             $user_id = Auth::id();
-            $this->createLog($user_id, "Invoice items updated.", "invoiceitems", $request->id);
+            $this->createLog($user_id, "Invoice items updated.", "invoiceitems", 0);
             DB::commit();
             return $this->success("Invoice items list updated successfully.", null, null, 200);
         } catch (\Exception $e) {
