@@ -40,9 +40,7 @@ class InvoiceItemsController extends Controller
                 // Log each item creation
                 $this->createLog($user_id, "Invoice item added.", "invoiceitems", $item->id);
             }
-
             DB::commit();
-
             return $this->success("Invoice items added Successfully!", null, null, 201);
         } catch (\Exception $e) {
             DB::rollBack();
