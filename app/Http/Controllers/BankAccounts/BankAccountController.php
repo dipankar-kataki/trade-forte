@@ -79,7 +79,6 @@ class BankAccountController extends Controller
                 $user_id = Auth::id();
                 $data = $validator->validated();
                 $bankId = $request->bank_id;
-    
                 DB::beginTransaction();
                 $bank = BankAccount::where('id', $bankId)->first();
                 $bank->bank_name = $data['bank_name'];
@@ -93,7 +92,6 @@ class BankAccountController extends Controller
                 $bank->save();
                 $this->createLog($user_id, "Bank account updated.", "bankaccount", $bankId);
                 DB::commit();
-    
                 return $this->success("Bank Account updated successfully.", null, null, 200);
             } catch (QueryException $e) {
                 DB::rollBack();
