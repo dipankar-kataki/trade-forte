@@ -18,24 +18,49 @@ class ShippingAddressController extends Controller
     public function create(Request $request)
     {
         try {
+            // Ensure user is authenticated
             $user_id = Auth::id();
+            if (!$user_id) {
+                throw new \Exception('User not authenticated.');
+            }
+    
             $addresses = $request->addresses;
+    
+            // Start a database transaction
             DB::beginTransaction();
+    
             foreach ($addresses as $address) {
+                // Validate the address data
                 $validator = Validator::make($address, ShippingAddress::createRule());
                 $data = $validator->validated();
-                $data['users_id'] = $user_id
+    
+                // Set the user ID
+                $data['users_id'] = $user_id;
+    
+                // Create the shipping address
                 $shipping = ShippingAddress::create($data);
+    
+                // Log the action
                 $this->createLog($user_id, "Shipping address added.", "shipping", $shipping->id);
             }
+    
+            // Commit the transaction
             DB::commit();
-            return $this->success("Shipping details created Successfully!", null, null, 201);
+    
+            // Return a success response
+            return $this->success("Shipping details created successfully!", null, null, 201);
         } catch (\Exception $e) {
+            // Rollback the transaction in case of an exception
             DB::rollBack();
-            return $this->error('Oops! Something Went Wrong.' . $e->getMessage(), null, null, 500);
+    
+            // Log the exception for debugging purposes
+            \Log::error('Error in shipping address creation: ' . $e->getMessage());
+    
+            // Return an error response
+            return $this->error('Oops! Something went wrong. ' . $e->getMessage(), null, null, 500);
         }
-
     }
+    
 
     public function index(Request $request)
     {
