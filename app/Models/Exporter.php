@@ -79,5 +79,8 @@ class Exporter extends Model
     {
         return $this->hasMany(InvoiceDetail::class, 'exporter_id', 'id')->latest();
     }
-
+    public function shippingAddress()
+    {
+        return $this->hasMany(ShippingAddress::class, 'exporter_id', 'id')->latest();
+    }
 }

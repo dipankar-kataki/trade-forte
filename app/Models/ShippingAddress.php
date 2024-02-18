@@ -26,9 +26,9 @@ class ShippingAddress extends Model
             "state" => "required|string",
         ];
     }
-    public function consignee()
+    public function exporter()
     {
-        return $this->belongsTo(Consignee::class, 'consignee_id', 'id');
+        return $this->belongsTo(Exporter::class, 'exporter_id', 'id');
     }
     public function user()
     {
