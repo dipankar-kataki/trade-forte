@@ -33,8 +33,8 @@ class InvoiceItemsController extends Controller
             foreach ($invoiceItemsData as $itemData) {
                 // Add user_id and calculate total_value for each item
                 $itemData["users_id"] = $user_id;
-                $itemData["net_value"] = $itemData->net_weight_of_each_unit * $itemData->quantity;
-                $itemData["net_weight"] = $itemData->unit_value * $itemData->quantity;
+                $itemData["net_value"] = $itemData["net_weight_of_each_unit"] * $itemData["quantity"];
+                $itemData["net_weight"] = $itemData["unit_value"] * $itemData["quantity"];
                 // Create the InvoiceItem record
                 $item = InvoiceItem::create($itemData);
                 // Log each item creation
