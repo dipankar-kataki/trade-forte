@@ -19,7 +19,6 @@ class ShippingAddressController extends Controller
     {
         try {
             $user_id = Auth::id();
-            $data["users_id"] = $user_id;
             $addresses = $request->addresses;
             DB::beginTransaction();
             foreach ($addresses as $address) {
