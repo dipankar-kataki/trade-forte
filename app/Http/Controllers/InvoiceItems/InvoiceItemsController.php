@@ -69,21 +69,31 @@ class InvoiceItemsController extends Controller
 
     public function update(Request $request)
     {
-        $validator = Validator::make($request->all(), InvoiceItem::updateRule());
-        if ($validator->fails()) {
-            return $this->error('Oops!' . $validator->errors()->first(), null, null, 400);
-        } else {
-            try {
-                DB::beginTransaction();
-                InvoiceItem::where('id', $request->id)->update($request->all());
-                $user_id = Auth::id();
-                $this->createLog($user_id, "Invoice items updated.", "invoiceitems", $request->id);
-                DB::commit();
-                return $this->success("Invoice items list updated successfully.", null, null, 200);
-            } catch (\Exception $e) {
-                DB::rollBack();
-                return $this->error('Oops! Something Went Wrong.' . $e->getMessage(), null, null, 500);
+        try {
+            DB::beginTransaction();
+            foreach ($request->items as $item) {
+                $validator = Validator::make($request->all(), InvoiceItem::updateRule());
+                if ($validator->fails()) {
+                    return $this->error('Oops!' . $validator->errors()->first(), null, null, 400);
+                }
+
+                // Loop through attributes dynamically and update only if $item value is not null
+                $attributes = $invItem->getFillable();
+
+                foreach ($attributes as $attribute) {
+                    if (isset($item[$attribute]) && $item[$attribute] !== null) {
+                        $invItem->$attribute = $item[$attribute];
+                    }
+                }
+                $invItem->save(); // Save the changes
             }
+            $user_id = Auth::id();
+            $this->createLog($user_id, "Invoice items updated.", "invoiceitems", $request->id);
+            DB::commit();
+            return $this->success("Invoice items list updated successfully.", null, null, 200);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return $this->error('Oops! Something Went Wrong.' . $e->getMessage(), null, null, 500);
         }
     }
     public function delete(Request $request)
