@@ -17,13 +17,12 @@ class ShippingAddress extends Model
     public static function createRule()
     {
         return [
-            'consignee_id' => 'required|exists:consignees,id',
+            'exporter_id' => 'required|exists:exporters,id',
             'name' => 'required|string',
             'address' => 'required|string',
             'country' => 'required|string',
             'phone' => 'required|string',
             'pin_code' => 'required|string',
-            'status' => 'boolean',
         ];
     }
     public function consignee()

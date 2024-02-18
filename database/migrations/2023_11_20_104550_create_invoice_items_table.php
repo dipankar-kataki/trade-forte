@@ -22,6 +22,9 @@ class CreateInvoiceItemsTable extends Migration
             $table->text('product_name');
             $table->string('uqc');
             $table->integer('quantity');
+            $table->integer('net_value');
+            $table->integer('net_weight');
+            $table->string('packaging_description');
             $table->string('custom_column_name_1')->nullable();
             $table->string('custom_column_value_1')->nullable();
             $table->string('custom_column_name_2')->nullable();

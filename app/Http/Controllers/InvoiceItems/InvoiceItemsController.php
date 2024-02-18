@@ -33,10 +33,10 @@ class InvoiceItemsController extends Controller
             foreach ($invoiceItemsData as $itemData) {
                 // Add user_id and calculate total_value for each item
                 $itemData["users_id"] = $user_id;
-
+                $itemData["net_value"] = $itemData->net_weight_of_each_unit * $itemData->quantity;
+                $itemData["net_weight"] = $itemData->unit_value * $itemData->quantity;
                 // Create the InvoiceItem record
                 $item = InvoiceItem::create($itemData);
-
                 // Log each item creation
                 $this->createLog($user_id, "Invoice item added.", "invoiceitems", $item->id);
             }
@@ -77,11 +77,11 @@ class InvoiceItemsController extends Controller
         } else {
             try {
                 DB::beginTransaction();
-                InvoiceItem::where('id', $request->id)->update($request->all());
+                InvoiceItem::where('id', $request->id)->update($request->packaging_description);
                 $user_id = Auth::id();
                 $this->createLog($user_id, "Invoice items updated.", "invoiceitems", $request->id);
                 DB::commit();
-                return $this->success("Consignee updated successfully.", null, null, 200);
+                return $this->success("Invoice items list updated successfully.", null, null, 200);
             } catch (\Exception $e) {
                 DB::rollBack();
                 return $this->error('Oops! Something Went Wrong.' . $e->getMessage(), null, null, 500);

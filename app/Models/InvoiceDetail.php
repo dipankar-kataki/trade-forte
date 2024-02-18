@@ -30,7 +30,7 @@ class InvoiceDetail extends Model
             "remarks" => "required|string",
             // 'freight' => 'required|string',
             // 'valid_upto' => 'required|date',
-            // 'vehicle_no' => 'required|string',
+            'shipping_id' => "required|exists:shipping_addresses,id",
             'invoice_date' => 'required|date',
             // 'eway_bill_id' => 'required|string',
             'po_contract_number' => 'required|string',

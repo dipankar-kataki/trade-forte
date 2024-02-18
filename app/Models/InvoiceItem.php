@@ -26,6 +26,7 @@ class InvoiceItem extends Model
             'product_name' => 'required|string',
             'uqc' => 'required|string',
             'quantity' => 'required|integer',
+            'packaging_description' => 'nullable|string',
             'net_weight_of_each_unit' => 'required|integer',
             'custom_column_name_1' => 'nullable|string',
             'custom_column_value_1' => 'nullable|string',
