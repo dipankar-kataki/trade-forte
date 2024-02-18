@@ -77,7 +77,7 @@ class InvoiceItemsController extends Controller
         } else {
             try {
                 DB::beginTransaction();
-                InvoiceItem::where('id', $request->id)->update($request->packaging_description);
+                InvoiceItem::where('id', $request->id)->update($request->all());
                 $user_id = Auth::id();
                 $this->createLog($user_id, "Invoice items updated.", "invoiceitems", $request->id);
                 DB::commit();

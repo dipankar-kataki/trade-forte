@@ -24,9 +24,9 @@ class DatabaseSeeder extends Seeder
         $this->call([
             SuperAdminSeeder::class,
             CountrySeeder::class,
-            ExporterSeeder::class,
-            ConsigneeSeeder::class,
-            BankAccountsTableSeeder::class,
+                // ExporterSeeder::class,
+                // ConsigneeSeeder::class,
+                // BankAccountsTableSeeder::class,
                 // InvoiceDetailsTableSeeder::class,
                 // InvoiceItemsTableSeeder::class,
                 // PackagingDetailsTableSeeder::class,
