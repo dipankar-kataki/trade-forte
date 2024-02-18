@@ -24,6 +24,7 @@ class ShippingAddressController extends Controller
             foreach ($addresses as $address) {
                 $validator = Validator::make($address, ShippingAddress::createRule());
                 $data = $validator->validated();
+                $data['users_id'] = $user_id
                 $shipping = ShippingAddress::create($data);
                 $this->createLog($user_id, "Shipping address added.", "shipping", $shipping->id);
             }
