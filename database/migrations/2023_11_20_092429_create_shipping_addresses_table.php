@@ -24,7 +24,7 @@ class CreateShippingAddressesTable extends Migration
             $table->id();
             $table->unsignedBigInteger('exporter_id');
             $table->unsignedBigInteger('users_id');
-            $table->string('address_line_1');
+            $table->string('address_line_one');
             $table->string('address_line_two');
             $table->string('state');
             $table->string('pin_code');
