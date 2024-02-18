@@ -24,8 +24,6 @@ class ShippingAddress extends Model
             "city"=>"required|string",
             "district"=>"required|string",
             "state"=>"required|string" ,           
-            'country' => 'required|string',
-
         ];
     }
     public function consignee()

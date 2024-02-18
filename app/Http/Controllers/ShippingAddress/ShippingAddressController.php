@@ -26,7 +26,7 @@ class ShippingAddressController extends Controller
                 $validator = Validator::make($address, ShippingAddress::createRule());
                 $data = $validator->validated();
                 $shipping = ShippingAddress::create($data);
-                $this->createLog($data["details_created_by"], "Shipping address added.", "shipping", $shipping->id);
+                $this->createLog($user_id, "Shipping address added.", "shipping", $shipping->id);
             }
             DB::commit();
             return $this->success("Shipping details created Successfully!", null, null, 201);
