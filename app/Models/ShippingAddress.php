@@ -10,7 +10,7 @@ class ShippingAddress extends Model
     use HasFactory;
 
     protected $table = 'shipping_addresses';
-    protected $hidden = ['created_at', 'updated_at',"status"];
+    protected $hidden = ['created_at', 'updated_at', "status"];
     protected $guarded = [];
 
 
@@ -18,11 +18,14 @@ class ShippingAddress extends Model
     {
         return [
             'exporter_id' => 'required|exists:exporters,id',
-            'name' => 'required|string',
-            'address' => 'required|string',
-            'country' => 'required|string',
-            'phone' => 'required|string',
+            'address_line_1' => 'required|string',
+            'address_line_2' => 'required|string',
             'pin_code' => 'required|string',
+            "city"=>"required|string",
+            "district"=>"required|string",
+            "state"=>"required|string" ,           
+            'country' => 'required|string',
+
         ];
     }
     public function consignee()

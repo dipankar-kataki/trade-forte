@@ -11,22 +11,28 @@ class CreateShippingAddressesTable extends Migration
      *
      * @return void
      */
+    // 'address_line_1' => 'required|string',
+    // 'address_line_2' => 'required|string',
+    // 'pin_code' => 'required|string',
+    // "city"=>"required|string",
+    // "district"=>"required|string",
+    // "state"=>"required|string" ,           
+    // 'country' => 'required|string',
     public function up()
     {
         Schema::create('shipping_addresses', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('consignee_id');
+            $table->unsignedBigInteger('exporter_id');
             $table->unsignedBigInteger('users_id');
-            $table->string('name');
-            $table->string('address');
-            $table->string('country');
-            $table->string('phone');
+            $table->string('address_line_1');
+            $table->string('address_line_2');
+            $table->string('state');
             $table->string('pin_code');
+            $table->string('city');
+            $table->string('district');
             $table->boolean('status')->default(1);
-
             $table->timestamps();
-
-            $table->foreign('consignee_id')->references('id')->on('consignees');
+            $table->foreign('exporter_id')->references('id')->on('exporters');
             $table->foreign('users_id')->references('id')->on('users');
         });
     }

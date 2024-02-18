@@ -27,7 +27,7 @@ class ExporterController extends Controller
             try {
                 $data = $validator->validated();
                 $user_id = Auth::id();
-                $data["addresses"] = json_encode($request->addresses);
+                // $data["addresses"] = json_encode($request->addresses);
                 $data["users_id"] = Auth::id();
                 DB::beginTransaction();
                 $exporter = Exporter::create($data);

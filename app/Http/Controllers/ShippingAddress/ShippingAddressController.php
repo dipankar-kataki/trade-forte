@@ -17,27 +17,24 @@ class ShippingAddressController extends Controller
     use CreateUserActivityLog;
     public function create(Request $request)
     {
-        $validator = Validator::make($request->all(), ShippingAddress::createRule());
-        if ($validator->fails()) {
-            return response()->json([
-                "message" => 'Oops!' . $validator->errors()->first(),
-                "status" => 400
-            ]);
-        } else {
-            try {
+        try {
+            $user_id = Auth::id();
+            $data["users_id"] = $user_id;
+            $addresses = $request->addresses;
+            DB::beginTransaction();
+            foreach ($addresses as $address) {
+                $validator = Validator::make($address, ShippingAddress::createRule());
                 $data = $validator->validated();
-                $user_id = Auth::id();
-                $data["users_id"] = $user_id;
-                DB::beginTransaction();
                 $shipping = ShippingAddress::create($data);
                 $this->createLog($data["details_created_by"], "Shipping address added.", "shipping", $shipping->id);
-                DB::commit();
-                return $this->success("Shipping details created Successfully!", null, null, 201);
-            } catch (\Exception $e) {
-                DB::rollBack();
-                return $this->error('Oops! Something Went Wrong.' . $e->getMessage(), null, null, 500);
             }
+            DB::commit();
+            return $this->success("Shipping details created Successfully!", null, null, 201);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return $this->error('Oops! Something Went Wrong.' . $e->getMessage(), null, null, 500);
         }
+
     }
 
     public function index(Request $request)
