@@ -15,6 +15,7 @@ class CreatePackagingDetailsTable extends Migration
     {
         Schema::create('packaging_details', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('invoice_item_id');
             $table->unsignedBigInteger('invoice_id');
             $table->unsignedBigInteger('users_id');
             $table->text('net_weight')->nullable();
