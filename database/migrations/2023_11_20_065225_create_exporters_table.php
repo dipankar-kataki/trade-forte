@@ -17,7 +17,6 @@ class CreateExportersTable extends Migration
             $table->id();
             $table->unsignedBigInteger('users_id');
             $table->string('name');
-            $table->longText('addresses');
             $table->string('pincode');
             $table->string('gst_no');
             $table->string('iec_no');

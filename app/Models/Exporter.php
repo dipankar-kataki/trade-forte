@@ -12,9 +12,9 @@ class Exporter extends Model
     protected $table = 'exporters';
     protected $hidden = ['created_at', 'updated_at',"status"];
     protected $guarded = [];
-    protected $casts = [
-        "addresses" => 'array'
-    ];
+    // protected $casts = [
+    //     "addresses" => 'array'
+    // ];
     public static function createRule()
     {
         return [
@@ -46,7 +46,6 @@ class Exporter extends Model
         return [
             "exporter_id" => "required|exists:exporters,id",
             'name' => 'required|string|max:255',
-            'addresses' => 'required',
             'pincode' => 'required|integer|max:9999999999',
             'gst_no' => 'required|string|max:30',
             'iec_no' => 'required|string|max:30',

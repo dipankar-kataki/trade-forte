@@ -96,7 +96,7 @@ class ExporterController extends Controller
             $user_id = Auth::id();
             $exporter = Exporter::findOrFail($request->exporter_id);
             $this->handleFile($request, $exporter);
-            $exporter["addresses"] = json_encode($request->addresses);
+            // $exporter["addresses"] = json_encode($request->addresses);
             DB::beginTransaction();
             $exporter->update($request->except(['exporter_id', 'logo','addresses']));
             $exporter->save();
