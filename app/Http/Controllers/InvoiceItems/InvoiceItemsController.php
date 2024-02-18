@@ -78,7 +78,6 @@ class InvoiceItemsController extends Controller
                 // }
                 $invItem = InvoiceItem::where('id', $item["id"])->first();
                 // Loop through attributes dynamically and update only if $item value is not null
-                $attributes = $invItem->getFillable();
 
                 foreach ($item as $key => $value) {
                     if ($value !== null) {
