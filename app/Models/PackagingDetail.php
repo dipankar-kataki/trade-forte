@@ -21,13 +21,11 @@ class PackagingDetail extends Model
     {
         return [
             'invoice_id' => 'required|exists:invoice_details,id',
-            'invoice_item_id' => 'required|exists:invoice_items,id',
             'net_weight' => 'nullable|string',
             'total_gross_weight' => 'nullable|string',
             'each_box_weight' => 'nullable|numeric',
             'packaging_type' => 'required|string',
             'quantity' => 'required|integer',
-            // 'vehicle_no' => 'nullable|string',
         ];
     }
     public static function updateRule()
