@@ -78,7 +78,7 @@ class ShippingAddressController extends Controller
 
         try {
             DB::beginTransaction();
-            foreach ($request->items as $item) {
+            foreach ($request->addresses as $item) {
                 // $validator = Validator::make($request->all(), InvoiceItem::updateRule());
                 // if ($validator->fails()) {
                 //     return $this->error('Oops!' . $validator->errors()->first(), null, null, 400);
