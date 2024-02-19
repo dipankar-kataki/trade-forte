@@ -86,7 +86,7 @@ class BankAccountController extends Controller
                     }
                 }
             }
-            $bank->save();
+            $invItem->save();
             $this->createLog($user_id, "Bank account updated.", "bankaccount", $bankId);
             DB::commit();
             return $this->success("Bank Account updated successfully.", null, null, 200);
