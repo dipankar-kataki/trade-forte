@@ -70,17 +70,15 @@ class BankAccountController extends Controller
 
     public function update(Request $request)
     {
-        // $validator = Validator::make($request->all(), BankAccount::updateRule());
-
-        // if ($validator->fails()) {
-        //     return $this->error('Oops! ' . $validator->errors()->first(), null, null, 400);
-        // } else {
         try {
             $user_id = Auth::id();
             $data = $request->all();
             $bankId = $request->bank_id;
             DB::beginTransaction();
             $bank = BankAccount::where('id', $bankId)->first();
+            if (!$bank) {
+                return $this->error("Bank account not found.", null, null, 404);
+            }
             $bank->bank_name = $data['bank_name'];
             $bank->branch_name = $data['branch_name'];
             $bank->account_name = $data['account_name'];
@@ -93,16 +91,15 @@ class BankAccountController extends Controller
             $this->createLog($user_id, "Bank account updated.", "bankaccount", $bankId);
             DB::commit();
             return $this->success("Bank Account updated successfully.", null, null, 200);
-        } catch (QueryException $e) {
+        } catch (\Exception $e) {
             DB::rollBack();
-            if ($e->errorInfo[1] == 1062) {
+            if ($e instanceof QueryException && $e->errorInfo[1] == 1062) {
                 return $this->error("Bank account number already exists. Please provide another value", null, null, 422);
             }
             return $this->error('Oops! Something Went Wrong. ' . $e->getMessage(), null, null, 500);
-            // }
         }
     }
-
+    
     public function destroy(Request $request)
     {
         $account = BankAccount::where(function ($query) use ($request) {
