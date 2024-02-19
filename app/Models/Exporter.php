@@ -65,7 +65,6 @@ class Exporter extends Model
             'organization_email' => 'required|email|max:255',
             'organization_phone' => 'required|string|max:15',
             'firm_pan_no' => 'required|string|max:30',
-            'status' => 'required|boolean',
         ];
     }
 
