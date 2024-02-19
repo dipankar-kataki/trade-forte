@@ -123,6 +123,5 @@ class ShippingAddressController extends Controller
             DB::rollBack();
             return $this->error('Oops! Something Went Wrong.' . $e->getMessage(), null, null, 500);
         }
-
     }
 }
