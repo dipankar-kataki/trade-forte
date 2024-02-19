@@ -73,7 +73,7 @@ class BankAccountController extends Controller
         try {
             $user_id = Auth::id();
             $data = $request->all();
-            $bankId = $request->bank_id;
+            $bankId = $request->id;
             DB::beginTransaction();
             $invItem = BankAccount::where('id', $bankId)->first();
             if (!$invItem) {
