@@ -65,7 +65,7 @@ Route::group(["middleware" => 'auth:sanctum'], function () {
         Route::post('create', [BankAccountController::class, 'create']);
         Route::get('list', [BankAccountController::class, 'index']);
         Route::get('get/{id}', [BankAccountController::class, 'show']);
-        Route::put('update', [BankAccountController::class, 'update']);
+        Route::post('update', [BankAccountController::class, 'update']);
         Route::delete('delete/{id}', [BankAccountController::class, 'destroy']);
     });
 
