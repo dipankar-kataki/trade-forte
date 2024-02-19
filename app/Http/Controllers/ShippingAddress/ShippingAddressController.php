@@ -75,36 +75,33 @@ class ShippingAddressController extends Controller
     }
     public function update(Request $request)
     {
-        $validator = Validator::make($request->all(), ShippingAddress::updateRule());
-        if ($validator->fails()) {
-            return $this->error('Oops!' . $validator->errors()->first(), null, null, 400);
-        } else {
-            try {
-                DB::beginTransaction();
-                foreach ($request->items as $item) {
-                    // $validator = Validator::make($request->all(), InvoiceItem::updateRule());
-                    // if ($validator->fails()) {
-                    //     return $this->error('Oops!' . $validator->errors()->first(), null, null, 400);
-                    // }
-                    $invItem = ShippingAddress::where('id', $request->id)->first();
 
-                    // Loop through attributes dynamically and update only if $item value is not null
+        try {
+            DB::beginTransaction();
+            foreach ($request->items as $item) {
+                // $validator = Validator::make($request->all(), InvoiceItem::updateRule());
+                // if ($validator->fails()) {
+                //     return $this->error('Oops!' . $validator->errors()->first(), null, null, 400);
+                // }
+                $invItem = ShippingAddress::where('id', $request->id)->first();
 
-                    foreach ($item as $key => $value) {
-                        if ($value !== null) {
-                            $invItem->$key = $value;
-                        }
+                // Loop through attributes dynamically and update only if $item value is not null
+
+                foreach ($item as $key => $value) {
+                    if ($value !== null) {
+                        $invItem->$key = $value;
                     }
-                    $invItem->save(); // Save the changes
                 }
-                $user_id = Auth::id();
-                $this->createLog($user_id, "Shipping address updated.", "shipping", null);
-                DB::commit();
-                return $this->success("Shipping updated successfully.", null, null, 200);
-            } catch (\Exception $e) {
-                DB::rollBack();
-                return $this->error('Oops! Something Went Wrong.' . $e->getMessage(), null, null, 500);
+                $invItem->save(); // Save the changes
             }
+            $user_id = Auth::id();
+            $this->createLog($user_id, "Shipping address updated.", "shipping", null);
+            DB::commit();
+            return $this->success("Shipping updated successfully.", null, null, 200);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return $this->error('Oops! Something Went Wrong.' . $e->getMessage(), null, null, 500);
+
         }
     }
     public function destroy(Request $request)
