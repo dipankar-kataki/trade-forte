@@ -79,14 +79,11 @@ class BankAccountController extends Controller
             if (!$bank) {
                 return $this->error("Bank account not found.", $request->all(), null, 404);
             }
-            $bank->bank_name = $data['bank_name'];
-            $bank->branch_name = $data['branch_name'];
-            $bank->account_name = $data['account_name'];
-            $bank->account_no = $data['account_no'];
-            $bank->ifsc_code = $data['ifsc_code'];
-            $bank->swift_code = $data['swift_code'];
-            $bank->status = $data['status'];
-            $bank->auth_dealer_code = $data['auth_dealer_code'];
+            foreach ($item as $key => $value) {
+                if ($value !== null) {
+                    $invItem->$key = $value;
+                }
+            }
             $bank->save();
             $this->createLog($user_id, "Bank account updated.", "bankaccount", $bankId);
             DB::commit();
