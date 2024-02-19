@@ -75,11 +75,11 @@ class BankAccountController extends Controller
             $data = $request->all();
             $bankId = $request->bank_id;
             DB::beginTransaction();
-            $bank = BankAccount::where('id', $bankId)->first();
-            if (!$bank) {
+            $invItem = BankAccount::where('id', $bankId)->first();
+            if (!$invItem) {
                 return $this->error("Bank account not found.", $request->all(), null, 404);
             }
-            foreach ($bank as $key => $value) {
+            foreach ($data as $key => $value) {
                 if ($value != null) {
                     if ($invItem->$key != $value) {
                         $invItem->$key = $value;
