@@ -26,6 +26,18 @@ class ShippingAddress extends Model
             "state" => "required|string",
         ];
     }
+    public static function updateRule()
+    {
+        return [
+            'exporter_id' => 'required|exists:exporters,id',
+            'address_line_one' => 'required|string',
+            'address_line_two' => 'required|string',
+            'pin_code' => 'required|string',
+            "city" => "required|string",
+            "district" => "required|string",
+            "state" => "required|string",
+        ];
+    }
     public function exporter()
     {
         return $this->belongsTo(Exporter::class, 'exporter_id', 'id');
