@@ -79,9 +79,11 @@ class BankAccountController extends Controller
             if (!$bank) {
                 return $this->error("Bank account not found.", $request->all(), null, 404);
             }
-            foreach ($item as $key => $value) {
-                if ($value !== null) {
-                    $invItem->$key = $value;
+            foreach ($bank as $key => $value) {
+                if ($value != null) {
+                    if ($invItem->$key != $value) {
+                        $invItem->$key = $value;
+                    }
                 }
             }
             $bank->save();
@@ -96,7 +98,7 @@ class BankAccountController extends Controller
             return $this->error('Oops! Something Went Wrong. ' . $e->getMessage(), null, null, 500);
         }
     }
-    
+
     public function destroy(Request $request)
     {
         $account = BankAccount::where(function ($query) use ($request) {
