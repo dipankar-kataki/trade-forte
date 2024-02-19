@@ -75,9 +75,7 @@ class ShippingAddressController extends Controller
     public function show(Request $request)
     {
         try {
-            $shipping = ShippingAddress::where(function ($query) use ($request) {
-                $query->where('exporter_id', $request->id)
-            })->get();
+            $shipping = ShippingAddress::where('exporter_id', $request->id)->get();
             if (!$shipping) {
                 return $this->error("Shipping details not found.", null, null, 404);
             }
