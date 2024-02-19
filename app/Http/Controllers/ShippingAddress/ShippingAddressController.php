@@ -76,8 +76,7 @@ class ShippingAddressController extends Controller
     {
         try {
             $shipping = ShippingAddress::where(function ($query) use ($request) {
-                $query->where('id', $request->id)
-                    ->orWhere('exporter_id', $request->id);
+                $query->where('exporter_id', $request->id)
             })->get();
             if (!$shipping) {
                 return $this->error("Shipping details not found.", null, null, 404);
