@@ -70,11 +70,11 @@ class BankAccountController extends Controller
 
     public function update(Request $request)
     {
-        $validator = Validator::make($request->all(), BankAccount::updateRule());
+        // $validator = Validator::make($request->all(), BankAccount::updateRule());
     
-        if ($validator->fails()) {
-            return $this->error('Oops! ' . $validator->errors()->first(), null, null, 400);
-        } else {
+        // if ($validator->fails()) {
+        //     return $this->error('Oops! ' . $validator->errors()->first(), null, null, 400);
+        // } else {
             try {
                 $user_id = Auth::id();
                 $data = $validator->validated();
@@ -99,7 +99,7 @@ class BankAccountController extends Controller
                     return $this->error("Bank account number already exists. Please provide another value", null, null, 422);
                 }
                 return $this->error('Oops! Something Went Wrong. ' . $e->getMessage(), null, null, 500);
-            }
+            // }
         }
     }
     
