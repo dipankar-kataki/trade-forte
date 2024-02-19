@@ -77,7 +77,7 @@ class BankAccountController extends Controller
             DB::beginTransaction();
             $bank = BankAccount::where('id', $bankId)->first();
             if (!$bank) {
-                return $this->error("Bank account not found.", $request->bank_id, null, 404);
+                return $this->error("Bank account not found.", $request->all(), null, 404);
             }
             $bank->bank_name = $data['bank_name'];
             $bank->branch_name = $data['branch_name'];
