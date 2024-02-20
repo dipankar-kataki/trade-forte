@@ -111,7 +111,7 @@ class InvoiceController extends Controller
             return $this->success("Invoice created Successfully!", $invoice->id, null, 201);
         } catch (\Exception $e) {
             DB::rollBack();
-            return $this->error('Oops! Something Went Wrong.' . $e->getMessage(), null, null, 500);
+            return $this->error('Oops! Something Went Wrong.' . $e->getMessage(), $request->items, null, 500);
         }
     }
 
