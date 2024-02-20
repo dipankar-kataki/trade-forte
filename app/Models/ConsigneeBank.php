@@ -37,7 +37,6 @@ class ConsigneeBank extends Model
             'forex_account_name' => 'required|string|max:255',
             'forex_account_no' => 'required|string|max:255',
             'swift_code' => 'required|string|max:255',
-            'status' => 'required|boolean',
         ];
     }
 
