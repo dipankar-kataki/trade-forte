@@ -19,7 +19,7 @@ class CreateInvoiceDetailsTable extends Migration
 
             $table->string('invoice_number')->nullable()->unique()->index();
             $table->string('invoice_value')->nullable();
-            $table->string('total_net_value')->nullable();
+            $table->string('total_net_weight')->nullable();
             $table->string('lorry_number')->nullable();
             $table->string('category');
             $table->string('type')->nullable();

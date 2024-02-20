@@ -111,6 +111,7 @@ class InvoiceController extends Controller
 
             $invoice->invoice_value = $invoice_value;
             $invoice->total_net_weight = $total_net_weight;
+            $invoice->save();
             DB::commit();
             return $this->success("Invoice created Successfully!", $invoice->id, null, 201);
         } catch (\Exception $e) {
