@@ -41,7 +41,7 @@ class Consignee extends Model
             'organization_email' => 'required|string|max:255',
 
             'pin_code' => 'required|string|max:255',
-            'status' => 'required|boolean',
+            'status' => 'nullable|boolean',
             'customer_category' => 'required|string|max:255',
             'authorised_signatory_name' => 'required|string|max:255',
             'authorised_signatory_designation' => 'required|string|max:255',
