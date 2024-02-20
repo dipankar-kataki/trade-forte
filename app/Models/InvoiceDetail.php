@@ -38,7 +38,6 @@ class InvoiceDetail extends Model
     {
         return [
             'bank_accounts_id' => 'sometimes|exists:bank_accounts,id',
-            'invoice_details_id' => 'sometimes|exists:invoice_details,id',
             'invoice_currency' => 'sometimes|string',
             'terms_of_payment' => 'sometimes|string',
         ];
@@ -47,7 +46,6 @@ class InvoiceDetail extends Model
     public static function createThirdRule()
     {
         return [
-            'invoice_details_id' => 'required|exists:invoice_details,id',
             'mode_of_transport' => 'required|string',
             'bl_awb_lr_no' => 'required|string',
             'bl_awb_lr_date' => 'required|date',
@@ -64,7 +62,6 @@ class InvoiceDetail extends Model
     public static function createFourthRule()
     {
         return [
-            'invoice_details_id' => 'required|exists:invoice_details,id',
             'users_id' => 'required|exists:users,id',
             'hsn_code' => 'required|string',
             'product_name' => 'required|string',
@@ -90,7 +87,6 @@ class InvoiceDetail extends Model
     public static function createFifthRule()
     {
         return [
-            "invoice_details_id" => "required|exists:invoice_details,id",
             "declaration" => "required|string|max:65535",
         ];
     }
