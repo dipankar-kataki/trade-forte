@@ -71,10 +71,13 @@ class InvoiceController extends Controller
             $invoice_value = 0;
             $total_net_weight = 0;
 
-            DB::beginTransaction();
-            $invoice = InvoiceDetail::create($dataInvoice);            
+            DB::beginTransaction();            
             $counter = InvoiceDetail::count() +1;
-            $dataInvoice["invoice_number"] = 'INV-' .  $counter;
+            $dataInvoice["invoice_number"] = 'LORRY-' .  $counter;
+            $dataInvoice["lorry_number"] = 'INV-' .  $counter;
+
+            $invoice = InvoiceDetail::create($dataInvoice);            
+
             $this->createLog($user_id, "Invoice details added.", "invoice", $request->id);
             $invoice_details_id =  $invoice->id;
 
@@ -101,13 +104,13 @@ class InvoiceController extends Controller
             }
 
             $dataDeclaration["invoice_details_id"] = $invoice_details_id;
+            $dataDeclaration["users_id"] = $user_id;
             $dataDeclaration["declaration"] = json_encode($request->declaration);
             $declaration = Declaration::create($dataDeclaration);
             $this->createLog($user_id, "Declaration details added.", "declarations", $declaration->id);
 
             $invoice->invoice_value = $invoice_value;
             $invoice->total_net_weight = $total_net_weight;
-
             DB::commit();
             return $this->success("Invoice created Successfully!", $invoice->id, null, 201);
         } catch (\Exception $e) {
