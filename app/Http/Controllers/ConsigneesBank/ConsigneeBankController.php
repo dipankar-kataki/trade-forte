@@ -69,8 +69,8 @@ class ConsigneeBankController extends Controller
     public function update(Request $request)
     {
         $account = ConsigneeBank::where(function ($query) use ($request) {
-            $query->where('id', $request->bank_id)
-                ->orWhere('forex_account_no', $request->bank_id);
+            $query->where('id', $request->id)
+                ->orWhere('forex_account_no', $request->id);
         })->first();
         if (!$account) {
             return $this->error("Account not found.", null, null, 404);
@@ -82,7 +82,7 @@ class ConsigneeBankController extends Controller
             try {
                 $user_id = Auth::id();
                 DB::beginTransaction();
-                ConsigneeBank::where('id', $request->bankAccountId)->update($request->all());
+                ConsigneeBank::where('id', $request->bank_id)->update($request->all());
                 $this->createLog($user_id, "Bank account updated.", "bankaccount", $request->id);
                 DB::commit();
                 return $this->success("Bank Account updated successfully.", null, null, 200);

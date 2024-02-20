@@ -10,7 +10,7 @@ class ConsigneeBank extends Model
     use HasFactory;
 
     protected $table = 'consignees_bank_accounts';
-    protected $hidden = ['created_at', 'updated_at',"status","users_id"];
+    protected $hidden = ['created_at', 'updated_at', "status", "users_id"];
     protected $guarded = [];
 
     public function user()
@@ -31,7 +31,7 @@ class ConsigneeBank extends Model
     public static function updateRule()
     {
         return [
-            'bank_id' => 'required|exists:consignees_bank_accounts,id',
+            'id' => 'required|exists:consignees_bank_accounts,id',
             'bank_name' => 'required|string|max:255',
             'branch_name' => 'required|string|max:255',
             'forex_account_name' => 'required|string|max:255',
