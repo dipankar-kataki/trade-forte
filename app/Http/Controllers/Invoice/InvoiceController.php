@@ -54,8 +54,7 @@ class InvoiceController extends Controller
             $dataInvoice = $invoiceValidator->validated();
             $user_id = Auth::id();
             $dataInvoice["users_id"] = $user_id;
-            $counter = InvoiceDetail::count() +1;
-            $dataInvoice["invoice_number"] = 'INV-' .  $counter;
+
             $dataInvoice["invoice_date"] = Carbon::parse($dataInvoice['invoice_date']);
             $dataInvoice["po_contract_date"] = Carbon::parse($dataInvoice['po_contract_date']);
 
@@ -73,7 +72,9 @@ class InvoiceController extends Controller
             $total_net_weight = 0;
 
             DB::beginTransaction();
-            $invoice = InvoiceDetail::create($dataInvoice);
+            $invoice = InvoiceDetail::create($dataInvoice);            
+            $counter = InvoiceDetail::count() +1;
+            $dataInvoice["invoice_number"] = 'INV-' .  $counter;
             $this->createLog($user_id, "Invoice details added.", "invoice", $request->id);
             $invoice_details_id =  $invoice->id;
 
