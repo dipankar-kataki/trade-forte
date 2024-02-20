@@ -58,7 +58,7 @@ Route::group(["middleware" => 'auth:sanctum'], function () {
         Route::post('create', [ConsigneeBankController::class, 'create']);
         Route::get('list', [ConsigneeBankController::class, 'index']);
         Route::get('get/{id}', [ConsigneeBankController::class, 'show']);
-        Route::put('update', [ConsigneeBankController::class, 'update']);
+        Route::post('update', [ConsigneeBankController::class, 'update']);
         Route::delete('delete/{id}', [ConsigneeBankController::class, 'destroy']);
     });
     Route::group(['prefix' => 'exporter/bankaccount'], function () {
