@@ -9,7 +9,7 @@ class Module extends Model {
     use HasFactory;
 
     protected $table = 'modules';
-    protected $hidden = ['created_at', 'updated_at',"status"];
+    protected $hidden = ['created_at', 'updated_at',"status","users_id"];
     protected $guarded = [];
     public static function createRule() {
         return [
