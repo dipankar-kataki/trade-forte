@@ -16,7 +16,6 @@ class Payments extends Model
     {
         return [
             'bank_accounts_id' => 'sometimes|exists:bank_accounts,id',
-            'invoice_details_id' => 'sometimes|exists:invoice_details,id',
             'invoice_currency' => 'sometimes|string',
             'terms_of_payment' => 'sometimes|string',
         ];

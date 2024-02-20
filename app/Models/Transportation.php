@@ -17,7 +17,6 @@ class Transportation extends Model
     public static function createRule()
     {
         return [
-            'invoice_details_id' => 'required|exists:invoice_details,id',
             'mode_of_transport' => 'required|string',
             'bl_awb_lr_no' => 'required|string',
             'bl_awb_lr_date' => 'required|date',
