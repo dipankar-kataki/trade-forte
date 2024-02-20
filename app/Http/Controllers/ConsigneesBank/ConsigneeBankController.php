@@ -73,7 +73,7 @@ class ConsigneeBankController extends Controller
                 ->orWhere('forex_account_no', $request->id);
         })->first();
         if (!$account) {
-            return $this->error("Account not found.", null, null, 404);
+            return $this->error("Account not found.", $request->all(), null, 404);
         }
         $validator = Validator::make($request->all(), ConsigneeBank::updateRule());
         if ($validator->fails()) {
