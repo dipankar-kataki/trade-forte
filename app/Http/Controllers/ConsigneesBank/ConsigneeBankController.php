@@ -69,7 +69,7 @@ class ConsigneeBankController extends Controller
     public function update(Request $request)
     {
         $account = ConsigneeBank::where(function ($query) use ($request) {
-            $query->where('id', $request->id)
+            $query->where('id', $request->bank_id)
                 ->orWhere('forex_account_no', $request->id);
         })->first();
         if (!$account) {
