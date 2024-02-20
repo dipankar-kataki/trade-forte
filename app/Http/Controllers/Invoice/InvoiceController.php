@@ -124,7 +124,7 @@ class InvoiceController extends Controller
         try {
             $invoices = InvoiceDetail::select(
                 'id',
-                'invoice_id',
+                'invoice_number',
                 'exporter_id',
                 "category",
                 "invoice_date",
