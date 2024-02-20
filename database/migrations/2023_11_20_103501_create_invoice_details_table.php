@@ -17,7 +17,10 @@ class CreateInvoiceDetailsTable extends Migration
             $table->unsignedBigInteger('consignee_id');
             $table->unsignedBigInteger('shipping_id');
 
-            $table->string('invoice_id')->unique()->index();
+            $table->string('invoice_number')->unique()->index();
+            $table->string('invoice_value')->nullable();
+            $table->string('total_net_value')->nullable();
+            $table->string('lorry_number')->nullable();
             $table->string('category');
             $table->string('type')->nullable();
             $table->string('country_of_destination');
@@ -31,6 +34,7 @@ class CreateInvoiceDetailsTable extends Migration
             // $table->string('vehicle_no')->nullable();
             // $table->string('insurance')->nullable();
             $table->string("incoterm")->nullable();
+            $table->string("invoice_value")->nullable();
             $table->timestamp('invoice_date')->default(Carbon::now());
             // $table->string('eway_bill_id')->nullable();
 

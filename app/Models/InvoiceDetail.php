@@ -11,10 +11,10 @@ class InvoiceDetail extends Model
 
     protected $table = 'invoice_details';
     protected $with = ['exporters', 'consignees'];
-    protected $hidden = ['created_at', 'updated_at',"status","users_id"];
+    protected $hidden = ['created_at', 'updated_at', "status", "users_id"];
     protected $guarded = [];
 
-    public static function createRule()
+    public static function createFirstRule()
     {
         return [
             'category' => 'required|string|in:domestic,export',
@@ -34,7 +34,66 @@ class InvoiceDetail extends Model
             'po_contract_date' => 'required|date',
         ];
     }
+    public static function createSecondRule()
+    {
+        return [
+            'bank_accounts_id' => 'sometimes|exists:bank_accounts,id',
+            'invoice_details_id' => 'sometimes|exists:invoice_details,id',
+            'invoice_currency' => 'sometimes|string',
+            'terms_of_payment' => 'sometimes|string',
+        ];
+    }
 
+    public static function createThirdRule()
+    {
+        return [
+            'invoice_details_id' => 'required|exists:invoice_details,id',
+            'mode_of_transport' => 'required|string',
+            'bl_awb_lr_no' => 'required|string',
+            'bl_awb_lr_date' => 'required|date',
+            'transporter_name' => 'required|string',
+            'vehicle_vessel_flight_no' => 'required|string',
+            'challan_number' => 'required|string',
+            'challan_date' => 'required|date',
+            'eway_bill_no' => 'required|string',
+            'eway_bill_date' => 'required|date',
+            'pre_carriage_by' => 'required|string',
+            'place_of_pre_carriage' => 'required|string',
+        ];
+    }
+    public static function createFourthRule()
+    {
+        return [
+            'invoice_details_id' => 'required|exists:invoice_details,id',
+            'users_id' => 'required|exists:users,id',
+            'hsn_code' => 'required|string',
+            'product_name' => 'required|string',
+            'uqc' => 'required|string',
+            'quantity' => 'required|integer',
+            'packaging_description' => 'nullable|string',
+            'net_weight_of_each_unit' => 'required|integer',
+            'custom_column_name_1' => 'nullable|string',
+            'custom_column_value_1' => 'nullable|string',
+            'custom_column_name_2' => 'nullable|string',
+            'custom_column_value_2' => 'nullable|string',
+            'custom_column_name_3' => 'nullable|string',
+            'custom_column_value_3' => 'nullable|string',
+            'custom_column_name_4' => 'nullable|string',
+            'custom_column_value_4' => 'nullable|string',
+            'custom_column_name_5' => 'nullable|string',
+            'custom_column_value_5' => 'nullable|string',
+            'gst_rate' => 'nullable|integer',
+            'unit_value' => 'nullable|integer',
+            'cess_rate' => 'nullable|integer',
+        ];
+    }
+    public static function createFifthRule()
+    {
+        return [
+            "invoice_details_id" => "required|exists:invoice_details,id",
+            "declaration" => "required|string|max:65535",
+        ];
+    }
     public function user()
     {
         return $this->belongsTo(User::class, 'users_id', 'id');
