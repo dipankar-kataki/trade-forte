@@ -17,7 +17,7 @@ class CreateInvoiceDetailsTable extends Migration
             $table->unsignedBigInteger('consignee_id');
             $table->unsignedBigInteger('shipping_id');
 
-            $table->string('invoice_number')->unique()->index();
+            $table->string('invoice_number')->nullable()->unique()->index();
             $table->string('invoice_value')->nullable();
             $table->string('total_net_value')->nullable();
             $table->string('lorry_number')->nullable();

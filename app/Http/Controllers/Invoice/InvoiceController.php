@@ -101,7 +101,7 @@ class InvoiceController extends Controller
             }
 
             $dataDeclaration["invoice_details_id"] = $invoice_details_id;
-            $dataDeclaration["declaration"] = json_encode($request->declaration->declaration);
+            $dataDeclaration["declaration"] = json_encode($request->declaration);
             $declaration = Declaration::create($dataDeclaration);
             $this->createLog($user_id, "Declaration details added.", "declarations", $declaration->id);
 
