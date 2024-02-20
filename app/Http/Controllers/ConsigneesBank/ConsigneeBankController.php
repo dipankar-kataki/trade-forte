@@ -82,7 +82,7 @@ class ConsigneeBankController extends Controller
             try {
                 $user_id = Auth::id();
                 DB::beginTransaction();
-                ConsigneeBank::where('id', $request->bank_id)->update($request->all());
+                ConsigneeBank::where('id', $request->id)->update($request->all());
                 $this->createLog($user_id, "Bank account updated.", "bankaccount", $request->id);
                 DB::commit();
                 return $this->success("Bank Account updated successfully.", null, null, 200);
