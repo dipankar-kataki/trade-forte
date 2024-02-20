@@ -146,7 +146,7 @@ class InvoiceController extends Controller
     {
         try {
             $invoice = InvoiceDetail::with(['exporters', 'items', 'consignees', 'payments', 'transport', 'declarations'])
-                ->where('invoice_id', $request->id)
+                ->where('invoice_number', $request->id)
                 ->orWhere("id", $request->id)
                 ->get()->first();
 
