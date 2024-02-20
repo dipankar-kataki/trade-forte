@@ -89,8 +89,8 @@ class InvoiceController extends Controller
                 // Add user_id and calculate total_value for each item
                 $itemData["invoice_details_id"] = $invoice_details_id;
                 $itemData["users_id"] = $user_id;
-                $itemData["net_value"] = $itemData["net_weight_of_each_unit"] * $itemData["quantity"];
-                $itemData["net_weight"] = $itemData["unit_value"] * $itemData["quantity"];
+                $itemData["net_value"] = $itemData["unit_value"] * $itemData["quantity"];
+                $itemData["net_weight"] = $itemData["net_weight_of_each_unit"] * $itemData["quantity"];
                 $invoice_value += $itemData["net_value"];
                 $total_net_weight +=  $itemData["net_weight"];
                 // Create the InvoiceItem record
@@ -106,7 +106,7 @@ class InvoiceController extends Controller
 
             $invoice->invoice_value = $invoice_value;
             $invoice->total_net_weight = $total_net_weight;
-            
+
             DB::commit();
             return $this->success("Invoice created Successfully!", $invoice->id, null, 201);
         } catch (\Exception $e) {
