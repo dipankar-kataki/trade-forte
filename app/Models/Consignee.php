@@ -42,7 +42,7 @@ class Consignee extends Model
 
             'pin_code' => 'required|string|max:255',
             'status' => 'nullable|boolean',
-            'customer_category' => 'required|string|max:255',
+            'foreign_category' => 'required|string|max:255',
             'authorised_signatory_name' => 'required|string|max:255',
             'authorised_signatory_designation' => 'required|string|max:255',
         ];
