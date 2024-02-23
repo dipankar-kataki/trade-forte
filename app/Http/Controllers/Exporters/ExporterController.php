@@ -58,7 +58,7 @@ class ExporterController extends Controller
     {
         try {
             // Fetch exporter along with associated invoices (sorted by latest first)
-            $exporter = Exporter::with('invoices', 'shippingAddress')->where(function ($query) use ($request) {
+            $exporter = Exporter::with('invoices', 'exporterAddress')->where(function ($query) use ($request) {
                 $query->where('id', $request->id)
                     ->orWhere('organization_email', $request->id);
             })->first();

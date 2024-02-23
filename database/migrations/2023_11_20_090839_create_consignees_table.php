@@ -17,8 +17,12 @@ class CreateConsigneesTable extends Migration
             $table->id();
             $table->unsignedBigInteger('users_id');
             $table->string('name');
-            $table->string('address')->nullable();
-            $table->string('state')->nullable();
+            $table->string('address_line_one');
+            $table->string('address_line_two')->nullable();
+            $table->string('state');
+            $table->string('pin_code');
+            $table->string('city');
+            $table->string('district');
             $table->string('foreign_business_country');
             $table->string('foreign_category');
             $table->string('license_no')->nullable();
@@ -30,7 +34,6 @@ class CreateConsigneesTable extends Migration
             $table->boolean('status')->default(1);
             $table->foreign('users_id')->references('id')->on('users');            
             $table->timestamps();
-
         });
     }
 

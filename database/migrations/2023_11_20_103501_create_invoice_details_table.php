@@ -17,9 +17,9 @@ class CreateInvoiceDetailsTable extends Migration
             $table->unsignedBigInteger('consignee_id');
             $table->unsignedBigInteger('shipping_id');
 
-            $table->string('invoice_number')->nullable()->unique()->index();
-            $table->string('invoice_value')->nullable();
-            $table->string('total_net_weight')->nullable();
+            $table->integer('invoice_number')->nullable()->unique()->index();
+            $table->integer('invoice_value')->nullable();
+            $table->integer('total_net_weight')->nullable();
             $table->string('lorry_number')->nullable();
             $table->string('category');
             $table->string('type')->nullable();
@@ -38,7 +38,7 @@ class CreateInvoiceDetailsTable extends Migration
             // $table->string('eway_bill_id')->nullable();
 
             $table->string("po_contract_number")->nullable();
-            $table->string('po_contract_date')->nullable();
+            $table->date('po_contract_date')->nullable();
             $table->string("remarks")->nullable();
             $table->foreign('users_id')->references('id')->on('users');
 

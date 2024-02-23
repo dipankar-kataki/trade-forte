@@ -18,12 +18,13 @@ class CreateInvoiceItemsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('invoice_details_id');
             $table->unsignedBigInteger('users_id');
-            $table->string('hsn_code');
+            $table->integer('hsn_code');
             $table->text('product_name');
             $table->string('uqc');
             $table->integer('quantity');
             $table->integer('net_value');
             $table->integer('net_weight');
+            $table->integer('unit_type')->nullable();
             $table->string('packaging_description')->nullable();
             $table->string('custom_column_name_1')->nullable();
             $table->string('custom_column_value_1')->nullable();
