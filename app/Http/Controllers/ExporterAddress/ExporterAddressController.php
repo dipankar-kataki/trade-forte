@@ -35,17 +35,17 @@ class ExporterAddressController extends Controller
                 // Create the shipping address
                 $shipping = ExporterAddress::create($data);
                 // Log the action
-                $this->createLog($user_id, "Shipping address added.", "shipping", $shipping->id);
+                $this->createLog($user_id, "Exporter address added.", "shipping", $shipping->id);
             }
             // Commit the transaction
             DB::commit();
             // Return a success response
-            return $this->success("Shipping details created successfully!", null, null, 201);
+            return $this->success("Exporter details created successfully!", null, null, 201);
         } catch (\Exception $e) {
             // Rollback the transaction in case of an exception
             DB::rollBack();
             // Log the exception for debugging purposes
-            \Log::error('Error in shipping address creation: ' . $e->getMessage());
+            \Log::error('Error in Exporter address creation: ' . $e->getMessage());
             // Return an error response
             return $this->error('Oops! Something went wrong. ' . $e->getMessage(), null, null, 500);
         }
@@ -55,7 +55,7 @@ class ExporterAddressController extends Controller
     {
         try {
             $shippingList = ExporterAddress::paginate(50);
-            return $this->success("Shipping List.", $shippingList, null, 200);
+            return $this->success("Exporter address List.", $shippingList, null, 200);
         } catch (\Exception $e) {
             return $this->error('Oops! Something Went Wrong.' . $e->getMessage(), null, null, 500);
         }
@@ -66,9 +66,9 @@ class ExporterAddressController extends Controller
         try {
             $shipping = ExporterAddress::where('exporter_id', $request->id)->get();
             if (!$shipping) {
-                return $this->error("Shipping details not found.", null, null, 404);
+                return $this->error("Exporter address  details not found.", null, null, 404);
             }
-            return $this->success("Shipping info.", $shipping, null, 200);
+            return $this->success("Exporter address  info.", $shipping, null, 200);
         } catch (\Exception $e) {
             return $this->error('Oops! Something Went Wrong.' . $e->getMessage(), null, null, 500);
         }
@@ -88,7 +88,7 @@ class ExporterAddressController extends Controller
                 $invItem->save(); 
             }
             $user_id = Auth::id();
-            $this->createLog($user_id, "Exporter address updated.", "shipping", null);
+            $this->createLog($user_id, "Exporter  address updated.", "shipping", null);
             DB::commit();
             return $this->success("Exporter updated successfully.", null, null, 200);
         } catch (\Exception $e) {
