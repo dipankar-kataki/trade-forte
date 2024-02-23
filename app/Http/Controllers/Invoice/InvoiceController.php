@@ -32,7 +32,7 @@ class InvoiceController extends Controller
         }
         $shippingValidator = Validator::make($request->shipping, ShippingAddress::createRule());
         if ($shippingValidator->fails()) {
-            return $this->error('Oops!' . $invoiceValidator->errors()->first(), null, null, 400);
+            return $this->error('Oops!' . $shippingValidator->errors()->first(), null, null, 400);
         }
 
         $paymentsValidator = Validator::make($request->payment, InvoiceDetail::createSecondRule());
