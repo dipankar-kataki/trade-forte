@@ -77,6 +77,7 @@ class InvoiceController extends Controller
             $total_net_weight = 0;
 
             $shippingData = $shippingValidator->validated();
+            $shippingData["users_id"] = $user_id;
             $shipping = ShippingAddress::create($shippingData);
 
             DB::beginTransaction();            
