@@ -26,7 +26,6 @@ class CreateConsigneesTable extends Migration
             $table->string('foreign_business_country');
             $table->string('foreign_category');
             $table->string('license_no')->nullable();
-            $table->string('pin_code')->nullable();
             $table->string('authorised_signatory_name')->nullable();
             $table->string('authorised_signatory_designation')->nullable();
             $table->string('organization_email')->nullable();
