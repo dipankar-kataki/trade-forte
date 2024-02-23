@@ -16,6 +16,7 @@ class CreateInvoiceDetailsTable extends Migration
             $table->unsignedBigInteger('exporter_id');
             $table->unsignedBigInteger('consignee_id');
             $table->unsignedBigInteger('shipping_id');
+            $table->unsignedBigInteger('exporter_address_id');
 
             $table->integer('invoice_number')->nullable()->unique()->index();
             $table->integer('invoice_value')->nullable();
@@ -29,19 +30,16 @@ class CreateInvoiceDetailsTable extends Migration
             $table->string('import_export_code')->nullable();
             $table->string('port_of_loading')->nullable();
             $table->string('port_of_destination')->nullable();
-            // $table->string('freight')->nullable();
-            // $table->string('valid_upto')->nullable();
-            // $table->string('vehicle_no')->nullable();
-            // $table->string('insurance')->nullable();
+
             $table->string("incoterm")->nullable();
             $table->timestamp('invoice_date')->default(Carbon::now());
-            // $table->string('eway_bill_id')->nullable();
 
             $table->string("po_contract_number")->nullable();
             $table->date('po_contract_date')->nullable();
             $table->string("remarks")->nullable();
             $table->foreign('users_id')->references('id')->on('users');
 
+            $table->foreign('exporter_address_id')->references('id')->on('exporter_address');
             $table->foreign('shipping_id')->references('id')->on('shipping_addresses');
             $table->foreign('exporter_id')->references('id')->on('exporters');
             $table->foreign('consignee_id')->references('id')->on('consignees');

@@ -7,6 +7,7 @@ use App\Models\Declaration;
 use App\Models\InvoiceDetail;
 use App\Models\InvoiceItem;
 use App\Models\Payments;
+use App\Models\ShippingAddress;
 use App\Models\Transportation;
 use App\Traits\ApiResponse;
 use App\Traits\CreateUserActivityLog;
@@ -27,6 +28,10 @@ class InvoiceController extends Controller
     {
         $invoiceValidator = Validator::make($request->invoice, InvoiceDetail::createFirstRule());
         if ($invoiceValidator->fails()) {
+            return $this->error('Oops!' . $invoiceValidator->errors()->first(), null, null, 400);
+        }
+        $shippingValidator = Validator::make($request->shipping, ShippingAddress::createRule());
+        if ($shippingValidator->fails()) {
             return $this->error('Oops!' . $invoiceValidator->errors()->first(), null, null, 400);
         }
 
