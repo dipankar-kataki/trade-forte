@@ -107,10 +107,10 @@ class InvoiceController extends Controller
                 if ($itemData["metric_type"] == "gm") {
                     $itemData["net_weight"] = (intval($itemData["net_weight_of_each_unit"]) * intval($itemData["quantity"])) / 1000;
                 }
-                if ($itemData["unit_type"] == "kg") {
+                if ($itemData["metric_type"] == "kg") {
                     $itemData["net_weight"] = intval($itemData["net_weight_of_each_unit"]) * intval($itemData["quantity"]);
                 }
-                if ($itemData["unit_type"] == "ton") {
+                if ($itemData["metric_type"] == "ton") {
                     $itemData["net_weight"] = (intval($itemData["net_weight_of_each_unit"]) * intval($itemData["quantity"])) * 1000;
                 }
             
