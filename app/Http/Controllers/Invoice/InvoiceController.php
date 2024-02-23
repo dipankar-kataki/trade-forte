@@ -104,7 +104,7 @@ class InvoiceController extends Controller
                 $itemData["invoice_details_id"] = $invoice_details_id;
                 $itemData["users_id"] = $user_id;
             
-                if ($itemData["unit_type"] == "gm") {
+                if ($itemData["metric_type"] == "gm") {
                     $itemData["net_weight"] = (intval($itemData["net_weight_of_each_unit"]) * intval($itemData["quantity"])) / 1000;
                 }
                 if ($itemData["unit_type"] == "kg") {
