@@ -9,7 +9,7 @@ class ExporterAddress extends Model
 {
     use HasFactory;
 
-    protected $table = 'shipping_addresses';
+    protected $table = 'exporter_address';
     protected $hidden = ['created_at', 'updated_at',"status","users_id"];
     protected $guarded = [];
 
