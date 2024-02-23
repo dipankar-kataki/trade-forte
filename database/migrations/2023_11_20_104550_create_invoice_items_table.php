@@ -24,7 +24,7 @@ class CreateInvoiceItemsTable extends Migration
             $table->integer('quantity');
             $table->integer('net_value');
             $table->integer('net_weight');
-            $table->integer('unit_type')->nullable();
+            $table->string('metric_type')->nullable();
             $table->string('packaging_description')->nullable();
             $table->string('custom_column_name_1')->nullable();
             $table->string('custom_column_value_1')->nullable();
