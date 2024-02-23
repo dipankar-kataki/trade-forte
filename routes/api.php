@@ -5,6 +5,7 @@ use App\Http\Controllers\Consignees\ConsigneeController;
 use App\Http\Controllers\ConsigneesBank\ConsigneeBankController;
 use App\Http\Controllers\Country\CountryController;
 use App\Http\Controllers\Declarations\DeclarationController;
+use App\Http\Controllers\ExporterAddress\ExporterAddressController;
 use App\Http\Controllers\Exporters\ExporterController;
 use App\Http\Controllers\HsnCode\HsnController;
 use App\Http\Controllers\Invoice\InvoiceController;
@@ -53,7 +54,13 @@ Route::group(["middleware" => 'auth:sanctum'], function () {
         Route::post('update', [ExporterController::class, 'update']);
         Route::delete('delete/{exporterId}', [ExporterController::class, 'destroy']);
     });
-
+    Route::group(['prefix' => 'exporters_address'], function () {
+        Route::post('create', [ExporterAddressController::class, 'create']);
+        Route::get('list', [ExporterAddressController::class, 'index']);
+        Route::get('get/{id}', [ExporterAddressController::class, 'show']);
+        Route::post('update', [ExporterAddressController::class, 'update']);
+        Route::delete('delete/{exporterId}', [ExporterAddressController::class, 'destroy']);
+    });
     Route::group(['prefix' => 'consignee/bankaccount'], function () {
         Route::post('create', [ConsigneeBankController::class, 'create']);
         Route::get('list', [ConsigneeBankController::class, 'index']);

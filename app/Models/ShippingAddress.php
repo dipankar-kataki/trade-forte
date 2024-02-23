@@ -17,7 +17,7 @@ class ShippingAddress extends Model
     public static function createRule()
     {
         return [
-            'exporter_id' => 'required|exists:exporters,id',
+            'consignee_id' => 'required|exists:consignees,id',
             'address_line_one' => 'required|string',
             'address_line_two' => 'required|string',
             'pin_code' => 'required|string',
@@ -29,7 +29,7 @@ class ShippingAddress extends Model
     public static function updateRule()
     {
         return [
-            'exporter_id' => 'required|exists:exporters,id',
+            'consignee_id' => 'required|exists:consignees,id',
             'address_line_one' => 'required|string',
             'address_line_two' => 'required|string',
             'pin_code' => 'required|string',
@@ -38,9 +38,9 @@ class ShippingAddress extends Model
             "state" => "required|string",
         ];
     }
-    public function exporter()
+    public function consignee()
     {
-        return $this->belongsTo(Exporter::class, 'exporter_id', 'id');
+        return $this->belongsTo(Consignee::class, 'exporter_id', 'id');
     }
     public function user()
     {
