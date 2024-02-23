@@ -82,8 +82,8 @@ class InvoiceController extends Controller
 
             DB::beginTransaction();            
             $counter = InvoiceDetail::count() +1;
-            $dataInvoice["invoice_number"] = 'LORRY-' .  $counter;
-            $dataInvoice["lorry_number"] = 'INV-' .  $counter;
+            $dataInvoice["invoice_number"] = 'INV-' .  $counter;
+            $dataInvoice["lorry_number"] = 'LORRY-' .  $counter;
             $dataInvoice["shipping_id"] = $shipping->id;
 
             $invoice = InvoiceDetail::create($dataInvoice);            
