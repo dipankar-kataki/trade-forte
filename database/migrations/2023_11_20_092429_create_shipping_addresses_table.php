@@ -22,7 +22,6 @@ class CreateShippingAddressesTable extends Migration
     {
         Schema::create('shipping_addresses', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('consignee_id');
             $table->unsignedBigInteger('users_id');
             $table->string('address_line_one');
             $table->string('address_line_two')->nullable();
@@ -32,7 +31,6 @@ class CreateShippingAddressesTable extends Migration
             $table->string('district');
             $table->boolean('status')->default(1);
             $table->timestamps();
-            $table->foreign('consignee_id')->references('id')->on('consignees');
             $table->foreign('users_id')->references('id')->on('users');
         });
     }

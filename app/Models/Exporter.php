@@ -54,6 +54,7 @@ class Exporter extends Model
             'organization_type' => 'required|string|in:PROPRIETORSHIP,PARTNERSHIP,PRIVATE,OPC,HUF,SOCIETY,TRUST',
             'lut_no' => 'required|string|max:30',
             'state' => 'required|string|max:255',
+            
             'organization_reg_no' => 'required|string|max:30',
             'authorised_signatory_name' => 'required|string|max:255',
             'authorised_signatory_designation' => 'required|string|max:255',

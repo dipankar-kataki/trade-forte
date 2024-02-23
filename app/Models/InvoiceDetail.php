@@ -23,6 +23,7 @@ class InvoiceDetail extends Model
             'country_of_export' => 'required|string',
             'country_of_destination' => 'required|string',
             "exporter_id" => "required|exists:exporters,id",
+            "exporter_address_id" => "required|exists:exporters,id",
             "consignee_id" => "required|exists:consignees,id",
             'port_of_loading' => 'required|string',
             'port_of_destination' => 'required|string',
@@ -127,5 +128,9 @@ class InvoiceDetail extends Model
     public function declarations()
     {
         return $this->hasOne(Declaration::class, 'invoice_details_id');
+    }
+    public function exporter_address()
+    {
+        return $this->belongsTo(ExporterAddress::class, 'exporter_address_id',"id");
     }
 }

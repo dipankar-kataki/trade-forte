@@ -105,7 +105,7 @@ class InvoiceController extends Controller
                 }
             
                 $itemData["net_value"] = intval($itemData["unit_value"]) * intval($itemData["quantity"]);
-            
+             
                 $invoice_value += $itemData["net_value"];
                 $total_net_weight += $itemData["net_weight"];
             

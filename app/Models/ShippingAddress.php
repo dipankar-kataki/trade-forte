@@ -17,7 +17,6 @@ class ShippingAddress extends Model
     public static function createRule()
     {
         return [
-            'consignee_id' => 'required|exists:consignees,id',
             'address_line_one' => 'required|string',
             'address_line_two' => 'required|string',
             'pin_code' => 'required|string',
@@ -29,7 +28,6 @@ class ShippingAddress extends Model
     public static function updateRule()
     {
         return [
-            'consignee_id' => 'required|exists:consignees,id',
             'address_line_one' => 'required|string',
             'address_line_two' => 'required|string',
             'pin_code' => 'required|string',
