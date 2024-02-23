@@ -36,7 +36,12 @@ class Consignee extends Model
     {
         return [
             'name' => 'required|string|max:255',
-            'address' => 'required|string|max:255',
+            'address_line_one' => 'required|string|max:255',
+            'address_line_two' => 'required|string|max:255',
+            'state' => 'required|string|max:255',
+            'pin_code' => 'required|string|max:255',
+            'city' => 'required|string|max:255',
+            'district' => 'required|string|max:255',
             'foreign_business_country' => 'required|string|max:255',
             'license_no' => 'required|string|max:255',
             'organization_phone' => 'required|string|max:255',
