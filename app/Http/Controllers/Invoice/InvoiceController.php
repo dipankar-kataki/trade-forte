@@ -80,16 +80,16 @@ class InvoiceController extends Controller
             $shippingData["users_id"] = $user_id;
             $shipping = ShippingAddress::create($shippingData);
 
-            DB::beginTransaction();            
-            $counter = InvoiceDetail::count() +1;
-            $dataInvoice["invoice_number"] = 'INV-' .  $counter;
-            $dataInvoice["lorry_number"] = 'LORRY-' .  $counter;
+            DB::beginTransaction();
+            $counter = InvoiceDetail::count() + 1;
+            $dataInvoice["invoice_number"] = 'INV-' . $counter;
+            $dataInvoice["lorry_number"] = 'LORRY-' . $counter;
             $dataInvoice["shipping_id"] = $shipping->id;
 
-            $invoice = InvoiceDetail::create($dataInvoice);            
+            $invoice = InvoiceDetail::create($dataInvoice);
 
             $this->createLog($user_id, "Invoice details added.", "invoice", $request->id);
-            $invoice_details_id =  $invoice->id;
+            $invoice_details_id = $invoice->id;
 
             $dataPayments["invoice_details_id"] = $invoice_details_id;
             $payments = Payments::create($dataPayments);
@@ -103,28 +103,19 @@ class InvoiceController extends Controller
                 // Add user_id and calculate total_value for each item
                 $itemData["invoice_details_id"] = $invoice_details_id;
                 $itemData["users_id"] = $user_id;
-            
-                if ($itemData["metric_type"] == "gm") {
-                    $itemData["net_weight"] = (intval($itemData["net_weight_of_each_unit"]) * intval($itemData["quantity"])) / 1000;
-                }
-                if ($itemData["metric_type"] == "kg") {
-                    $itemData["net_weight"] = intval($itemData["net_weight_of_each_unit"]) * intval($itemData["quantity"]);
-                }
-                if ($itemData["metric_type"] == "ton") {
-                    $itemData["net_weight"] = (intval($itemData["net_weight_of_each_unit"]) * intval($itemData["quantity"])) * 1000;
-                }
-            
+
+
                 $itemData["net_value"] = intval($itemData["unit_value"]) * intval($itemData["quantity"]);
-             
+
                 $invoice_value += $itemData["net_value"];
                 $total_net_weight += $itemData["net_weight"];
-            
+
                 // Create the InvoiceItem record
                 $item = InvoiceItem::create($itemData);
                 // Log each item creation
                 $this->createLog($user_id, "Invoice item added.", "invoice_items", $item->id);
             }
-            
+
 
             $dataDeclaration["invoice_details_id"] = $invoice_details_id;
             $dataDeclaration["users_id"] = $user_id;
