@@ -30,15 +30,13 @@ class CreateInvoiceDetailsTable extends Migration
             $table->string('import_export_code')->nullable();
             $table->string('port_of_loading')->nullable();
             $table->string('port_of_destination')->nullable();
-
             $table->string("incoterm")->nullable();
             $table->timestamp('invoice_date')->default(Carbon::now());
-
             $table->string("po_contract_number")->nullable();
             $table->date('po_contract_date')->nullable();
             $table->string("remarks")->nullable();
-            $table->foreign('users_id')->references('id')->on('users');
 
+            $table->foreign('users_id')->references('id')->on('users');
             $table->foreign('exporter_address_id')->references('id')->on('exporter_address');
             $table->foreign('shipping_id')->references('id')->on('shipping_addresses');
             $table->foreign('exporter_id')->references('id')->on('exporters');
