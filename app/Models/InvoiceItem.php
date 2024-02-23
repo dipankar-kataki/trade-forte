@@ -41,7 +41,6 @@ class InvoiceItem extends Model
             'gst_rate' => 'nullable|integer',
             'unit_value' => 'nullable|integer',
             'cess_rate' => 'nullable|integer',
-            "metric_type"=>"required|string|in:kg,gm,pound,ton,quintal"
         ];
     }
     public static function updateRule()
@@ -68,7 +67,6 @@ class InvoiceItem extends Model
             'gst_rate' => 'nullable|integer',
             'unit_value' => 'nullable|integer',
             'cess_rate' => 'nullable|integer',
-            "metric_type"=>"nullable|string"
         ];
     }
     public function invoiceDetails()
