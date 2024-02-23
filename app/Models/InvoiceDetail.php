@@ -29,7 +29,6 @@ class InvoiceDetail extends Model
             'port_of_destination' => 'required|string',
             "incoterm" => "required|string|in:EXW,FCA,FAS,FOB,CFR,CIF,CPT,CIP,DAP,DPU,DDP",
             "remarks" => "required|string",
-            'shipping_id' => "required|exists:shipping_addresses,id",
             'invoice_date' => 'required|date',
             'po_contract_number' => 'required|string',
             'po_contract_date' => 'required|date',

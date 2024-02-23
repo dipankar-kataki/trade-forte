@@ -78,9 +78,11 @@ class InvoiceController extends Controller
 
             $shippingData = $shippingValidator->validated();
             $shipping = ShippingAddress::create($shippingData);
+
             DB::beginTransaction();            
             $counter = InvoiceDetail::count() +1;
             $dataInvoice["invoice_number"] = 'LORRY-' .  $counter;
+            $dataInvoice["lorry_number"] = 'INV-' .  $counter;
             $dataInvoice["lorry_number"] = 'INV-' .  $counter;
 
             $invoice = InvoiceDetail::create($dataInvoice);            
