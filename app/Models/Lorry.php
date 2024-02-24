@@ -15,7 +15,6 @@ class Lorry extends Model
     {
         return [
             "date" => "required|date",
-            "total_quantity" => "required|integer",
             "uqc" => "required|string",
             "invoice_details_id" => "required|exists:invoice_details,id"
         ];

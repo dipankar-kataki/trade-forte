@@ -24,7 +24,7 @@ class LorryItemsController extends Controller
         try {
             $data = $request->lorryItems;
             $lorryData = $request->lorryDetails;
-            $invoice_details_id = $request->lorryDetails->invoice_details_id;
+            $invoice_details_id = $request->lorryDetails["invoice_details_id"];
             if (!is_array($data)) {
                 return $this->error('Invalid data format. Expected an array of lorry items.', null, null, 400);
             }
@@ -38,13 +38,10 @@ class LorryItemsController extends Controller
             DB::beginTransaction();
 
             $lorryData["users_id"] = $user_id;
-
             $lorryData["date"] = Carbon::parse($lorryData['date']);
-
             $lorry = Lorry::create($lorryData);
 
             $total_quantity = 0;
-
             foreach ($data as $itemData) {
 
                 $itemData["invoice_details_id"] = $invoice_details_id;
