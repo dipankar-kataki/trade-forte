@@ -61,21 +61,11 @@ class PackagingController extends Controller
     {
         try {
             $invoiceId = $request->id;
-            $invoice = InvoiceDetail::with(["consignees", "exporters", "exporter_address", "items", "packagingDetails"])->where("id", $invoiceId)->first();
+            $invoice = InvoiceDetail::with(["consignees", "exporters", "exporter_address", "items", "packagingDetails"])->where("id", $invoiceId)->get()->first();
 
-            $packagingItems = ($invoice && $invoice->id) ? PackagingDetail::where('invoice_details_id', $invoice->id)->get() : PackagingDetail::where('invoice_details_id', $invoiceId)->get();
-
-            if ($packagingItems->isEmpty()) {
-                return $this->error("Packaging not found.", null, null, 404);
-            }
-            // Query for Invoice Items
-            $invoiceItems = ($invoice && $invoice->id) ? InvoiceItem::where('invoice_details_id', $invoice->id)->get() : InvoiceItem::where('invoice_id', $invoiceId)->get();
-            // Organize the result
-            $result = [
-                'invoice_items' => $invoiceItems->toArray(),
-                'packaging_items' => $packagingItems->toArray(),
-            ];
-            return $this->success("Packaging Info.", $result, null, 200);
+           
+ 
+            return $this->success("Packaging Info.", $invoice, null, 200);
         } catch (\Exception $e) {
             return $this->error('Oops! Something Went Wrong.' . $e->getMessage(), null, null, 500);
         }
