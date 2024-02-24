@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Lorry extends Model
 {
     use HasFactory;
-    protected $table = 'lorry_items';
+    protected $table = 'lorry';
     protected $guarded = [];
     protected $hidden = ['created_at', 'updated_at', "users_id"];
     public static function createRule()
