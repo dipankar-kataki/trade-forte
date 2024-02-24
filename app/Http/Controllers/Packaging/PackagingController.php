@@ -61,7 +61,7 @@ class PackagingController extends Controller
     {
         try {
             $invoiceId = $request->id;
-            $invoice = InvoiceDetail::with(["consignee", "exporter", "exporter_address", "items", "packagingDetails"])->where("id", $invoiceId)->first();
+            $invoice = InvoiceDetail::with(["consignees", "exporter", "exporter_address", "items", "packagingDetails"])->where("id", $invoiceId)->first();
 
             $packagingItems = ($invoice && $invoice->id) ? PackagingDetail::where('invoice_id', $invoice->id)->get() : PackagingDetail::where('invoice_id', $invoiceId)->get();
 
