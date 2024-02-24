@@ -63,13 +63,13 @@ class PackagingController extends Controller
             $invoiceId = $request->id;
             $invoice = InvoiceDetail::with(["consignees", "exporters", "exporter_address", "items", "packagingDetails"])->where("id", $invoiceId)->first();
 
-            $packagingItems = ($invoice && $invoice->id) ? PackagingDetail::where('invoice_id', $invoice->id)->get() : PackagingDetail::where('invoice_id', $invoiceId)->get();
+            $packagingItems = ($invoice && $invoice->id) ? PackagingDetail::where('invoice_details_id', $invoice->id)->get() : PackagingDetail::where('invoice_details_id', $invoiceId)->get();
 
             if ($packagingItems->isEmpty()) {
                 return $this->error("Packaging not found.", null, null, 404);
             }
             // Query for Invoice Items
-            $invoiceItems = ($invoice && $invoice->id) ? InvoiceItem::where('invoice_id', $invoice->id)->get() : InvoiceItem::where('invoice_id', $invoiceId)->get();
+            $invoiceItems = ($invoice && $invoice->id) ? InvoiceItem::where('invoice_details_id', $invoice->id)->get() : InvoiceItem::where('invoice_id', $invoiceId)->get();
             // Organize the result
             $result = [
                 'invoice_items' => $invoiceItems->toArray(),
