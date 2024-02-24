@@ -29,7 +29,8 @@ class LorryItemsController extends Controller
                 return $this->error('Invalid data format. Expected an array of lorry items.', null, null, 400);
             }
     
-            $user_id = Auth::id();
+            $user_id = Auth::id();            
+            $lorryData["total_quantity"] = 0;
             $validator = Validator::make($lorryData, Lorry::createRule());
             if ($validator->fails()) {
                 return $this->error('Oops!' . $validator->errors()->first(), null, null, 400);
@@ -37,7 +38,6 @@ class LorryItemsController extends Controller
             DB::beginTransaction();
             
             $lorryData["users_id"] = $user_id;
-            $lorryData["total_quantity"] = 0;
 
             $lorryData["date"] = Carbon::parse($lorryData['date']);
 
