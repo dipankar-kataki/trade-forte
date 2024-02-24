@@ -36,7 +36,9 @@ class LorryItemsController extends Controller
             }
             DB::beginTransaction();
             
+            $lorryData["users_id"] = Carbon::parse($lorryData['date']);
             $lorryData["date"] = Carbon::parse($lorryData['date']);
+
             $lorry = Lorry::create($lorryData);
     
             $total_quantity = 0;
