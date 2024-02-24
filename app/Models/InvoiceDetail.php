@@ -136,4 +136,9 @@ class InvoiceDetail extends Model
     {
         return $this->belongsTo(ShippingAddress::class, 'shipping_id',"id");
     }
+
+    public function lorry_items()
+    {
+        return $this->hasMany(LorryItems::class, 'invoice_id',"id");
+    }
 }

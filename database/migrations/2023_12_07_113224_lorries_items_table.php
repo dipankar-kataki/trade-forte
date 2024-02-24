@@ -21,10 +21,10 @@ class LorriesItemsTable extends Migration
             $table->string('quantity');
             $table->unsignedBigInteger('users_id');
             $table->foreign('users_id')->references('id')->on('users');
-            $table->unsignedBigInteger("lorry_id");
-            $table->foreign('lorry_id')->references('id')->on('lorries');
+            $table->unsignedBigInteger("invoice_id");
+            $table->foreign('invoice_id')->references('id')->on('invoice_details');
             $table->timestamps();
-        });
+        }); 
     }
 
     /**

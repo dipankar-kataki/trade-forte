@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\LorryItems;
 
 use App\Http\Controllers\Controller;
+use App\Models\InvoiceDetail;
 use App\Models\LorryItems;
 use App\Traits\ApiResponse;
 use App\Traits\CreateUserActivityLog;
@@ -18,23 +19,29 @@ class LorryItemsController extends Controller
     use CreateUserActivityLog;
     public function create(Request $request)
     {
-        $validator = Validator::make($request->all(), LorryItems::createRule());
-        if ($validator->fails()) {
-            return $this->error('Oops!' . $validator->errors()->first(), null, null, 400);
-        } else {
-            try {
-                $data = $validator->validated();
-                $user_id = Auth::id();
-                $data["items_added_by"] = $user_id;
-                DB::beginTransaction();
-                LorryItems::create($data);
-                $this->createLog($user_id, "Lorry items added.", "lorryitems", null);
-                DB::commit();
-                return $this->success("Lorry items registered Successfully!", null, null, 201);
-            } catch (\Exception $e) {
-                DB::rollBack();
-                return $this->error('Oops! Something Went Wrong.' . $e->getMessage(), null, null, 500);
+        try {
+            $data = $request->lorryItems;
+            if (!is_array($data)) {
+                return $this->error('Invalid data format. Expected an array of invoice items.', null, null, 400);
             }
+            $user_id = Auth::id();
+            DB::beginTransaction();
+            foreach ($data as $itemData) {
+                $validator = Validator::make($itemData, LorryItems::createRule());
+                if ($validator->fails()) {
+                    return $this->error('Oops!' . $validator->errors()->first(), null, null, 400);
+                }
+                $validData = $validator->validated();
+                $data["users_id"] = $user_id;
+                LorryItems::create($validData);
+                $this->createLog($user_id, "Lorry items added.", "lorryitems", null);
+            }
+            DB::commit();
+
+            return $this->success("Lorry items registered Successfully!", null, null, 201);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return $this->error('Oops! Something Went Wrong.' . $e->getMessage(), null, null, 500);
         }
     }
     public function index(Request $request)
@@ -46,10 +53,10 @@ class LorryItemsController extends Controller
     public function show(Request $request)
     {
         try {
-            $account = LorryItems::where(function ($query) use ($request) {
+            $account = InvoiceDetail::with(["exporter", "consignee","lorry_items", "shipping_address", "exporter_address"])->where(function ($query) use ($request) {
                 $query->where('id', $request->id)
-                    ->orWhere('lorry_id', $request->id);
-            })->get();
+                    ->orWhere('invoice_id', $request->id);
+            })->get()->first();
             if (!$account) {
                 return $this->error("Lorry items not found.", null, null, 404);
             }

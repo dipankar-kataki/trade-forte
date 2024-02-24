@@ -65,8 +65,7 @@ class InvoiceController extends Controller
 
             $dataPayments = $paymentsValidator->validated();
             $dataPayments["users_id"] = $user_id;
-
-
+            
             $dataTransport = $transportValidator->validated();
             $dataTransport["users_id"] = $user_id;
             $dataTransport["bl_awb_lr_date"] = Carbon::parse($dataTransport['bl_awb_lr_date']);
@@ -103,10 +102,7 @@ class InvoiceController extends Controller
                 // Add user_id and calculate total_value for each item
                 $itemData["invoice_details_id"] = $invoice_details_id;
                 $itemData["users_id"] = $user_id;
-            
-             
                 $itemData["net_weight"] = (intval($itemData["net_weight_of_each_unit"]) * intval($itemData["quantity"])) * 1000;
-                
             
                 $itemData["net_value"] = intval($itemData["unit_value"]) * intval($itemData["quantity"]);
              
@@ -118,8 +114,6 @@ class InvoiceController extends Controller
                 // Log each item creation
                 $this->createLog($user_id, "Invoice item added.", "invoice_items", $item->id);
             }
-            
-
             $dataDeclaration["invoice_details_id"] = $invoice_details_id;
             $dataDeclaration["users_id"] = $user_id;
             $dataDeclaration["declaration"] = json_encode($request->declaration);
