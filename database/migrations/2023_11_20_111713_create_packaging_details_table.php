@@ -15,7 +15,7 @@ class CreatePackagingDetailsTable extends Migration
     {
         Schema::create('packaging_details', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('invoice_id');
+            $table->unsignedBigInteger('invoice_details_id');
             $table->unsignedBigInteger('users_id');
             $table->text('net_weight')->nullable();
             $table->text('gross_weight')->nullable();
@@ -25,7 +25,7 @@ class CreatePackagingDetailsTable extends Migration
             $table->decimal('total_gross_weight')->default(0);
             $table->timestamps();
             $table->foreign('users_id')->references('id')->on('users');
-            $table->foreign('invoice_id')->references('id')->on('invoice_details');
+            $table->foreign('invoice_details_id')->references('id')->on('invoice_details');
         });
     }
 
