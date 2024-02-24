@@ -29,7 +29,7 @@ class PackagingController extends Controller
             }
 
             DB::beginTransaction();
-            $invoice = InvoiceDetail::where("id", $request->id)->first();
+            $invoice = InvoiceDetail::where("id", $request->invoice_details_id)->first();
             $invoice["with_letter_head"] = $request->with_letter_head;
             $invoice->save();
             foreach ($packagingDetailsData as $packagingData) {
