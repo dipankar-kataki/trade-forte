@@ -30,6 +30,10 @@ class LorryItemsController extends Controller
             }
     
             $user_id = Auth::id();
+            $validator = Validator::make($lorryData, Lorry::createRule());
+            if ($validator->fails()) {
+                return $this->error('Oops!' . $validator->errors()->first(), null, null, 400);
+            }
             DB::beginTransaction();
             
             $lorryData["date"] = Carbon::parse($lorryData['date']);

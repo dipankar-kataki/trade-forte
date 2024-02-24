@@ -10,12 +10,13 @@ class LorryItems extends Model
     use HasFactory;
     protected $table = 'lorry_items';
     protected $guarded = [];
-    protected $hidden = ['created_at', 'updated_at',"status","users_id"];
+    protected $hidden = ['created_at', 'updated_at', "status", "users_id"];
     public static function createRule()
     {
         return [
-            "vehiclle_no" => "required|string",
+            "vehicle_no" => "required|string",
             "trip" => "required|integer",
+            "total_quantity_to_deliver" => "required|integer",
             "quantity" => "required|integer",
             "invoice_details_id" => "required|exists:invoice_details,id"
         ];
@@ -25,7 +26,8 @@ class LorryItems extends Model
         return [
             "vehicle_no" => "sometimes|string",
             "trip" => "sometimes|integer",
-            "quantity" => "sometimes|integer",
+            "quantity" => "required|integer",
+            "total_quantity_to_deliver" => "sometimes|integer",
             "invoice_details_id" => "sometimes|exists:invoice_details,id"
         ];
     }
