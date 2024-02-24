@@ -110,7 +110,7 @@ class InvoiceDetail extends Model
 
     public function packagingDetails()
     {
-        return $this->hasManyThrough(
+        return $this->hasMany(
             PackagingDetail::class,
             'invoice_id',
             'id',
