@@ -46,7 +46,8 @@ class LorryItemsController extends Controller
             $total_quantity = 0;
 
             foreach ($data as $itemData) {
-                $lorryData["invoice_details_id"] = $;
+
+                $lorryData["invoice_details_id"] = $lorryData["invoice_details_id"];
 
                 $validator = Validator::make($itemData, LorryItems::createRule());
 
