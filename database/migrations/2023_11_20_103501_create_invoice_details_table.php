@@ -35,6 +35,7 @@ class CreateInvoiceDetailsTable extends Migration
             $table->string("po_contract_number")->nullable();
             $table->date('po_contract_date')->nullable();
             $table->string("remarks")->nullable();
+            $table->boolean("with_letter_head")->nullable()->default(1);
 
             $table->foreign('users_id')->references('id')->on('users');
             $table->foreign('exporter_address_id')->references('id')->on('exporter_address');

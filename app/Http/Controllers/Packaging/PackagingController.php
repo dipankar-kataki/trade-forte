@@ -23,13 +23,16 @@ class PackagingController extends Controller
         try {
             $user_id = Auth::id();
             $packagingDetailsData = $request->final_packaging_list;
+            $packagingDetailsData = $request->with_letter_head;
 
             if (!is_array($packagingDetailsData)) {
                 return $this->error('Invalid data format. Expected an array of packaging details.', null, null, 400);
             }
 
             DB::beginTransaction();
-
+            $invoice = InvoiceDetail::where("id", $request->id)->first();
+            $invoice["with_letter_head"] = $request->with_letter_head;
+            $invoice->save();
             foreach ($packagingDetailsData as $packagingData) {
                 $packagingData["users_id"] = $user_id;
                 $packagingData["total_gross_weight"] = $packagingData['quantity'] * $packagingData['each_box_weight'];

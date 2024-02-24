@@ -7,6 +7,7 @@ use App\Models\InvoiceDetail;
 use App\Models\LorryItems;
 use App\Traits\ApiResponse;
 use App\Traits\CreateUserActivityLog;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -32,6 +33,7 @@ class LorryItemsController extends Controller
                     return $this->error('Oops!' . $validator->errors()->first(), null, null, 400);
                 }
                 $validData = $validator->validated();
+                $validData["date"] = Carbon::parse($validData['data']);
                 $data["users_id"] = $user_id;
                 LorryItems::create($validData);
                 $this->createLog($user_id, "Lorry items added.", "lorryitems", null);
