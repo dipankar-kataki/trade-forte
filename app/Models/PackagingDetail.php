@@ -12,7 +12,7 @@ class PackagingDetail extends Model
     protected $table = 'packaging_details';
 
     protected $guarded = [];
-    protected $hidden = ['created_at', 'updated_at',"status","users_id"];
+    protected $hidden = ['created_at', 'updated_at', "status", "users_id"];
     public function user()
     {
         return $this->belongsTo(User::class, 'details_added_by', 'id');
@@ -32,7 +32,6 @@ class PackagingDetail extends Model
     {
         return [
             'invoice_id' => 'sometimes|exists:invoice_details,id',
-            'invoice_item_id' => 'sometimes|exists:invoice_items,id',
             'description' => 'sometimes|string',
             'each_box_weight' => 'sometimes|numeric',
             'packaging_type' => 'sometimes|string',
