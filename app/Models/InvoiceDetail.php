@@ -132,4 +132,8 @@ class InvoiceDetail extends Model
     {
         return $this->belongsTo(ExporterAddress::class, 'exporter_address_id',"id");
     }
+    public function shipping_address()
+    {
+        return $this->belongsTo(ShippingAddress::class, 'shipping_id',"id");
+    }
 }
