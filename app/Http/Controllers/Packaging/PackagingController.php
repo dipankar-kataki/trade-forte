@@ -23,7 +23,6 @@ class PackagingController extends Controller
         try {
             $user_id = Auth::id();
             $packagingDetailsData = $request->final_packaging_list;
-            $packagingDetailsData = $request->with_letter_head;
 
             if (!is_array($packagingDetailsData)) {
                 return $this->error('Invalid data format. Expected an array of packaging details.', null, null, 400);
