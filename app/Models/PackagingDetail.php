@@ -20,7 +20,7 @@ class PackagingDetail extends Model
     public static function createRule()
     {
         return [
-            'invoice_id' => 'required|exists:invoice_details,id',
+            'invoice_details_id' => 'required|exists:invoice_details,id',
             'net_weight' => 'nullable|string',
             'total_gross_weight' => 'nullable|string',
             'each_box_weight' => 'nullable|numeric',
@@ -31,7 +31,7 @@ class PackagingDetail extends Model
     public static function updateRule()
     {
         return [
-            'invoice_id' => 'sometimes|exists:invoice_details,id',
+            'invoice_details_id' => 'sometimes|exists:invoice_details,id',
             'description' => 'sometimes|string',
             'each_box_weight' => 'sometimes|numeric',
             'packaging_type' => 'sometimes|string',
