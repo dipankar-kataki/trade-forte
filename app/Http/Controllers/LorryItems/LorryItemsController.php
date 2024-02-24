@@ -24,7 +24,7 @@ class LorryItemsController extends Controller
         try {
             $data = $request->lorryItems;
             $lorryData = $request->lorryDetails;
-
+            $invoice_details_id = $request->lorryDetails->invoice_details_id;
             if (!is_array($data)) {
                 return $this->error('Invalid data format. Expected an array of lorry items.', null, null, 400);
             }
@@ -47,7 +47,7 @@ class LorryItemsController extends Controller
 
             foreach ($data as $itemData) {
 
-                $lorryData["invoice_details_id"] = $lorryData["invoice_details_id"];
+                $itemData["invoice_details_id"] = $lorryData["invoice_details_id"];
 
                 $validator = Validator::make($itemData, LorryItems::createRule());
 
