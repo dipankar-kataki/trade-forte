@@ -41,6 +41,7 @@ class LorryItemsController extends Controller
     
             $lorryData["users_id"] = $user_id;
             $lorryData["date"] = Carbon::parse($lorryData['date']);
+            $lorryData["total_trips"] = 0;
             $lorry = Lorry::create($lorryData);
     
             $total_quantity = 0;
