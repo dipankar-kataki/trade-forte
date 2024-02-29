@@ -85,7 +85,7 @@ class LorryItemsController extends Controller
     public function show(Request $request)
     {
         try {
-            $invoice = InvoiceDetail::with(['exporters', 'items', 'consignees', 'payments', 'transport', 'declarations',"exporter_address", "shipping_address","lorry_items"])
+            $invoice = InvoiceDetail::with(['exporters', 'items', 'consignees', 'payments', 'transport',"lorry_details", 'declarations',"exporter_address", "shipping_address","lorry_items"])
                 ->where('invoice_number', $request->id)
                 ->orWhere("id", $request->id)
                 ->get()->first();
