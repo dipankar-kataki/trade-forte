@@ -44,7 +44,7 @@ class LorryItemsController extends Controller
             $lorry = Lorry::create($lorryData);
     
             $total_quantity = 0;
-    
+            $lorry["total_trips"] = 0;
             foreach ($data as $itemData) {
                 $itemData["invoice_details_id"] = $lorryData["invoice_details_id"];
     
@@ -57,7 +57,7 @@ class LorryItemsController extends Controller
     
                 $validData = $validator->validated();
                 $validData["users_id"] = $user_id;
-    
+                $lorry["total_trips"] += $validData["trip"];
                 LorryItems::create($validData);
     
                 $total_quantity += $validData["total_quantity_to_deliver"];

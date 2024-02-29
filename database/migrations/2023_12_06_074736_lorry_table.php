@@ -14,6 +14,7 @@ class LorryTable extends Migration
             $table->date("date");
             $table->string('total_quantity');
             $table->string('uqc');
+            $table->string('total_trips');
 
             $table->unsignedBigInteger('users_id');
             $table->foreign('users_id')->references('id')->on('users');
