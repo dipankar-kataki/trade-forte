@@ -85,14 +85,16 @@ class LorryItemsController extends Controller
     public function show(Request $request)
     {
         try {
-            $account = InvoiceDetail::with(["exporter", "consignee", "lorry_items", "shipping_address", "exporter_address"])->where(function ($query) use ($request) {
-                $query->where('id', $request->id)
-                    ->orWhere('invoice_details_id', $request->id);
-            })->get()->first();
-            if (!$account) {
-                return $this->error("Lorry items not found.", null, null, 404);
+            $invoice = InvoiceDetail::with(['exporters', 'items', 'consignees', 'payments', 'transport', 'declarations',"exporter_address", "shipping_address"])
+                ->where('invoice_number', $request->id)
+                ->orWhere("id", $request->id)
+                ->get()->first();
+
+            if (!$invoice) {
+                return $this->error("Invoice not found.", null, null, 404);
             }
-            return $this->success("Lorry items info.", $account, null, 200);
+            $invoice->declarations->declaration = json_decode($invoice->declarations->declaration);
+            return $this->success("Invoice details.", $invoice, null, 200);
         } catch (\Exception $e) {
             return $this->error('Oops! Something Went Wrong.' . $e->getMessage(), null, null, 500);
         }
