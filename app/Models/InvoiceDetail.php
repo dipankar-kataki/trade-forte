@@ -141,7 +141,7 @@ class InvoiceDetail extends Model
     {
         return $this->hasMany(LorryItems::class, 'invoice_details_id',"id");
     }
-    public function lorryDetails()
+    public function lorry_details()
     {
         return $this->hasOne(Lorry::class, 'invoice_details_id', 'id');
     }
