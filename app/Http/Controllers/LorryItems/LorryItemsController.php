@@ -24,55 +24,58 @@ class LorryItemsController extends Controller
         try {
             $data = $request->lorryItems;
             $lorryData = $request->lorryDetails;
-            $invoice_details_id = $request->lorryDetails["invoice_details_id"];
+    
             if (!is_array($data)) {
                 return $this->error('Invalid data format. Expected an array of lorry items.', null, null, 400);
             }
-
+    
             $user_id = Auth::id();
             $lorryData["total_quantity"] = 0;
+    
             $validator = Validator::make($lorryData, Lorry::createRule());
             if ($validator->fails()) {
-                return $this->error('Oops!' . $validator->errors()->first(), null, null, 400);
+                return $this->error('Oops! ' . $validator->errors()->first(), null, null, 400);
             }
+    
             DB::beginTransaction();
-
+    
             $lorryData["users_id"] = $user_id;
             $lorryData["date"] = Carbon::parse($lorryData['date']);
             $lorry = Lorry::create($lorryData);
-
+    
             $total_quantity = 0;
+    
             foreach ($data as $itemData) {
-
-                $itemData["invoice_details_id"] = $invoice_details_id;
-
+                $itemData["invoice_details_id"] = $lorryData["invoice_details_id"];
+    
                 $validator = Validator::make($itemData, LorryItems::createRule());
-
+    
                 if ($validator->fails()) {
+                    DB::rollBack();
                     return $this->error('Oops! ' . $validator->errors()->first(), null, null, 400);
                 }
-
+    
                 $validData = $validator->validated();
                 $validData["users_id"] = $user_id;
-
+    
                 LorryItems::create($validData);
-
+    
                 $total_quantity += $validData["total_quantity_to_deliver"];
                 $this->createLog($user_id, "Lorry items added.", "lorryitems", null);
             }
-
+    
             $lorry->total_quantity = $total_quantity;
             $lorry->save();
-
+    
             DB::commit();
-
+    
             return $this->success("Lorry items registered Successfully!", null, null, 201);
         } catch (\Exception $e) {
             DB::rollBack();
             return $this->error('Oops! Something Went Wrong.' . $e->getMessage(), null, null, 500);
         }
     }
-
+    
     public function index(Request $request)
     {
         $lorry = LorryItems::latest()->paginate(10);

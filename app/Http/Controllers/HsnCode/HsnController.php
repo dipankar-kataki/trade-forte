@@ -21,10 +21,10 @@ class HsnController extends Controller
             if ($length == 1) {
                 $query = "SELECT * FROM hsn_table WHERE hsn_code LIKE ? AND CHAR_LENGTH(hsn_code) = 2 ORDER BY hsn_code LIMIT 10";
                 $searchResults = DB::select($query, [$searchTerm . '%']);
-            } elseif ($length <= 4) {
+            } elseif ($length < 4) {
                 $query = "SELECT * FROM hsn_table WHERE hsn_code LIKE ? AND CHAR_LENGTH(hsn_code) = 4 ORDER BY hsn_code LIMIT 10";
                 $searchResults = DB::select($query, [$searchTerm . '%']);
-            } elseif ($length <= 6) {
+            } elseif ($length < 6) {
                 $query = "SELECT * FROM hsn_table WHERE hsn_code LIKE ? AND CHAR_LENGTH(hsn_code) = 6 ORDER BY hsn_code LIMIT 10";
                 $searchResults = DB::select($query, [$searchTerm . '%']);
             } elseif ($length <= 8) {
