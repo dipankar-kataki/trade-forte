@@ -141,4 +141,8 @@ class InvoiceDetail extends Model
     {
         return $this->hasMany(LorryItems::class, 'invoice_details_id',"id");
     }
+    public function lorry_details()
+    {
+        return $this->belongsTo(Lorry::class, 'invoice_details_id',"id");
+    }
 }
