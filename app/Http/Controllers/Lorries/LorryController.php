@@ -60,7 +60,7 @@ class LorryController extends Controller
     public function show(Request $request)
     {
         try {
-            $lorry = Lorry::with('exporter', 'consignee', 'invoice', 'lorry_details','lorry_items')
+            $lorry = Lorry::with( 'lorry_items')
                 ->where(function ($query) use ($request) {
                     $query->where('id', $request->id)
                         ->orWhere('invoice_details_id', $request->id);
