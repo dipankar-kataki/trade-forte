@@ -87,7 +87,7 @@ class LorryItemsController extends Controller
         try {
             $account = InvoiceDetail::with(["exporter", "consignee", "lorry_items", "shipping_address", "exporter_address"])->where(function ($query) use ($request) {
                 $query->where('id', $request->id)
-                    ->orWhere('invoice_id', $request->id);
+                    ->orWhere('invoice_details_id', $request->id);
             })->get()->first();
             if (!$account) {
                 return $this->error("Lorry items not found.", null, null, 404);
