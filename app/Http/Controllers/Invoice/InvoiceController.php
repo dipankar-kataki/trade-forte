@@ -62,11 +62,11 @@ class InvoiceController extends Controller
 
             $dataInvoice["invoice_date"] = Carbon::parse($dataInvoice['invoice_date']);
             $dataInvoice["po_contract_date"] = Carbon::parse($dataInvoice['po_contract_date']);
-            $dataInvoice["exporter_bank_id"] = $request->payment->bank_accounts_id;
+            $dataInvoice["exporter_bank_id"] = $request->payment["bank_accounts_id"];
 
             $dataPayments = $paymentsValidator->validated();
             $dataPayments["users_id"] = $user_id;
-            
+
             $dataTransport = $transportValidator->validated();
             $dataTransport["users_id"] = $user_id;
             $dataTransport["bl_awb_lr_date"] = Carbon::parse($dataTransport['bl_awb_lr_date']);
@@ -80,16 +80,16 @@ class InvoiceController extends Controller
             $shippingData["users_id"] = $user_id;
             $shipping = ShippingAddress::create($shippingData);
 
-            DB::beginTransaction();            
-            $counter = InvoiceDetail::count() +1;
-            $dataInvoice["invoice_number"] = 'INV-' .  $counter;
-            $dataInvoice["lorry_number"] = 'LORRY-' .  $counter;
+            DB::beginTransaction();
+            $counter = InvoiceDetail::count() + 1;
+            $dataInvoice["invoice_number"] = 'INV-' . $counter;
+            $dataInvoice["lorry_number"] = 'LORRY-' . $counter;
             $dataInvoice["shipping_id"] = $shipping->id;
 
-            $invoice = InvoiceDetail::create($dataInvoice);            
+            $invoice = InvoiceDetail::create($dataInvoice);
 
             $this->createLog($user_id, "Invoice details added.", "invoice", $request->id);
-            $invoice_details_id =  $invoice->id;
+            $invoice_details_id = $invoice->id;
 
             $dataPayments["invoice_details_id"] = $invoice_details_id;
             $payments = Payments::create($dataPayments);
@@ -104,12 +104,12 @@ class InvoiceController extends Controller
                 $itemData["invoice_details_id"] = $invoice_details_id;
                 $itemData["users_id"] = $user_id;
                 $itemData["net_weight"] = (intval($itemData["net_weight_of_each_unit"]) * intval($itemData["quantity"])) * 1000;
-            
+
                 $itemData["net_value"] = intval($itemData["unit_value"]) * intval($itemData["quantity"]);
-             
+
                 $invoice_value += $itemData["net_value"];
                 $total_net_weight += $itemData["net_weight"];
-            
+
                 // Create the InvoiceItem record
                 $item = InvoiceItem::create($itemData);
                 // Log each item creation
@@ -158,7 +158,7 @@ class InvoiceController extends Controller
     public function show(Request $request)
     {
         try {
-            $invoice = InvoiceDetail::with(['exporters', 'items', 'consignees', "exporter_bank", 'payments', 'transport', 'declarations',"exporter_address", "shipping_address"])
+            $invoice = InvoiceDetail::with(['exporters', 'items', 'consignees', "exporter_bank", 'payments', 'transport', 'declarations', "exporter_address", "shipping_address"])
                 ->where('invoice_number', $request->id)
                 ->orWhere("id", $request->id)
                 ->get()->first();
