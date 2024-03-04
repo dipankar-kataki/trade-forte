@@ -148,7 +148,7 @@ class InvoiceDetail extends Model
     }
     public function exporter_bank()
     {
-        return $this->belongsTo(BankAccount::class, 'bank_accounts', "id");
+        return $this->belongsTo(BankAccount::class, 'exporter_bank_id', "id");
     }
     public function consignee_bank()
     {
