@@ -103,6 +103,7 @@ class InvoiceDetail extends Model
     {
         return $this->belongsTo(Exporter::class, 'exporter_id', 'id');
     }
+
     public function consignees()
     {
         return $this->belongsTo(Consignee::class, 'consignee_id', 'id');
@@ -130,19 +131,27 @@ class InvoiceDetail extends Model
     }
     public function exporter_address()
     {
-        return $this->belongsTo(ExporterAddress::class, 'exporter_address_id',"id");
+        return $this->belongsTo(ExporterAddress::class, 'exporter_address_id', "id");
     }
     public function shipping_address()
     {
-        return $this->belongsTo(ShippingAddress::class, 'shipping_id',"id");
+        return $this->belongsTo(ShippingAddress::class, 'shipping_id', "id");
     }
 
     public function lorry_items()
     {
-        return $this->hasMany(LorryItems::class, 'invoice_details_id',"id");
+        return $this->hasMany(LorryItems::class, 'invoice_details_id', "id");
     }
     public function lorry_details()
     {
         return $this->hasOne(Lorry::class, 'invoice_details_id', 'id');
+    }
+    public function exporter_bank()
+    {
+        return $this->belongsTo(BankAccount::class, 'bank_accounts', "id");
+    }
+    public function consignee_bank()
+    {
+        return $this->belongsTo(ConsigneeBank::class, 'bank_accounts_id', "id");
     }
 }

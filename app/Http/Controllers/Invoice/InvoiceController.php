@@ -62,6 +62,7 @@ class InvoiceController extends Controller
 
             $dataInvoice["invoice_date"] = Carbon::parse($dataInvoice['invoice_date']);
             $dataInvoice["po_contract_date"] = Carbon::parse($dataInvoice['po_contract_date']);
+            $dataInvoice["exporter_bank_id"] = $request->payment->bank_accounts_id;
 
             $dataPayments = $paymentsValidator->validated();
             $dataPayments["users_id"] = $user_id;

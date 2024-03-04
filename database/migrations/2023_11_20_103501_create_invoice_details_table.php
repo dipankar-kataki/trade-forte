@@ -17,6 +17,7 @@ class CreateInvoiceDetailsTable extends Migration
             $table->unsignedBigInteger('consignee_id');
             $table->unsignedBigInteger('shipping_id');
             $table->unsignedBigInteger('exporter_address_id');
+            $table->unsignedBigInteger('exporter_bank_id');
 
             $table->string('invoice_number')->nullable()->unique()->index();
             $table->integer('invoice_value')->nullable();
@@ -38,6 +39,7 @@ class CreateInvoiceDetailsTable extends Migration
             $table->boolean("with_letter_head")->nullable()->default(1);
 
             $table->foreign('users_id')->references('id')->on('users');
+            $table->foreign('exporter_bank_id')->references('id')->on('bank_accounts');
             $table->foreign('exporter_address_id')->references('id')->on('exporter_address');
             $table->foreign('shipping_id')->references('id')->on('shipping_addresses');
             $table->foreign('exporter_id')->references('id')->on('exporters');

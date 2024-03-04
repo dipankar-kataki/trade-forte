@@ -17,7 +17,7 @@ class HsnController extends Controller
         try {
             $searchTerm = $request->hsn;
             $length = strlen($searchTerm);
-    
+
             if ($length == 1) {
                 $query = "SELECT * FROM hsn_table WHERE hsn_code LIKE ? AND CHAR_LENGTH(hsn_code) = 2 ORDER BY hsn_code LIMIT 10";
                 $searchResults = DB::select($query, [$searchTerm . '%']);
@@ -33,13 +33,10 @@ class HsnController extends Controller
             } else {
                 return $this->error('Invalid HSN code length in the request.', null, null, 400);
             }
-    
             return $this->success("Hsn List.", $searchResults, null, 200);
         } catch (\Exception $e) {
             return $this->error('Oops! Something Went Wrong.' . $e->getMessage(), null, null, 500);
         }
     }
-    
-
 
 }
