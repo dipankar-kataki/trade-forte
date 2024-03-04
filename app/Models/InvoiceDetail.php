@@ -23,7 +23,7 @@ class InvoiceDetail extends Model
             'country_of_export' => 'required|string',
             'country_of_destination' => 'required|string',
             "exporter_id" => "required|exists:exporters,id",
-            "exporter_address_id" => "required|exists:exporters,id",
+            "exporter_address_id" => "required|exists:exporter_address,id",
             "consignee_id" => "required|exists:consignees,id",
             'port_of_loading' => 'required|string',
             'port_of_destination' => 'required|string',
