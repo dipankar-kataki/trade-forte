@@ -24,7 +24,7 @@ class Lorry extends Model
     {
         return [
             "date" => "sometimes|date",
-            "uqc" => "sometimes|string", 
+            "uqc" => "sometimes|string",
             "total_trips" => "sometimes|integer",
         ];
     }
