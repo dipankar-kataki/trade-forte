@@ -22,7 +22,7 @@ class InvoiceItem extends Model
         return [
             'invoice_details_id' => 'required|exists:invoice_details,id',
             'users_id' => 'required|exists:users,id',
-            'hsn_code' => 'required|string|exists:hsn_table,hsn_code',
+            'hsn_code' => 'required|string|size:8|exists:hsn_table,hsn_code',
             'product_name' => 'required|string',
             'uqc' => 'required|string',
             'quantity' => 'required|integer',
