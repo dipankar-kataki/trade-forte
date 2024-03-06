@@ -92,7 +92,7 @@ class LorryController extends Controller
             DB::commit();
             $this->createLog($user_id, "Lorry created.", "lorry", $lorry->id);
 
-            return $this->success("Lorry items registered Successfully!", $lorry->id , null, 201);
+            return $this->success("Lorry items registered Successfully!", $lorry->id, null, 201);
         } catch (\Exception $e) {
             DB::rollBack();
             return $this->error('Oops! Something Went Wrong.' . $e->getMessage(), null, null, 500);
@@ -114,9 +114,9 @@ class LorryController extends Controller
     public function show(Request $request)
     {
         try {
-            $lorryInvoice = Lorry::with('lorry_invoices', 'lorry_items')
-            ->where('id', $request->id)
-            ->first();
+            $lorryInvoice = Lorry::with('lorry_invoices.items.exporter', 'lorry_invoices.items.consignee', 'lorry_items')
+                ->where('id', $request->id)
+                ->first();
     
             if (!$lorryInvoice) {
                 return $this->error("Lorry not found.", null, null, 404);
