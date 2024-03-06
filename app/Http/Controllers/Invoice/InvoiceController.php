@@ -111,11 +111,11 @@ class InvoiceController extends Controller
 
                 $invoice_value += $itemData["net_value"];
                 $total_net_weight += $itemData["net_weight"];
-                
+
                 $itemValidator = Validator::make($request->payment, InvoiceItem::createRule());
                 if ($itemValidator->fails()) {
                     DB::rollBack();
-                    return $this->error('Oops!' . $paymentsValidator->errors()->first(), null, null, 400);
+                    return $this->error('Oops!' . $itemValidator->errors()->first(), null, null, 400);
                 }
 
                 // Create the InvoiceItem record
