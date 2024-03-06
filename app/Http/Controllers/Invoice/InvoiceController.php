@@ -170,7 +170,7 @@ class InvoiceController extends Controller
             $invoices = InvoiceDetail::where(
                 'id',
                 $request->id
-            )->first();
+            )->select("id","invoice_number")->first();
             if (!$invoices) {
                 return $this->error("Invoice not found.", null, null, 404);
             }
