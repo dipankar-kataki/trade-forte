@@ -15,7 +15,7 @@ class HsnTable extends Migration
     {
         Schema::create("hsn_table", function (Blueprint $table) {
             $table->id();
-            $table->integer('hsn_code');
+            $table->text('hsn_code');
             $table->longText('hsn_description');
             $table->fullText(['hsn_code']);
         });
