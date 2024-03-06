@@ -103,8 +103,8 @@ class LorryController extends Controller
     public function index(Request $request)
     {
         try {
-            $lorryInvoice = Lorry::where('id', $request->id)->latest()->paginate(100);
-            return $this->success("Lorry list.", $lorryInvoice, null, 200);
+            $lorries = Lorry::latest()->paginate(100);
+            return $this->success("Lorry list.", $lorries, null, 200);
         } catch (\Exception $e) {
             return $this->error('Oops! Something Went Wrong.' . $e->getMessage(), null, null, 500);
         }
