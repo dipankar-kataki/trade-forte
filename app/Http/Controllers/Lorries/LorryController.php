@@ -56,6 +56,7 @@ class LorryController extends Controller
             $total_quantity = 0;
             $lorry["total_trips"] = 0;
             foreach($item as $lorryInvoices){
+                
                 $validator = Validator::make($item, LorryInvoices::createRule());
 
                 if ($validator->fails()) {
