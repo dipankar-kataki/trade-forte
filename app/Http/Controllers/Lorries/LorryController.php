@@ -40,14 +40,14 @@ class LorryController extends Controller
             $lorryData["total_trips"] = 0;
             $validator = Validator::make($lorryData, Lorry::createRule());
             if ($validator->fails()) {
-                return $this->error('Oops! ' . $validator->errors()->first(), null, null, 400);
+                return $this->error('Oops! 43' . $validator->errors()->first(), null, null, 400);
             }            
             $lorryData["users_id"] = $user_id;
 
             foreach ($lorryItems as $item) {
                 $itemValidator = Validator::make($item, LorryItems::createRule());
                 if ($itemValidator->fails()) {
-                    return $this->error('Oops! ' . $itemValidator->errors()->first(), null, null, 400);
+                    return $this->error('Oops! 50' . $itemValidator->errors()->first(), null, null, 400);
                 }
             }
 
@@ -64,7 +64,7 @@ class LorryController extends Controller
 
                 if ($lorryInvoicesValidator->fails()) {
                     DB::rollBack();
-                    return $this->error('Oops! ' . $lorryInvoicesValidator->errors()->first(), null, null, 400);
+                    return $this->error('Oops! 67' . $lorryInvoicesValidator->errors()->first(), null, null, 400);
                 }
                 $item["lorry_id"] = $lorry->id;
                 LorryInvoices::create($item);
@@ -75,7 +75,7 @@ class LorryController extends Controller
 
                 if ($validator->fails()) {
                     DB::rollBack();
-                    return $this->error('Oops! ' . $itemValidator->errors()->first(), null, null, 400);
+                    return $this->error('Oops! 78' . $itemValidator->errors()->first(), null, null, 400);
                 }
 
                 $validData = $itemValidator->validated();
