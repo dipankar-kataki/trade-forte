@@ -176,10 +176,10 @@ class InvoiceController extends Controller
             if (!$invoices) {
                 return $this->error("Invoice didnt match.", null, null, 404);
             }
-            if ($invoices->exporter_id != $exporterId) {
+            if ($invoices->exporter_id !== $exporterId) {
                 return $this->error("exporter didnt match.", null, null, 404);
             }
-            if ($invoices->consignee_id != $consigneeId) {
+            if ($invoices->consignee_id !== $consigneeId) {
                 return $this->error("Consignee didnt match.", null, null, 404);
             }
             return $this->success("Invoice list.", $invoices, null, 200);
