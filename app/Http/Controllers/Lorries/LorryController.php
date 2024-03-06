@@ -11,6 +11,7 @@ use App\Models\LorryItems;
 use App\Traits\ApiResponse;
 use App\Traits\CreateUserActivityLog;
 use Carbon\Carbon;
+use Illuminate\Contracts\Support\ValidatedData;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -41,19 +42,11 @@ class LorryController extends Controller
             $validator = Validator::make($lorryData, Lorry::createRule());
             if ($validator->fails()) {
                 return $this->error('Oops! 43' . $validator->errors()->first(), null, null, 400);
-            }            
-            $lorryData["users_id"] = $user_id;
-
-            foreach ($lorryItems as $item) {
-                $itemValidator = Validator::make($item, LorryItems::createRule());
-                if ($itemValidator->fails()) {
-                    return $this->error('Oops! 50' . $itemValidator->errors()->first(), null, null, 400);
-                }
             }
+            $lorryData["users_id"] = $user_id;
 
             DB::beginTransaction();
 
-     
             $lorry = Lorry::create($lorryData);
 
             $total_quantity = 0;
@@ -71,26 +64,30 @@ class LorryController extends Controller
             }
             foreach ($lorryItems as $itemData) {
 
+
+                $lorry["total_trips"] += $itemData["trip"];
+
                 $itemValidator = Validator::make($itemData, LorryItems::createRule());
 
                 if ($validator->fails()) {
                     DB::rollBack();
                     return $this->error('Oops! 78' . $itemValidator->errors()->first(), null, null, 400);
                 }
-
                 $validData = $itemValidator->validated();
-                $validData["users_id"] = $user_id;
-                $lorry["total_trips"] += $validData["trip"];
+                $validData["total_quantity_to_deliver"] = $validData["trip"] * $validData["quantity"];
+
                 LorryItems::create($validData);
 
                 $total_quantity += $validData["total_quantity_to_deliver"];
-                $this->createLog($user_id, "Lorry items added.", "lorryitems", null);
+                $total_trips += $validData["trip"];
+
             }
 
             $lorry->total_quantity = $total_quantity;
             $lorry->save();
 
             DB::commit();
+            $this->createLog($user_id, "Lorry created.", "lorry", $lorry->id);
 
             return $this->success("Lorry items registered Successfully!", null, null, 201);
         } catch (\Exception $e) {

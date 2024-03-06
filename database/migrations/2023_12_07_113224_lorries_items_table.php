@@ -19,7 +19,7 @@ class LorriesItemsTable extends Migration
             $table->string('vehicle_no');
             $table->string('quantity');
             $table->integer('total_quantity_to_deliver');
-            $table->unsignedBigInteger('users_id');
+            $table->unsignedBigInteger('users_id')->nullable();
             $table->foreign('users_id')->references('id')->on('users');
             $table->unsignedBigInteger("lorry_id");
             $table->foreign('lorry_id')->references('id')->on('lorry');
