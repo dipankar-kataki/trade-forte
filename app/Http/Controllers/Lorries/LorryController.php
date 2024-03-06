@@ -36,48 +36,49 @@ class LorryController extends Controller
             }
             $user_id = Auth::id();
             $lorryData["total_quantity"] = 0;
-
+            $lorryData["date"] = Carbon::parse($lorryData['date']);
+            $lorryData["total_trips"] = 0;
             $validator = Validator::make($lorryData, Lorry::createRule());
             if ($validator->fails()) {
                 return $this->error('Oops! ' . $validator->errors()->first(), null, null, 400);
-            }
-            foreach ($lorryData as $item) {
-                $validator = Validator::make($item, LorryItems::createRule());
-                if ($validator->fails()) {
-                    return $this->error('Oops! ' . $validator->errors()->first(), null, null, 400);
+            }            
+            $lorryData["users_id"] = $user_id;
+
+            foreach ($lorryItems as $item) {
+                $itemValidator = Validator::make($item, LorryItems::createRule());
+                if ($itemValidator->fails()) {
+                    return $this->error('Oops! ' . $itemValidator->errors()->first(), null, null, 400);
                 }
             }
 
             DB::beginTransaction();
 
-            $lorryData["users_id"] = $user_id;
-            $lorryData["date"] = Carbon::parse($lorryData['date']);
-            $lorryData["total_trips"] = 0;
+     
             $lorry = Lorry::create($lorryData);
 
             $total_quantity = 0;
             $lorry["total_trips"] = 0;
             foreach ($lorryInvoices as $item) {
                 // dd($item);
-                $validator = Validator::make($item, LorryInvoices::createRule());
+                $lorryInvoicesValidator = Validator::make($item, LorryInvoices::createRule());
 
-                if ($validator->fails()) {
+                if ($lorryInvoicesValidator->fails()) {
                     DB::rollBack();
-                    return $this->error('Oops! ' . $validator->errors()->first(), null, null, 400);
+                    return $this->error('Oops! ' . $lorryInvoicesValidator->errors()->first(), null, null, 400);
                 }
                 $item["lorry_id"] = $lorry->id;
                 LorryInvoices::create($item);
             }
             foreach ($lorryItems as $itemData) {
 
-                $validator = Validator::make($itemData, LorryItems::createRule());
+                $itemValidator = Validator::make($itemData, LorryItems::createRule());
 
                 if ($validator->fails()) {
                     DB::rollBack();
-                    return $this->error('Oops! ' . $validator->errors()->first(), null, null, 400);
+                    return $this->error('Oops! ' . $itemValidator->errors()->first(), null, null, 400);
                 }
 
-                $validData = $validator->validated();
+                $validData = $itemValidator->validated();
                 $validData["users_id"] = $user_id;
                 $lorry["total_trips"] += $validData["trip"];
                 LorryItems::create($validData);

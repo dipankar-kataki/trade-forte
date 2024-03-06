@@ -17,6 +17,7 @@ class Lorry extends Model
             "date" => "required|date",
             "uqc" => "required|string",
             "total_trips" => "required|integer",
+            "total_quantity" => "required|integer",
         ];
     }
     public static function updateRule()
