@@ -108,11 +108,11 @@ class InvoiceController extends Controller
                 $itemData["net_weight"] = (intval($itemData["net_weight_of_each_unit"]) * intval($itemData["quantity"])) * 1000;
 
                 $itemData["net_value"] = intval($itemData["unit_value"]) * intval($itemData["quantity"]);
-                
+
                 $invoice_value += $itemData["net_value"];
                 $total_net_weight += $itemData["net_weight"];
 
-                $itemValidator = Validator::make($request->payment, InvoiceItem::createRule());
+                $itemValidator = Validator::make($itemData, InvoiceItem::createRule());
                 if ($itemValidator->fails()) {
                     DB::rollBack();
                     return $this->error('Oops!' . $itemValidator->errors()->first(), null, null, 400);
