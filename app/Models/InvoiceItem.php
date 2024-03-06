@@ -10,7 +10,7 @@ class InvoiceItem extends Model
     use HasFactory;
 
     protected $table = 'invoice_items';
-    protected $hidden = ['created_at', 'updated_at',"status","users_id"];
+    protected $hidden = ['created_at', 'updated_at', "status", "users_id"];
     protected $guarded = [];
 
     public function user()
@@ -22,7 +22,7 @@ class InvoiceItem extends Model
         return [
             'invoice_details_id' => 'required|exists:invoice_details,id',
             'users_id' => 'required|exists:users,id',
-            'hsn_code' => 'required|exists:hsn_table,hsn_code',
+            'hsn_code' => 'required|string|exists:hsn_table,hsn_code',
             'product_name' => 'required|string',
             'uqc' => 'required|string',
             'quantity' => 'required|integer',
