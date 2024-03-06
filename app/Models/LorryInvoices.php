@@ -25,7 +25,14 @@ class LorryInvoices extends Model
     }
     public function lorry()
     {
-        return $this->belongsTo(Lorry::class, 'lorry_id', "id");
+        return $this->belongsTo(Lorry::class, 'lorry_id', "lorry_id");
     }
-
+    public function lorry_by_invoice()
+    {
+        return $this->belongsTo(Lorry::class, 'invoice_details_id', "invoice_details_id");
+    }
+    public function lorry_items()
+    {
+        return $this->hasMany(LorryItems::class, 'lorry_id', "lorry_id");
+    }
 }
