@@ -114,7 +114,7 @@ class LorryController extends Controller
     public function show(Request $request)
     {
         try {
-            $lorryInvoice = Lorry::with('lorry_invoices.items.exporters', 'lorry_invoices.items.consignee', 'lorry_items')
+            $lorryInvoice = Lorry::with('lorry_invoices.invoice_details_id.exporters', 'lorry_invoices.consignees', 'lorry_items')
                 ->where('id', $request->id)
                 ->first();
     
