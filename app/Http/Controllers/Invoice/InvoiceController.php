@@ -166,27 +166,28 @@ class InvoiceController extends Controller
     public function search(Request $request)
     {
         try {
-            $invoices = InvoiceDetail::where(
-                'id',
-                $request->id
-            )->select("id", "invoice_number")->first();
-            $exporterId = $request->exporterId; 
-            $consigneeId = $request->consigneeId; 
+            $invoices = InvoiceDetail::where('id', $request->id)->select("id", "invoice_number", "exporter_id", "consignee_id")->first();
+            $exporterId = intval($request->exporterId); // Parse as integer
+            $consigneeId = intval($request->consigneeId); // Parse as integer
 
             if (!$invoices) {
-                return $this->error("Invoice didnt match.", null, null, 404);
+                return $this->error("Invoice didn't match.", null, null, 404);
             }
+
             if ($invoices->exporter_id !== $exporterId) {
-                return $this->error("exporter didnt match.", null, null, 404);
+                return $this->error("Exporter didn't match.", null, null, 404);
             }
+
             if ($invoices->consignee_id !== $consigneeId) {
-                return $this->error("Consignee didnt match.", null, null, 404);
+                return $this->error("Consignee didn't match.", null, null, 404);
             }
+
             return $this->success("Invoice list.", $invoices, null, 200);
         } catch (\Exception $e) {
             return $this->error('Oops! Something Went Wrong.' . $e->getMessage(), null, null, 500);
         }
     }
+
     public function show(Request $request)
     {
         try {
