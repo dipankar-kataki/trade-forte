@@ -116,7 +116,6 @@ class LorryController extends Controller
         try {
             $lorryInvoice = Lorry::with('lorry', 'lorry_items')
                 ->where('id', $request->id)
-                ->orWhere('invoice_details_id', $request->id)
                 ->first();
     
             if (!$lorryInvoice) {
