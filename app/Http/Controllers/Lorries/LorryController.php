@@ -92,7 +92,7 @@ class LorryController extends Controller
             DB::commit();
             $this->createLog($user_id, "Lorry created.", "lorry", $lorry->id);
 
-            return $this->success("Lorry items registered Successfully!", $lorry, null, 201);
+            return $this->success("Lorry items registered Successfully!", $lorry->id , null, 201);
         } catch (\Exception $e) {
             DB::rollBack();
             return $this->error('Oops! Something Went Wrong.' . $e->getMessage(), null, null, 500);
