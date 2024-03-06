@@ -163,6 +163,22 @@ class InvoiceController extends Controller
             return $this->error('Oops! Something Went Wrong.' . $e->getMessage(), null, null, 500);
         }
     }
+    public function search(Request $request)
+    {
+        try {
+            
+            $invoices = InvoiceDetail::where(
+                'id',
+                $request->input("id")
+            )->first();
+            if (!$invoices) {
+                return $this->error("Invoice not found.", null, null, 404);
+            }
+            return $this->success("Invoice list.", $invoices, null, 200);
+        } catch (\Exception $e) {
+            return $this->error('Oops! Something Went Wrong.' . $e->getMessage(), null, null, 500);
+        }
+    }
     public function show(Request $request)
     {
         try {

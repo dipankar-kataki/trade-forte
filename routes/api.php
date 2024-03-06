@@ -99,6 +99,7 @@ Route::group(["middleware" => 'auth:sanctum'], function () {
         Route::post('create', [InvoiceController::class, 'create']);
         Route::get('list', [InvoiceController::class, 'index']);
         Route::get('get/{id}', [InvoiceController::class, 'show']);
+        Route::get('search/{id}', [InvoiceController::class, 'search']);
         Route::put('update/{id}', [InvoiceController::class, 'update']);
         Route::delete('delete/{id}', [InvoiceController::class, 'destroy']);
     });
