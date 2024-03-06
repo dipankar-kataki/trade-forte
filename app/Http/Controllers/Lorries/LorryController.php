@@ -64,7 +64,6 @@ class LorryController extends Controller
             }
             foreach ($lorryItems as $itemData) {
 
-
                 $lorry["total_trips"] += $itemData["trip"];
 
                 $itemValidator = Validator::make($itemData, LorryItems::createRule());
