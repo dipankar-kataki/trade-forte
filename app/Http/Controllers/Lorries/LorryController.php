@@ -62,6 +62,9 @@ class LorryController extends Controller
                 $item["lorry_id"] = $lorry->id;
                 LorryInvoices::create($item);
             }
+            $total_trips=0;
+            $total_quantity = 0;
+
             foreach ($lorryItems as $itemData) {
 
                 $lorry["total_trips"] += $itemData["trip"];
