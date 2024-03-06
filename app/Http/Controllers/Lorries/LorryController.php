@@ -102,26 +102,33 @@ class LorryController extends Controller
 
     public function index(Request $request)
     {
-        $lorry = LorryInvoices::with('lorry', 'lorry_items')->latest()->paginate(10);
-        return $this->success("Lorry list.", $lorry, null, 200);
-    }
-
-    public function show(Request $request)
-    {
         try {
-            $lorry = LorryInvoices::with('lorry', 'lorry_items')
-                ->where('id', $request->id)
-                ->first();
-
-            if (!$lorry) {
-                return $this->error("Lorry not found.", null, null, 404);
-            }
-
-            return $this->success("Lorry info.", $lorry, null, 200);
+            $lorryInvoices = LorryInvoices::with('lorry', 'lorry_items')->latest()->paginate(10);
+            return $this->success("Lorry list.", $lorryInvoices, null, 200);
         } catch (\Exception $e) {
             return $this->error('Oops! Something Went Wrong.' . $e->getMessage(), null, null, 500);
         }
     }
+
+
+    public function show(Request $request)
+    {
+        try {
+            $lorryInvoice = LorryInvoices::with('lorry', 'lorry_items')
+                ->where('id', $request->id)
+                ->orWhere('invoice_details_id', $request->id)
+                ->first();
+    
+            if (!$lorryInvoice) {
+                return $this->error("Lorry not found.", null, null, 404);
+            }
+    
+            return $this->success("Lorry info.", $lorryInvoice, null, 200);
+        } catch (\Exception $e) {
+            return $this->error('Oops! Something Went Wrong.' . $e->getMessage(), null, null, 500);
+        }
+    }
+    
 
     public function update(Request $request)
     {
