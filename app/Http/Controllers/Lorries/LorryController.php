@@ -73,6 +73,7 @@ class LorryController extends Controller
                     return $this->error('Oops! 78' . $itemValidator->errors()->first(), null, null, 400);
                 }
                 $validData = $itemValidator->validated();
+                $validData["lorry_id"] = $lorry->id;
                 $validData["total_quantity_to_deliver"] = $validData["trip"] * $validData["quantity"];
 
                 LorryItems::create($validData);
