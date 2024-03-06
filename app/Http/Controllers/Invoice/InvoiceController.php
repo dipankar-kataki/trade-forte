@@ -51,6 +51,7 @@ class InvoiceController extends Controller
             return $this->error('Invalid data format. Expected an array of invoice items.', null, null, 400);
         }
 
+
         $declaration = $request->declaration;
         if (!is_array($declaration)) {
             return $this->error('Invalid data format. Expected an array of declaration.', null, null, 400);
@@ -100,6 +101,7 @@ class InvoiceController extends Controller
             $this->createLog($user_id, "Tranportation details added.", "transportation", $tranport->id);
 
             foreach ($invoiceItemsData as $itemData) {
+
                 // Add user_id and calculate total_value for each item
                 $itemData["invoice_details_id"] = $invoice_details_id;
                 $itemData["users_id"] = $user_id;
@@ -109,6 +111,12 @@ class InvoiceController extends Controller
 
                 $invoice_value += $itemData["net_value"];
                 $total_net_weight += $itemData["net_weight"];
+                
+                $itemValidator = Validator::make($request->payment, InvoiceItem::createRule());
+                if ($itemValidator->fails()) {
+                    DB::rollBack();
+                    return $this->error('Oops!' . $paymentsValidator->errors()->first(), null, null, 400);
+                }
 
                 // Create the InvoiceItem record
                 $item = InvoiceItem::create($itemData);
