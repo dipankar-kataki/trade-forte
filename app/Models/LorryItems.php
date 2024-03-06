@@ -31,7 +31,7 @@ class LorryItems extends Model
     }
     public function lorryDetails()
     {
-        return $this->belongsTo(Lorry::class, 'id', 'lorry_id');
+        return $this->belongsTo(Lorry::class, 'lorry_id', 'id');
     }
 
 }

@@ -170,8 +170,17 @@ class InvoiceController extends Controller
                 'id',
                 $request->id
             )->select("id", "invoice_number")->first();
+            $exporterId = $request->exporterId; 
+            $consigneeId = $request->consigneeId; 
+
             if (!$invoices) {
-                return $this->error("Invoice not found.", null, null, 404);
+                return $this->error("Invoice didnt match.", null, null, 404);
+            }
+            if ($invoices->exporter_id != $exporterId) {
+                return $this->error("exporter didnt match.", null, null, 404);
+            }
+            if ($invoices->consignee_id != $consigneeId) {
+                return $this->error("Consignee didnt match.", null, null, 404);
             }
             return $this->success("Invoice list.", $invoices, null, 200);
         } catch (\Exception $e) {
