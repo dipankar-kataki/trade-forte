@@ -102,7 +102,7 @@ class LorryController extends Controller
 
     public function index(Request $request)
     {
-        $lorry = Lorry::latest()->paginate(10);
+        $lorry = LorryInvoices::with('lorry', 'lorry_items')::latest()->paginate(10);
         return $this->success("Lorry list.", $lorry, null, 200);
     }
 
