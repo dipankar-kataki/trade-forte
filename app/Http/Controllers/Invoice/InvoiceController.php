@@ -148,7 +148,7 @@ class InvoiceController extends Controller
             )->with([
                         'exporters:id,name',
                         'consignees:id,name',
-                    ])->paginate(10);
+                    ])->latest()->paginate(10);
 
             return $this->success("Invoice list.", $invoices, null, 200);
         } catch (\Exception $e) {

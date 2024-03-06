@@ -18,7 +18,6 @@ class LorryItems extends Model
             "trip" => "required|integer",
             "total_quantity_to_deliver" => "required|integer",
             "quantity" => "required|integer",
-            "invoice_details_id" => "required|exists:invoice_details,id"
         ];
     }
     public static function updateRule()
@@ -28,11 +27,11 @@ class LorryItems extends Model
             "trip" => "sometimes|integer",
             "quantity" => "required|integer",
             "total_quantity_to_deliver" => "sometimes|integer",
-            "invoice_details_id" => "sometimes|exists:invoice_details,id"
         ];
     }
     public function lorryDetails()
     {
-        return $this->belongsTo(InvoiceDetail::class, 'invoice_details_id', 'id');
+        return $this->belongsTo(Lorry::class, 'lorry_id', 'id');
     }
+
 }

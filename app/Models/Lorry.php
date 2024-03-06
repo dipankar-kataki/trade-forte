@@ -16,22 +16,24 @@ class Lorry extends Model
         return [
             "date" => "required|date",
             "uqc" => "required|string",
-            "invoice_details_id" => "required|exists:invoice_details,id"
+            "total_trips" => "required|integer",
         ];
     }
     public static function updateRule()
     {
         return [
             "date" => "sometimes|date",
-            "total_quantity" => "sometimes|integer",
-            "uqc" => "required|string",
-            "invoice_details_id" => "sometimes|exists:invoice_details,id"
+            "uqc" => "sometimes|string", 
+            "total_trips" => "sometimes|integer",
         ];
     }
 
     public function lorry_items()
     {
-        return $this->hasMany(LorryItems::class, 'invoice_details_id',"id");
+        return $this->hasMany(LorryItems::class, 'lorry_id', "id");
     }
-
+    public function lorry_invoices()
+    {
+        return $this->hasMany(LorryInvoices::class, 'lorry_id', "id");
+    }
 }

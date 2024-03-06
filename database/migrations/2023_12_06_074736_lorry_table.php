@@ -12,14 +12,11 @@ class LorryTable extends Migration
         Schema::create("lorry", function (Blueprint $table) {
             $table->id();
             $table->date("date");
-            $table->string('total_quantity');
+            $table->integer('total_quantity');
             $table->string('uqc');
             $table->integer('total_trips');
-
             $table->unsignedBigInteger('users_id');
             $table->foreign('users_id')->references('id')->on('users');
-            $table->unsignedBigInteger("invoice_details_id");
-            $table->foreign('invoice_details_id')->references('id')->on('invoice_details');
             $table->timestamps();
         });
     }
