@@ -24,14 +24,16 @@ class LorryController extends Controller
     public function create(Request $request)
     {
         try {
-            $data = $request->lorryItems;
             $lorryData = $request->lorryDetails;
+            $lorryItems = $request->lorryItems;
             $lorryInvoices = $request->lorryInvoices;
 
-            if (!is_array($data)) {
+            if (!is_array($lorryData)) {
                 return $this->error('Invalid data format. Expected an array of lorry items.', null, null, 400);
             }
-
+            if (!is_array($lorryInvoices)) {
+                return $this->error('Invalid data format. Expected an array of lorry invoices.', null, null, 400);
+            }
             $user_id = Auth::id();
             $lorryData["total_quantity"] = 0;
 
@@ -45,7 +47,7 @@ class LorryController extends Controller
                     return $this->error('Oops! ' . $validator->errors()->first(), null, null, 400);
                 }
             }
-            
+
             DB::beginTransaction();
 
             $lorryData["users_id"] = $user_id;
@@ -55,7 +57,7 @@ class LorryController extends Controller
 
             $total_quantity = 0;
             $lorry["total_trips"] = 0;
-            foreach($item as $lorryInvoices){
+            foreach ($lorryInvoices as $item) {
                 dd($item);
                 $validator = Validator::make($item, LorryInvoices::createRule());
 
@@ -66,7 +68,7 @@ class LorryController extends Controller
                 $item["lorry_id"] = $lorry->id;
                 LorryInvoices::create($item);
             }
-            foreach ($data as $itemData) {
+            foreach ($lorryItems as $itemData) {
 
                 $validator = Validator::make($itemData, LorryItems::createRule());
 
