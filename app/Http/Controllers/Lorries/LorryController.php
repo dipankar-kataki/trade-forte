@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\BankAccount;
 use App\Models\InvoiceDetail;
 use App\Models\Lorry;
+use App\Models\LorryInvoices;
 use App\Models\LorryItems;
 use App\Traits\ApiResponse;
 use App\Traits\CreateUserActivityLog;
@@ -55,14 +56,14 @@ class LorryController extends Controller
             $total_quantity = 0;
             $lorry["total_trips"] = 0;
             foreach($item as $lorryInvoices){
-                $validator = Validator::make($itemData, LorryInvoices::createRule());
+                $validator = Validator::make($item, LorryInvoices::createRule());
 
                 if ($validator->fails()) {
                     DB::rollBack();
                     return $this->error('Oops! ' . $validator->errors()->first(), null, null, 400);
                 }
                 $item["lorry_id"] = $lorry->id;
-                LorryInvoices::create($item)
+                LorryInvoices::create($item);
             }
             foreach ($data as $itemData) {
 
