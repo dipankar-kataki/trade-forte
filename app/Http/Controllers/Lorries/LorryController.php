@@ -116,7 +116,7 @@ class LorryController extends Controller
         try {
             $lorryInvoice = Lorry::with([
                 'lorry_invoices.invoices' => function ($query) {
-                    $query->select('id', 'exporter', 'consignee'); // Adjust the column names based on your actual database structure
+                    $query->select('id', 'exporters', 'consignees'); // Adjust the column names based on your actual database structure
                 },
                 'lorry_items'
             ])
