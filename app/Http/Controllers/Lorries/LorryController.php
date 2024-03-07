@@ -119,10 +119,10 @@ class LorryController extends Controller
                     $query->select('id', 'exporter_id', 'exporter_address_id', 'consignee_id');
                     $query->with([
                         'exporters' => function ($exportersQuery) {
-                            $exportersQuery->select('id', 'name', 'other_columns');
+                            $exportersQuery->select('id', 'name');
                         },
                         'consignees' => function ($consigneesQuery) {
-                            $consigneesQuery->select('id', 'name', 'other_columns');
+                            $consigneesQuery->select('id', 'name', 'address_line_one', 'address_line_two', 'pin_code', 'city', 'district', 'state',  'foreign_business_country');
                         },
                         'exporter_address' => function ($addressQuery) {
                             $addressQuery->select('id', 'address_line_one', 'address_line_two', 'pin_code', 'city', 'district', 'state');
