@@ -116,7 +116,18 @@ class LorryController extends Controller
         try {
             $lorryInvoice = Lorry::with([
                 'lorry_invoices.invoices' => function ($query) {
-                    $query->select('id', 'exporter_id','exporter_address_id', 'consignee_id'); 
+                    $query->select('id', 'exporter_id', 'exporter_address_id', 'consignee_id');
+                    $query->with([
+                        'exporters' => function ($exportersQuery) {
+                            $exportersQuery->select('id', 'name', 'other_columns');
+                        },
+                        'consignees' => function ($consigneesQuery) {
+                            $consigneesQuery->select('id', 'name', 'other_columns');
+                        },
+                        'exporter_address' => function ($addressQuery) {
+                            $addressQuery->select('id', 'address_line_one', 'address_line_two', 'pin_code', 'city', 'district', 'state');
+                        }
+                    ]);
                 },
                 'lorry_items'
             ])
@@ -132,6 +143,7 @@ class LorryController extends Controller
             return $this->error('Oops! Something Went Wrong.' . $e->getMessage(), null, null, 500);
         }
     }
+    
     
     
 
