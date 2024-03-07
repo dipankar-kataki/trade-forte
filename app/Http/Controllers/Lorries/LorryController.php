@@ -114,9 +114,14 @@ class LorryController extends Controller
     public function show(Request $request)
     {
         try {
-            $lorryInvoice = Lorry::with('lorry_invoices.invoices.exporters', 'lorry_invoices.invoices.consignees', 'lorry_items')
-                ->where('id', $request->id)
-                ->first();
+            $lorryInvoice = Lorry::with([
+                'lorry_invoices.invoices' => function ($query) {
+                    $query->select('id', 'exporter', 'consignee'); // Adjust the column names based on your actual database structure
+                },
+                'lorry_items'
+            ])
+            ->where('id', $request->id)
+            ->first();
     
             if (!$lorryInvoice) {
                 return $this->error("Lorry not found.", null, null, 404);
@@ -127,6 +132,7 @@ class LorryController extends Controller
             return $this->error('Oops! Something Went Wrong.' . $e->getMessage(), null, null, 500);
         }
     }
+    
     
 
     public function update(Request $request)
