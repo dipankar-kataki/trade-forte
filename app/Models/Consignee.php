@@ -46,8 +46,6 @@ class Consignee extends Model
             'license_no' => 'required|string|max:255',
             'organization_phone' => 'required|string|max:255',
             'organization_email' => 'required|string|max:255',
-
-            'pin_code' => 'required|string|max:255',
             'status' => 'nullable|boolean',
             'foreign_category' => 'required|string|max:255',
             'authorised_signatory_name' => 'required|string|max:255',
@@ -56,6 +54,11 @@ class Consignee extends Model
     }
     public function user()
     {
-        return $this->belongsTo(User::class, 'account_created_by', 'id');
+        return $this->belongsTo(User::class, 'users_id', 'id');
+    }
+
+    public function consigneeBank()
+    {
+        return $this->hasOne(ConsigneeBank::class, 'consignees_id', 'id');
     }
 }

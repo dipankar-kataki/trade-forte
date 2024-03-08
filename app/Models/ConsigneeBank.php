@@ -40,7 +40,7 @@ class ConsigneeBank extends Model
         ];
     }
 
-    public function exporter(
+    public function consignee(
     ) {
         return $this->belongsTo(Consignee::class, 'consignees_id', 'id');
     }
