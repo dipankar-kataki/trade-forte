@@ -77,7 +77,7 @@ class LorryController extends Controller
                 }
                 $validData = $itemValidator->validated();
                 $validData["lorry_id"] = $lorry->id;
-                $validData["total_quantity_to_deliver"] = $validData["trip"] * $validData["quantity"];
+                $validData["total_quantity_to_deliver"] = floatval($validData["trip"]) * floatval($validData["quantity"]);
 
                 LorryItems::create($validData);
 
@@ -126,6 +126,9 @@ class LorryController extends Controller
                         },
                         'exporter_address' => function ($addressQuery) {
                             $addressQuery->select('id', 'address_line_one', 'address_line_two', 'pin_code', 'city', 'district', 'state');
+                        },
+                        'shipping_address' => function ($shippingQuery) {
+                            $shippingQuery->select('id', 'address_line_one', 'address_line_two', 'pin_code', 'city', 'district', 'state');
                         }
                     ]);
                 },
