@@ -116,13 +116,13 @@ class LorryController extends Controller
         try {
             $lorryInvoice = Lorry::with([
                 'lorry_invoices.invoices' => function ($query) {
-                    $query->select('id', 'exporter_id', 'exporter_address_id', 'consignee_id');
+                    $query->select('id', 'exporter_id', 'exporter_address_id', 'consignee_id', "invoice_number");
                     $query->with([
                         'exporters' => function ($exportersQuery) {
-                            $exportersQuery->select('id', 'name');
+                            $exportersQuery->select('id', 'name', "iec_no");
                         },
                         'consignees' => function ($consigneesQuery) {
-                            $consigneesQuery->select('id', 'name', 'address_line_one', 'address_line_two', 'pin_code', 'city', 'district', 'state',  'foreign_business_country');
+                            $consigneesQuery->select('id', 'name', 'address_line_one', 'address_line_two', 'pin_code', 'city', 'district', 'state', 'foreign_business_country');
                         },
                         'exporter_address' => function ($addressQuery) {
                             $addressQuery->select('id', 'address_line_one', 'address_line_two', 'pin_code', 'city', 'district', 'state');
@@ -131,21 +131,21 @@ class LorryController extends Controller
                 },
                 'lorry_items'
             ])
-            ->where('id', $request->id)
-            ->first();
-    
+                ->where('id', $request->id)
+                ->first();
+
             if (!$lorryInvoice) {
                 return $this->error("Lorry not found.", null, null, 404);
             }
-    
+
             return $this->success("Lorry info.", $lorryInvoice, null, 200);
         } catch (\Exception $e) {
             return $this->error('Oops! Something Went Wrong.' . $e->getMessage(), null, null, 500);
         }
     }
-    
-    
-    
+
+
+
 
     public function update(Request $request)
     {
