@@ -15,8 +15,19 @@ class LorryTable extends Migration
             $table->integer('total_quantity');
             $table->string('uqc');
             $table->integer('total_trips');
+
             $table->unsignedBigInteger('users_id');
             $table->foreign('users_id')->references('id')->on('users');
+
+            $table->unsignedBigInteger('exporter_id');
+            $table->foreign('users_id')->references('id')->on('exporters');
+
+            $table->unsignedBigInteger('exporter_address_id');
+            $table->foreign('users_id')->references('id')->on('exporter_address');
+
+            $table->unsignedBigInteger('consignee_id');
+            $table->foreign('users_id')->references('id')->on('consignees');
+
             $table->timestamps();
         });
     }

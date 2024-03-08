@@ -114,34 +114,7 @@ class LorryController extends Controller
     public function show(Request $request)
     {
         try {
-            $lorryInvoice = Lorry::with([
-                'lorry_invoices.invoices' => function ($query) {
-                    $query->select('id', 'exporter_id', 'exporter_address_id',"country_of_export", 'bank_accounts_id',"country_of_destination", 'consignee_id',"shipping_id", "invoice_number");
-                    $query->with([
-                        'exporters' => function ($exportersQuery) {
-                            $exportersQuery->select('id', 'name', "iec_no");
-                        },
-                        'consignees' => function ($consigneesQuery) {
-                            $consigneesQuery->select('id', 'name', 'address_line_one', 'address_line_two', 'pin_code', 'city', 'district', 'state', 'foreign_business_country');
-                        },
-                        'exporter_address' => function ($addressQuery) {
-                            $addressQuery->select('id', 'address_line_one', 'address_line_two', 'pin_code', 'city', 'district', 'state');
-                        },
-                        'shipping_address' => function ($shippingQuery) {
-                            $shippingQuery->select('id', 'address_line_one', 'address_line_two', 'pin_code', 'city', 'district', 'state');
-                        },
-                        'consignee_bank' => function ($shippingQuery) {
-                            $shippingQuery->select('id', 'address_line_one', 'address_line_two', 'pin_code', 'city', 'district', 'state');
-                        },
-                        $query->with([
-                            'consignees.consigneeBank', // Include the consigneeBank relationship
-                        ]);
-                    ]);
-                },
-                'lorry_items'
-            ])
-                ->where('id', $request->id)
-                ->first();
+      
 
             if (!$lorryInvoice) {
                 return $this->error("Lorry not found.", null, null, 404);
