@@ -118,7 +118,7 @@ class LorryController extends Controller
                 'exporter',
                 'consignee',
                 'exporter_address',
-                'lorry_invoices' => function ($query) {
+                'lorry_invoices.invoice' => function ($query) {
                     $query->select('id',"country_of_export",  "country_of_destination",  "invoice_number");
                 },
                 'lorry_items'
