@@ -116,7 +116,7 @@ class LorryController extends Controller
         try {
             $lorryInvoice = Lorry::with([
                 'lorry_invoices.invoices' => function ($query) {
-                    $query->select('id', 'exporter_id', 'exporter_address_id', 'consignee_id', "invoice_number");
+                    $query->select('id', 'exporter_id', 'exporter_address_id', 'consignee_id',"shipping_id", "invoice_number");
                     $query->with([
                         'exporters' => function ($exportersQuery) {
                             $exportersQuery->select('id', 'name', "iec_no");
