@@ -114,18 +114,28 @@ class LorryController extends Controller
     public function show(Request $request)
     {
         try {
-      
-
+            $lorryInvoice = Lorry::with([
+                'exporter',
+                'consignee',
+                'exporter_address',
+                'lorry_invoices' => function ($query) {
+                    $query->select('id',"country_of_export",  "country_of_destination",  "invoice_number");
+                },
+                'lorry_items'
+            ])
+                ->where('id', $request->id)
+                ->first();
+    
             if (!$lorryInvoice) {
                 return $this->error("Lorry not found.", null, null, 404);
             }
-
+    
             return $this->success("Lorry info.", $lorryInvoice, null, 200);
         } catch (\Exception $e) {
             return $this->error('Oops! Something Went Wrong.' . $e->getMessage(), null, null, 500);
         }
     }
-
+    
 
 
 
