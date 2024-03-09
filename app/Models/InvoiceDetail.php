@@ -121,7 +121,7 @@ class InvoiceDetail extends Model
     {
         return $this->hasOne(Payments::class, 'invoice_details_id');
     }
-    public function transport()
+    public function transportation()
     {
         return $this->hasOne(Transportation::class, 'invoice_details_id');
     }

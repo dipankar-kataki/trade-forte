@@ -70,8 +70,7 @@ class PackagingController extends Controller
             $invoice = InvoiceDetail::where("id", $request->packaging_details["invoice_details_id"])->first();
             $invoice->with_letter_head = $request->packaging_details['with_letter_head'];
             $invoice->save();
-            $invoice->lazy;
-
+            $invoice->load('transportation');
             // Calculate reference number
             $exporterInitials = $this->getExporterInitials($invoice->exporters->name); // Add your logic to get exporter initials
             $currentFinancialYear = $this->getCurrentFinancialYear(); // Add your logic to get current financial year
