@@ -25,7 +25,7 @@ class LorryInvoices extends Model
     }
     public function invoices()
     {
-        return $this->hasOne(InvoiceDetail::class, 'invoice_details_id', "id");
+        return $this->belongsTo(InvoiceDetail::class, 'invoice_details_id', 'id');
     }
 
 }
