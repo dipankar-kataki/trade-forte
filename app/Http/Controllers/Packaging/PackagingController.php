@@ -107,12 +107,16 @@ class PackagingController extends Controller
             $packaging->save();
 
             // Update packaging list descriptions in each invoice item
+            // Update packaging list descriptions in each invoice item
             foreach ($packagingListData as $packagingListItem) {
-                dd(packagingListItem);
+                dd($packagingListItem);
                 $invoiceItem = InvoiceItem::where('id', $packagingListItem['invoice_item_id'])->first();
-                $invoiceItem["packaging_description"] = $packagingListItem['packaging_description'];
+
+                // Update the correct property name here
+                $invoiceItem->description = $packagingListItem['description'];
                 $invoiceItem->save();
             }
+
 
             DB::commit();
 
