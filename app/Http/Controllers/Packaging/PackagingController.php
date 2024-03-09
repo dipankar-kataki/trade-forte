@@ -131,7 +131,7 @@ class PackagingController extends Controller
     public function index(Request $request)
     {
         try {
-            $exporter = PackagingDetail::latest()->paginate(50);
+            $exporter = PackagingDetail::with([ "invoice", "invoice.items", "invoice.exporters", "invoice.consignees"])->latest()->paginate(50);
             return $this->success("Exporter list.", $exporter, null, 200);
         } catch (\Exception $e) {
             return $this->error('Oops! Something Went Wrong.' . $e->getMessage(), null, null, 500);
