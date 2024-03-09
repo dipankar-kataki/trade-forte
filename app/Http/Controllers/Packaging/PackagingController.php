@@ -113,7 +113,7 @@ class PackagingController extends Controller
                 $invoiceItem = InvoiceItem::where('id', $packagingListItem['invoice_item_id'])->first();
 
                 // Update the correct property name here
-                $invoiceItem->description = $packagingListItem['description'];
+                $invoiceItem->packaging_description = $packagingListItem['packaging_description'];
                 $invoiceItem->save();
             }
 
