@@ -31,9 +31,9 @@ class PackagingDetail extends Model
     }
 
 
-    public function invoiceItem()
+    public function invoice()
     {
-        return $this->belongsTo(InvoiceItem::class, 'invoice_item_id');
+        return $this->belongsTo(InvoiceDetail::class, 'invoice_details_id', "id");
     }
 
 }

@@ -141,15 +141,22 @@ class PackagingController extends Controller
     {
         try {
             $invoiceId = $request->id;
-            $invoice = InvoiceDetail::with(["consignees", "exporters", "exporter_address", "items", "packagingDetails"])->where("id", $invoiceId)->get()->first();
-
-
-
+    
+            // Use find to retrieve a single record by its primary key
+            $invoice = PackagingDetail::with(["invoice", "invoice.items", "invoice.exporters", "invoice.consignees"])
+                ->find($invoiceId);
+    
+            // Check if the record exists
+            if (!$invoice) {
+                return $this->error('Packaging detail not found.', null, null, 404);
+            }
+    
             return $this->success("Packaging Info.", $invoice, null, 200);
         } catch (\Exception $e) {
-            return $this->error('Oops! Something Went Wrong.' . $e->getMessage(), null, null, 500);
+            return $this->error('Oops! Something went wrong. ' . $e->getMessage(), null, null, 500);
         }
     }
+    
     public function update(Request $request)
     {
         $validator = Validator::make($request->all(), PackagingDetail::updateRule());
