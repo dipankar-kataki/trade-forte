@@ -79,7 +79,7 @@ class PackagingController extends Controller
 
             // Create packaging details
             $packagingDetails["reference_no"] = $reference_no;
-            $packagingDetails["eway_bill_no"] = $invoice->transportation->eway_bill_no;
+            $packagingDetails["eway_bill_no"] = $invoice->transportation["eway_bill_no"];
             $packaging = PackagingDetail::create($packagingDetails);
 
             // Update total values
