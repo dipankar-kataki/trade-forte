@@ -17,7 +17,7 @@ class Lorry extends Model
     {
         return [
             "date" => "required|date",
-            "uqc" => "required|string",
+            "uqc" => "required|string|in:pound,tons,kg,gm",
             "total_trips" => "required|integer",
             "total_quantity" => "required|integer",
             "exporter_id" => "required|exists:exporters,id",
