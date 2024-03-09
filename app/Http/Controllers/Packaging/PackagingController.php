@@ -79,6 +79,7 @@ class PackagingController extends Controller
 
             // Create packaging details
             $packagingDetails["reference_no"] = $reference_no;
+            $packagingDetails["eway_bill_no"] = $invoice->transportation->eway_bill_no;
             $packaging = PackagingDetail::create($packagingDetails);
 
             // Update total values
@@ -141,22 +142,22 @@ class PackagingController extends Controller
     {
         try {
             $invoiceId = $request->id;
-    
+
             // Use find to retrieve a single record by its primary key
-            $invoice = PackagingDetail::with(["packaging_items","invoice", "invoice.items", "invoice.exporters", "invoice.consignees"])
+            $invoice = PackagingDetail::with(["packaging_items", "invoice", "invoice.items", "invoice.exporters", "invoice.consignees"])
                 ->find($invoiceId);
-    
+
             // Check if the record exists
             if (!$invoice) {
                 return $this->error('Packaging detail not found.', null, null, 404);
             }
-    
+
             return $this->success("Packaging Info.", $invoice, null, 200);
         } catch (\Exception $e) {
             return $this->error('Oops! Something went wrong. ' . $e->getMessage(), null, null, 500);
         }
     }
-    
+
     public function update(Request $request)
     {
         $validator = Validator::make($request->all(), PackagingDetail::updateRule());
