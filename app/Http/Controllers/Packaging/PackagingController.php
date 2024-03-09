@@ -59,7 +59,7 @@ class PackagingController extends Controller
             if (!is_array($packagingDetailsData) || !is_array($packagingListData) || !is_array($packagingDetails)) {
                 return $this->error('Invalid data format. Expected arrays of packaging details, packaging list, and packaging details.', null, null, 400);
             }
-
+            $packagingDetails['users_id'] = $user_id;
             DB::beginTransaction();
 
             // Create packaging details
