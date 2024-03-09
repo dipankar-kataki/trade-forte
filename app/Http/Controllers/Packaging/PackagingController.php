@@ -67,7 +67,7 @@ class PackagingController extends Controller
 
             // Update invoice details with additional information
             // dd($packagingDetails);
-            $invoice = InvoiceDetail::where("id", $request->invoice_details_id)->first();
+            $invoice = InvoiceDetail::where("id",$packagingDetails->invoice_details_id)->first();
             $invoice->with_letter_head = $request->packaging_details['with_letter_head'];
             $invoice->save();
             $invoice->lazy;
