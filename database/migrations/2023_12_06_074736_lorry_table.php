@@ -22,7 +22,7 @@ class LorryTable extends Migration
             $table->unsignedBigInteger('exporter_id');
             $table->foreign('exporter_id')->references('id')->on('exporters');
 
-            $table->unsignedBigInteger('exporter_address_id');
+            $table->unsignedBigInteger('exporter_address_id')->nullable();
             $table->foreign('exporter_address_id')->references('id')->on('exporter_address');
 
             $table->unsignedBigInteger('consignee_id');

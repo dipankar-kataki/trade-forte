@@ -167,7 +167,7 @@ class InvoiceController extends Controller
     public function search(Request $request)
     {
         try {
-            $invoices = InvoiceDetail::where('id', $request->id)->select("id", "invoice_number", "exporter_id", "consignee_id")->first();
+            $invoices = InvoiceDetail::where('id', $request->id)->select("id", "invoice_number", "exporter_id", "consignee_id","exporter_address_id")->first();
             $exporterId = intval($request->exporterId); // Parse as integer
             $consigneeId = intval($request->consigneeId); // Parse as integer
 

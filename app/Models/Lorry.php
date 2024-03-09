@@ -20,7 +20,7 @@ class Lorry extends Model
             "uqc" => "required|string",
             "total_trips" => "required|integer",
             "total_quantity" => "required|integer",
-            "exporter_id" => "required|exists:exporters,id",
+            "exporter_id" => "nullable|exists:exporters,id",
             "exporter_address_id" => "required|exists:exporter_address,id",
             "consignee_id" => "required|exists:consignees,id",
         ];
