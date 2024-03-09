@@ -35,5 +35,8 @@ class PackagingDetail extends Model
     {
         return $this->belongsTo(InvoiceDetail::class, 'invoice_details_id', "id");
     }
-
+    public function packaging_items()
+    {
+        return $this->hasMany(PackagingItems::class, 'packaging_id', "id");
+    }
 }

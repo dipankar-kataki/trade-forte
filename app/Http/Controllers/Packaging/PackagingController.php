@@ -143,7 +143,7 @@ class PackagingController extends Controller
             $invoiceId = $request->id;
     
             // Use find to retrieve a single record by its primary key
-            $invoice = PackagingDetail::with(["invoice", "invoice.items", "invoice.exporters", "invoice.consignees"])
+            $invoice = PackagingDetail::with(["packaging_items","invoice", "invoice.items", "invoice.exporters", "invoice.consignees"])
                 ->find($invoiceId);
     
             // Check if the record exists
