@@ -13,7 +13,7 @@ class PackagingItemsTable extends Migration
      */
     public function up()
     {
-        Schema::create('packaging_details', function (Blueprint $table) {
+        Schema::create('packaging_items', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('packaging_id');
             $table->unsignedBigInteger('invoice_details_id');
