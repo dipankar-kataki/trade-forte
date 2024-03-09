@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\InvoiceDetail;
 use App\Models\InvoiceItem;
 use App\Models\PackagingDetail;
+use App\Models\PackagingItems;
 use App\Traits\CreateUserActivityLog;
 use Illuminate\Http\Request;
 use App\Traits\ApiResponse;
@@ -17,36 +18,109 @@ class PackagingController extends Controller
 {
     use ApiResponse;
     use CreateUserActivityLog;
+    private function getExporterInitials($exporterName)
+    {
+        $words = explode(' ', $exporterName);
+        $initials = '';
+        foreach ($words as $word) {
+            $initials .= strtoupper(substr($word, 0, 1));
+        }
+        return $initials;
+    }
+
+    private function getCurrentFinancialYear()
+    {
+        $currentYear = date('Y');
+        $currentMonth = date('n');
+
+        $financialYearStartMonth = 4;
+
+        if ($currentMonth >= $financialYearStartMonth) {
+            $startYear = $currentYear;
+        } else {
+            $startYear = $currentYear - 1;
+        }
+        $endYear = ($startYear % 100) + 1;
+
+        $financialYear = $startYear . '-' . str_pad($endYear, 2, '0', STR_PAD_LEFT);
+
+        return $financialYear;
+    }
+
 
     public function create(Request $request)
     {
         try {
             $user_id = Auth::id();
             $packagingDetailsData = $request->final_packaging_list;
+            $packagingListData = $request->packaging_list;
+            $packagingDetails = $request->packaging_details;
 
-            if (!is_array($packagingDetailsData)) {
-                return $this->error('Invalid data format. Expected an array of packaging details.', null, null, 400);
+            if (!is_array($packagingDetailsData) || !is_array($packagingListData) || !is_array($packagingDetails)) {
+                return $this->error('Invalid data format. Expected arrays of packaging details, packaging list, and packaging details.', null, null, 400);
             }
 
             DB::beginTransaction();
+
+            // Create packaging details
+            $packaging = PackagingDetail::create($packagingDetails);
+
+            // Update invoice details with additional information
             $invoice = InvoiceDetail::where("id", $request->invoice_details_id)->first();
-            $invoice["with_letter_head"] = $request->with_letter_head;
+            $invoice->with_letter_head = $request->with_letter_head;
             $invoice->save();
+            $invoice->lazy;
+
+            // Calculate reference number
+            $exporterInitials = $this->getExporterInitials($invoice->exporters->name); // Add your logic to get exporter initials
+            $currentFinancialYear = $this->getCurrentFinancialYear(); // Add your logic to get current financial year
+            $reference_no = $exporterInitials . "/EXIM/" . $currentFinancialYear . "/" . $packaging->id;
+
+            // Create packaging details
+            $packagingDetails["reference_no"] = $reference_no;
+            $packaging = PackagingDetail::create($packagingDetails);
+
+            // Update total values
+            $total_gross_weight_in_kgs = 0;
+            $total_packages = 0;
+            $total_net_weight_in_kgs = 0;
+
             foreach ($packagingDetailsData as $packagingData) {
                 $packagingData["users_id"] = $user_id;
-                $packagingData["total_gross_weight"] = $packagingData['quantity'] * $packagingData['each_box_weight'];
+                $packagingData["packaging_id"] = $packaging->id;
 
-                $packaging = PackagingDetail::create($packagingData);
+                $packagingData["total_gross_weight"] = floatval($packagingData['quantity']) * floatval($packagingData['each_box_weight']);
 
-                $this->createLog($user_id, "Packaging details added.", "packaging", $packaging->id);
+                $packagingItems = PackagingItems::create($packagingData);
+
+                // Update total values
+                $total_gross_weight_in_kgs += floatval($packagingData["total_gross_weight"]);
+                $total_packages += intval($packagingData['quantity']);
+                $total_net_weight_in_kgs += floatval($packagingData['net_weight']);
             }
+
+            // Update packaging details with calculated values
+            $packaging->total_gross_weight_in_kgs = $total_gross_weight_in_kgs;
+            $packaging->total_packages = $total_packages;
+            $packaging->total_net_weight_in_kgs = $total_net_weight_in_kgs;
+            $packaging->save();
+
+            // Update packaging list descriptions in each invoice item
+            foreach ($packagingListData as $packagingListItem) {
+                $invoiceItem = InvoiceItem::where('id', $packagingListItem['invoice_item_id'])->first();
+                $invoiceItem->description = $packagingListItem['description'];
+                $invoiceItem->save();
+            }
+
             DB::commit();
+
             return $this->success("Packaging details added successfully!", null, null, 201);
         } catch (\Exception $e) {
             DB::rollBack();
             return $this->error('Oops! Something Went Wrong.' . $e->getMessage(), null, null, 500);
         }
     }
+
 
     public function index(Request $request)
     {
@@ -63,8 +137,8 @@ class PackagingController extends Controller
             $invoiceId = $request->id;
             $invoice = InvoiceDetail::with(["consignees", "exporters", "exporter_address", "items", "packagingDetails"])->where("id", $invoiceId)->get()->first();
 
-           
- 
+
+
             return $this->success("Packaging Info.", $invoice, null, 200);
         } catch (\Exception $e) {
             return $this->error('Oops! Something Went Wrong.' . $e->getMessage(), null, null, 500);
