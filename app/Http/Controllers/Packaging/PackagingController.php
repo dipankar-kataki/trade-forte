@@ -109,7 +109,7 @@ class PackagingController extends Controller
             // Update packaging list descriptions in each invoice item
             // Update packaging list descriptions in each invoice item
             foreach ($packagingListData as $packagingListItem) {
-                dd($packagingListItem);
+                // dd($packagingListItem);
                 $invoiceItem = InvoiceItem::where('id', $packagingListItem['invoice_item_id'])->first();
 
                 // Update the correct property name here
