@@ -101,9 +101,9 @@ class PackagingController extends Controller
             }
 
             // Update packaging details with calculated values
-            $packaging->total_gross_weight_in_kgs = $total_gross_weight_in_kgs;
+            $packaging->total_gross_weight = $total_gross_weight_in_kgs;
             $packaging->total_packages = $total_packages;
-            $packaging->total_net_weight_in_kgs = $total_net_weight_in_kgs;
+            $packaging->net_weight_in_kgs = $total_net_weight_in_kgs;
             $packaging->save();
 
             // Update packaging list descriptions in each invoice item
